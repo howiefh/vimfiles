@@ -1,0 +1,32 @@
+### My Vim files
+* vimdoc
+* cscope
+* ctags
+* plugins
+  * pathogen
+  * autoclose
+  * autohotkey
+  * bufexplorer.zip
+  * cscope
+  * c.vim
+  * fencview.vim
+  * html5.vim
+  * makeprgs
+  * mru.vim
+  * neocomplcache
+  * nerdcommenter
+  * nerdtree
+  * php
+  * pydiction-1.2
+  * pyflakes-vim
+  * statusline.vim
+  * tagbar
+  * TxtBrowser
+  * vimwiki
+  * zencoding-vim
+  * taglist
+  * menu_plus
+* colors
+  * ManShow.vim
+  * valloric.vim
+
