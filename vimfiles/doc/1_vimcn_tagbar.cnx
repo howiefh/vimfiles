@@ -1,0 +1,902 @@
+﻿*tagbar.txt*	在正确的作用域范围显示文件的 tags
+
+作者:		Jan Larres <jan@majutsushi.net>
+版权协议:	Vim licence, see |license|
+主页:        	http://majutsushi.github.com/tagbar/
+版本:	2.1
+
+==============================================================================
+内容					*tagbar* *tagbar-contents*
+
+	 1. 介绍  ........................... |tagbar-intro|
+	      伪标签 ........................ |tagbar-pseudotags|
+	      支持的特性  ................... |tagbar-features|
+	      其他 ctags 兼容程序 ........... |tagbar-other|
+	 2. 安装要求 ........................ |tagbar-requirements|
+	 3. 安装 ............................ |tagbar-installation|
+	 4. 用法 ............................ |tagbar-usage|
+	      命令 .......................... |tagbar-commands|
+	      键映射 ........................ |tagbar-keys|
+	 5. 配置............................. |tagbar-configuration|
+	      高亮  ......................... |tagbar-highlight|
+	      自动打开 Tagbar ............... |tagbar-autoopen|
+	 6. 扩展 Tagbar ..................... |tagbar-extend|
+	 7. 问题和限制 ...................... |tagbar-bugs|
+	 8. 历史 ............................ |tagbar-history|
+	 9. Todo ............................ |tagbar-todo|
+	10. 致谢 ............................ |tagbar-credits|
+
+==============================================================================
+1. 介绍       						*tagbar-intro*
+
+Tagbar 是一个用于浏览源代码的 tags 的插件，它提供了一个侧边栏来显示 ctags
+生成的当前文件的 tags，并按照定义他们的作用域范围排序，这意味着，比如对于
+C++ 源文件，方法是显示在定义他们的类的下边。
+（译注：Taglist 插件是所有的类显示在一起，所有的方法显示在一起）
+
+举例：假如我们在c++文件中有如下代码:
+>
+    namespace {
+        char a;
+
+        class Foo
+        {
+        public:
+            Foo();
+            ~Foo();
+        private:
+            int var;
+        };
+    };
+<
+那么 Tagbar 会按如下显示 tag 信息：
+>
+    __anon1* : namespace
+      Foo : class
+       +Foo()
+       +~Foo()
+       -var
+      a
+<
+这个例子显示了几个重点。首页，tags 对齐显示在定义他们的范围之下。第二，范围类
+型(class,namespace)列在范围名称之后，中间隔 ":" 号。第三，在 tags 名称前加符号
+来指示此 tags 的访问/可见信息。(如 + 号表示 public 成员)
+
+------------------------------------------------------------------------------
+PSEUDO-TAGS						*tagbar-pseudotags*
+
+上面的示例还包含了“伪标签”的概念。伪标签是文件中没有明确定义，但它又包含
+子对象的标签。上面的示例中，命名空间是没有没有名字的，因此 ctags 不会产生它的
+标签，但由于它有子对象，所以需要显示自动生成的标签名。
+
+另一种情况的伪标签出现在 C++ 的代码实现文件中。由于类通常定义在头文件中，
+而各成员方法和变量又在实现文件中，类本身不会在这个文件中生成标签。
+
+由于伪标签并不真正存在，它们也不能从 Tabbar 窗口中进行跳转。
+
+伪标签表示为其名称之后带一个星号("*")的形式。
+
+------------------------------------------------------------------------------
+支持的特性             					*tagbar-features*
+
+Tagbar 支持下列特性：
+
+  - tags 显示在定义他们的准确的范围(scope)下面
+  - 在切换 buffer 和编辑文件时，自动更新 tags。
+  - 如果可见性信息可用，显示它们。
+  - 当编辑文件时，高亮光标附近的 tag。
+  - 在 Tagbar 窗口里跳转到 tag。
+  - 显示完整的 tag 原型信息。(complete prototype)
+  - Tags 可以按名称排序或者按它们在文件中出现的顺序排序。
+  - 范围(Scopes)可以折叠, 以隐藏不感兴趣的信息。
+  - 支持所有 ctags 支持的语言。比如 Ant, Assembler, ASP, Awk, Basic, BETA,
+    C, C++, C#, COBOL, DosBatch, Eiffel, Erlang, Flex, Fortran, HTML, Java,
+    JavaScript, Lisp, Lua, Make, MatLab, OCaml, Pascal, Perl, PHP, Python,
+    REXX, Ruby, Scheme, Shell script, SLang, SML, SQL, Tcl, Tex, Vera, Verilog,
+    VHDL, Vim, YACC 等。
+  - 可以扩展以支持任意的新类型(new types)。
+
+------------------------------------------------------------------------------
+其他ctags兼容程序          				*tagbar-other*
+
+Tagbar 理论上也支持可以输出面向特定文件的 tag 信息的和 ctags 兼容的程序。但是
+由于可能的不兼容性，这也不总是能正常工作。Tagbar 已经和 doctorjs/jsctags 一起
+测试过，如果有这些程序，将会使用它们。其他程序需要一些配置(查看 |tagbar-extend|)。
+如果一个程序即使在正确的配置之后仍不能正常工作，请联系我.
+
+注意: jsctags 需要2011-01-06 以后的版本，因为需要 "-f" 选项才能正常工作。同时，
+jsctags 的输出在当前有一点点不太可靠(特别是关于行号的), 所以如果你注意到一些奇
+怪的表现，请手工在终端运行 jsctags 以检查这到底是 jsctags 还是 Tagbar 的 bug。
+
+==============================================================================
+2. 安装要求   						*tagbar-requirements*
+
+以下条件需要满足以使用 tagbar ：
+
+  - Vim7.0 或以上。更旧的版本不能正常工作，因为 Tagbar 使用了 vim7 才引入的
+    数据结构.
+
+  - Exuberant ctags 5.5 或以上。Ctags 是一个生成 Tagbar 使用的 tag 信息的程序，
+    一般它在大多数的 linux 发行版中默认安装，如果没有，它可以从以下网址下载：
+        http://ctags.sourceforge.net/
+    Tagbar 在大多数 ctags 可以运行的平台都可以工作 -- 包括 unix 的变体，
+    Mac OS X 和 Windows。注意：GNU ctags 不能工作。
+
+    Tagbar 自已生成 tag 信息，不会需要(或使用)已经存在的tag文件.
+
+  - vim 里文件类型检测必须打开。这可以通过加入以下的命令到 vimrc 文件完成：
+>
+        filetype on
+<
+    查看 |filetype| 更多信息。
+
+  - 在 |restricted-mode| 或在 'compatible' 被设置时，Tagbar 不能工作。
+
+==============================================================================
+3. 安装  						*tagbar-installation*
+
+使用一般的 Vimball 方式来安装 tagbar.vba：
+>
+	vim tagbar.vba
+	:so %
+	:q
+<
+或者你也可以 clone git repository，并把路径加到 'runtimepath' 中，或者使用
+pathogen 插件。如果不是用 pathogen，则不要忘了运行 |:helptags|。
+
+如果 ctags 可执行文件不是安装在 $PATH 环境变量指向的目录中，你需要设置
+g:tagbar_ctags_bin变量。查看 |g:tagbar_ctags_bin|。
+
+==============================================================================
+4. 用法 						*tagbar-usage*
+
+有两种方式来使用 Tagbar：
+
+  1. 一直运行在屏幕的侧边。在这种情况下，Tagbar 会在源文件改变时，自动更新内容，
+     并高亮文件中的光标位置的 tag。如果在 Tagbar 选择了一个 tag，文件窗口
+     会跳转到 tag, Tagbar 窗口会保持打开。
+     此模式 |g:tagbar_autoclose| 需要未被设置。
+  2. 只在想要跳转到特定的 tag 时打开 Tagbar，并在选中一个 tag 后自动关闭。
+     这在小屏幕时比较有用，因为持久的打开 Tagbar 窗口会占据太多的屏幕空间。
+     在这种模式时，你需要设置 |g:tagbar_autoclose| 选项。在 Tagbar 窗口打开时，
+     光标会自动跳转到 Tagbar 窗口。
+
+打开和关闭 Tagbar 窗口~
+如果 Tagbar 窗口关闭是，使用 |:TagbarOpen| 或 |:TagbarToggle| 命令打开 Tagbar 窗口。
+默认情况下，Tagbar 窗口在右侧打开，设置 |g:tagbar_left| 选项可以指定在左侧打开。
+如果 Tagbar 窗口已经打开，|:TagbarOpen| 命令会跳转到这个窗口，而 |:TagbarToggle|
+命令会关闭 Tagbar 窗口，|:TagbarClose| 只是简单的关闭 Tagbar 窗口。
+
+给这些命令绑定一个快捷键可能是个好主意。比如，把下行放到 |vimrc| 中：
+>
+	nnoremap <silent> <F9> :TagbarToggle<CR>
+<
+然后你就可以通过按 <F9> 来打开和关闭 Tagbar 了。
+
+你也可以使用 |:TagbarOpenAutoClose| 来打开 Tagbar 窗口，这时不论你的
+|g:tagbar_autoclose| 怎么设置，Tagbar 窗口会在你选则一个 tag 后自动关闭。
+
+跳转到 tags~
+当你在 Tagbar 窗口中时，你可以通过移动光标到 tag 然后按 <Enter> 或者鼠标双击
+来跳转到定义处。源文件会移动到定义处，并将光标放置在相应的行。这对于伪标签没有
+作用。
+
+排序~
+你可以按两种方式对 Tagbar 窗口中的 tags 排序：通过名称排序，或文件顺序。
+通过名称排时，tags 按它们的字母表排序顺序显示在它们相应的作用域(scope)下。
+按文件顺序表示 tags 按它们在源文件中的顺序排序，但仍旧关联到他们正确的范围。
+你可以通过按 "s" 来改变排序方法。当前的排序方法显示在 Tagbar 窗口的状态条中。
+
+折叠~
+显示的范围(或无范围的类型)可以通过折叠来隐藏不感兴趣的信息. 折叠的键映射和
+Vim 的内置折叠映射类似。折叠也可以通过单击折叠图标来打开和关闭。
+
+显示 tag 原型信息~
+Tagbar 可以显示 tag 的原型。更确切的说，它可以显示 tag 定义所在的行，
+可以通过在标签或鼠标所在 tag 上按 <Space> 键来显示原型，在前一种情况下，
+原型将显示在命令行(|Command-line|)，后一种情况下显示在弹出窗口中。当光标
+在 tag 上停留 'updatetime' 时，也会显示原型信息。
+
+------------------------------------------------------------------------------
+命令						*tagbar-commands*
+
+:TagbarOpen
+    如果 Tagbar 关闭，就打开Tagbar。如果已经打开，则跳转到 Tagbar。
+
+:TagbarClose
+    如果 Tagbar 窗口是打开的，就关闭它.
+
+:TagbarToggle
+    如果Tagbar 窗口是关闭的则打开它, 反之则关闭它.
+
+:TagbarOpenAutoClose
+    打开 Tagbar 窗口，并在选择 tag 后,自动关闭。不管 |g:tagbar_autoclose| 怎么
+    设置都会自动关闭。如果 Tagbar 已经打开，则跳转到 Tagbar。
+
+:TagbarSetFoldlevel [number]
+    设置当前文件的折叠层级为 [number]。其他文件的折叠层级保持不变。这个
+    和 'foldlevel' 是相同的工作方式。
+
+:TagbarShowTag
+    在文件窗口中打开当前 tag 所在的父目录，并尽可能让这个 tag 在 Tagbar 窗口
+    中可见。
+
+------------------------------------------------------------------------------
+KEY MAPPINGS						*tagbar-keys*
+
+以下映射在 Tagbar 窗口中是可用的：
+
+<F1>          显示键映射帮助。
+<CR>/<Enter>  跳转到当前光标下的 tag。如果是伪标签或一般的头信息则没作用.
+p             源文件跳转到当前光标下的 tag。但光标停留在 Tagbar 窗口。
+<LeftMouse>   如果点击折叠图标，按折叠的当前状态开打开或关闭折叠。
+<2-LeftMouse> 同 <CR>。如果希望使用单击替代双击，参考 |g:tagbar_singleclick|。
+<Space>       在命令行显示当前 tag 的原型信息。(比如行号)
++/zo          打开当前光标下的折叠。
+-/zc          如果光标下有折叠则关闭光标下的折叠，如果没有则关闭当前的折叠。
+o/za          切换光标下的折叠状态，如果光标下没有折叠，切换当前的折叠状态。
+*/zR          通过设置折叠级别(foldlevel)为 99 来打开所有的折叠。
+=/zM          通过设置折叠级别为 0 来关闭所有的折叠。
+<C-N>         转到下一个顶层 tag。
+<C-P>         转到前一个顶层 tag。
+s             在 tag 名称排序和文件顺序排序中切换。
+x             切换 Tagbar 窗口的最大化。
+q             关闭 Tagbar 窗口。
+
+==============================================================================
+5. 配置         					*tagbar-configuration*
+
+							*g:tagbar_ctags_bin*
+g:tagbar_ctags_bin~
+默认: empty
+
+用此选项来指定ctags可执行文件的位置. 只在ctags可执行文件不在$PATH环境变量指定
+的路径列表之中时,才需要设置此选项.
+
+示例：
+>
+	let g:tagbar_ctags_bin = 'C:\Ctags5.8\ctags.exe'
+<
+
+							*g:tagbar_left*
+g:tagbar_left~
+默认: 0
+
+缺省情况下，Tagbar 窗口会在 vim 的右侧被打开。
+设置此选项从左侧打开 Tagbar 窗口。
+
+示例：
+>
+	let g:tagbar_left = 1
+<
+
+							*g:tagbar_width*
+g:tagbar_width~
+默认: 40
+
+Tagbar 窗口的宽度，单位为字符。
+
+示例：
+>
+	let g:tagbar_width = 30
+<
+
+							*g:tagbar_autoclose*
+g:tagbar_autoclose~
+默认: 0
+
+如果设置了此选项，Tagbar 窗口会在你跳转到一个 tag 后自动关闭。
+
+示例：
+>
+	let g:tagbar_autoclose = 1
+<
+
+							*g:tagbar_autofocus*
+g:tagbar_autofocus~
+默认: 0
+
+如果设置了此选项，在 Tagbar 窗口打开时，光标会自动移动到 Tagbar 窗口。
+
+示例：
+>
+	let g:tagbar_autofocus = 1
+<
+
+							*g:tagbar_sort*
+g:tagbar_sort~
+默认: 1
+
+如果设置了此选项，tags 按名称排序。如果未设置，tags 按他们在文件中出现的顺序
+排序。注意在后一种情况下，伪标签总是在一般 tags 之前排序，因为他们在文件中
+没有实际的位置.
+
+示例：
+>
+	let g:tagbar_sort = 0
+<
+
+							*g:tagbar_compact*
+g:tagbar_compact~
+默认: 0
+
+这个选项用于省略 Tagbar 窗口顶部及顶级作用域之间的空行，以节省屏幕空间。
+
+示例：
+>
+	let g:tagbar_compact = 1
+<
+
+							*g:tagbar_expand*
+g:tagbar_expand~
+默认: 0
+
+如果设置了此选项，GUI 版本的 Vim 窗口会扩展，扩展大小为 Tagbar 窗口的宽度。
+
+示例：
+>
+	let g:tagbar_expand = 1
+<
+
+							*g:tagbar_singleclick*
+g:tagbar_singleclick~
+默认: 0
+
+如果设置了此选项，则在跳转 tag 定义时，用单击取代双击。
+
+示例：
+>
+	let g:tagbar_singleclick = 1
+<
+
+							*g:tagbar_foldlevel*
+g:tagbar_foldlevel~
+默认: 99
+
+Tagbar 窗口的初始折叠层级值，层级值大于此值的折叠会被关闭。
+
+示例：
+>
+	let g:tagbar_foldlevel = 2
+<
+
+							*g:tagbar_usearrows*
+g:tagbar_usearrows~
+{仅Windows系统}
+Default: 0
+
+Tagbar 可以显示好看的 Unicode 箭头以替换 +/- 字符作为折叠的图标，但是在
+Windows 中，如果当前字体不支持这些字符，看起来不能从其他字体里替换字符。
+这意味着你需要使用一个支持这些箭头的字体。不幸的是，没有一个方法可以检查
+在当前字体里，某些特殊字符是否支持。所以如果你的字体支持这些箭头，
+你需要设置此置来使显示这些 Unicode 箭头。
+
+举例:
+>
+	let g:tagbar_usearrows = 1
+<
+
+							*g:tagbar_autoshowtag*
+g:tagbar_autoshowtag~
+默认: 0
+
+如果此选项被设置，且当前 tag 是在一个关闭的折叠之中，则折叠会被打开到 tag
+的层次，这样 tag 就可见并可以被高亮。如果未被设置，则折叠不会被打开，
+父 tag 会被高亮。你也可以手动的使用 TabbarShowTag 命令来打开折叠。
+(译注:似乎不起作用)
+
+示例：
+>
+	let g:tagbar_autoshowtag = 1
+<
+
+							*g:tagbar_systemenc*
+g:tagbar_systemenc~
+默认: value of 'encoding'
+
+这个变量是为了有时候，你的操作系统的字符编码不同于你在 Vim 中的设置。也就是说，
+不同于 'encoding' 选项的值。比如，如果你使用一个简体中文 Windows 版本，
+使用的系统编码为 'cp936'，你把 vim 的 'encoding' 设为了 'utf-8'，
+这时你需要设置此变量为 "cp936"。
+
+举例:
+>
+	let g:tagbar_systemenc = 'cp936'
+<
+
+------------------------------------------------------------------------------
+HIGHLIGHT COLOURS					*tagbar-highlight*
+
+所有 Tagbar 使用的颜色可以被定制。这里是一个 Tabbar 定义的颜色高亮的分组：
+
+TagbarComment
+    buffer 顶端的帮助。
+
+TagbarKind
+    Tagbar 种类，通用的类型比如函数和变量的头。
+
+TagbarScope
+    Tagbar 范围，定义范围的 tags，比如 class,struct 等。
+
+TagbarType
+    tag 或范围的类型，如果是有的话。
+
+TagbarSignature
+    函数签名。
+
+TagbarPseudoID
+    星号表示伪标签。
+
+TagbarFoldIcon
+     可折叠 tags 左边的图标。
+
+TagbarHighlight
+    自动高亮的当前 tag 的颜色。
+
+TagbarAccessPublic
+    "public" 可见性/可访问性符号。
+
+TagbarAccessProtected
+    "protected" 可见性/可访问性符号。
+
+TagbarAccessPrivate
+    "private" 可见性/可访问性符号。
+
+如果你想改变其中的任一颜色, 把类似下行的命令放到vimrc中:
+>
+	highlight TagbarScope guifg=Green ctermfg=Green
+<
+查看 |:highlight| 以显示更多信息
+
+------------------------------------------------------------------------------
+自动打开TAGBAR           				*tagbar-autoopen*
+
+如果你想 Tagbar 自动打开，比如在 Vim 启动的时候，或者是编辑某些类型的文件
+的时候。有多种方法可以实现。比如，想要总是在 Vim 启动时打开 Tagbar，
+你可以把下行加到你的 vimrc 文件中：
+>
+    autocmd VimEnter * nested TagbarOpen
+<
+如果你想在编辑指定类型的文件时自动打开，把
+>
+    TagbarOpen
+<
+加到相应的 filety plugin 里(查看 |filetype-plugin|).
+
+看看 |autocmd.txt|，如果你想在更加复杂的情况下自动打开 Tagbar。
+
+==============================================================================
+6. 扩展 Tagbar			               		*tagbar-extend*
+
+Tagbar 有一个用于灵活扩展现有文件类型定义的机制。这既可以用于修改现有类型
+的设置，也可以用于加入全新的类型。一个完整的配置包括一个在 |vimrc| 中用于
+Tagbar 的设置，和可选的一个用于全新语言的 ctags 定义。
+
+每一个 Tagbar 类型定义都是带有以下关键字的键值对字典：
+
+ctagstype:  ctags 认可的语言名称。可以使用命令 >
+                ctags --list-languages
+<	    来获得 ctags 支持的语言列表。这里没有关系。
+kinds:      在 Tagbar 中列出的语种列表，在 Tagbar 窗口中以出现的顺序排序。
+	    使用以下命令 >
+                ctags --list-kinds={language name}
+<	    获得一个指定语言在 ctags 支持的种类。在这个列表的一个实体是一个
+	    由冒号分隔成两、三个部分的字符串：第一部分是 ctags 使用的单个字符
+	    缩写；第二部分是一个未列在特定作用域作下，作为 Tagbar 标题类的
+	    tag 的任意字符串；可选的第三部分决定 tags 是否默认折叠，1 表示
+	    默认折叠，0 表示默认不折叠，如果省略则默认折叠。例如字符串 >
+                "f:functions:1"
+<	    将列出文件中标题为 "functions" 的函数定义并折叠它们。
+sro:        解析运算的作用域。例如，在 C++ 中是 "::"，而在 Java 中是 "."。
+	    如果有疑问可以运行上面的 ctags 并检查输出。
+kind2scope: 一个用于描述标签种类的映射词典（用一个字符表示），它的作用域将
+	    出现如类，结构等。
+	    不幸的是，没有 ctags 的选项列出这些作用域，你不得不通过 ctags
+	    手动生成标签。比如我们有如下 C++ 代码： >
+                class Foo
+                {
+                public:
+                    Foo();
+                    ~Foo();
+                private:
+                    int var;
+                };
+<	    然后我们使用如下方式运行 ctags： >
+                ctags -f - --format=2 --excmd=pattern --fields=nksazSmt --extra= test.cpp
+<	    则针对 "var" 的输出将会是这个样子： >
+                var	tmp.cpp /^    int var;$/;"	kind:m	line:11	class:Foo	access:private
+<           This shows that the scope name for an entry in a C++ class is
+            simply "class". So this would be the word that the "kind"
+            character of a class has to be mapped to.
+	    这意味着一个 C++ 类实体作用域名称就简单是 "class"。
+	    TODO:
+	    所以一个类的类型字符
+scope2kind: The opposite of the above, mapping scopes to the kinds of their
+            parents. Most of the time it is the exact inverse of the above,
+            but in some cases it can be different, for example when more than
+            one kind maps to the same scope. If it is the exact inverse for
+            your language you only need to specify one of the two keys.
+replace:    If you set this entry to 1 your definition will completely replace
+{optional}  an existing default definition. This is useful if you want to
+            disable scopes for a file type for some reason. Note that in this
+            case you have to provide all the needed entries yourself!
+sort:       This entry can be used to override the global sort setting for
+{optional}  this specific file type. The meaning of the value is the same as
+            with the global setting, that is if you want to sort tags by name
+            set it to 1 and if you want to sort them according to their order
+            in the file set it to 0.
+deffile:    The path to a file with additional ctags definitions (see the
+{optional}  section below on adding a new definition for what exactly that
+            means). This is especially useful for ftplugins since they can
+            provide a complete type definition with ctags and Tagbar
+            configurations without requiring user intervention.
+            Let's say you have an ftplugin that adds support for the language
+            "mylang", and your directory structure looks like this: >
+                ctags/mylang.cnf
+                ftplugin/mylang.vim
+<           Then the "deffile" entry would look like this to allow for the
+            plugin to be installed in an arbitray location (for example
+            with pathogen): >
+
+                'deffile' : expand('<sfile>:p:h:h') . '/ctags/mylang.cnf'
+<
+ctagsbin:  The path to a filetype-specific ctags-compatible program like
+{optional} jsctags. Set it in the same way as |g:tagbar_ctags_bin|. jsctags is
+           used automatically if found in your $PATH and does not have to be
+           set in that case. If it is not in your path you have to provide the
+           complete configuration and use the "replace" key (see the
+           Tagbar source code for the suggested configuration).
+ctagsargs: The arguments to be passed to the filetype-specific ctags program
+{optional} (without the filename). Make sure you set an option that makes the
+           program output its data on stdout. Not used for the normal ctags
+           program.
+
+
+You then have to assign this dictionary to a variable in your vimrc with the
+name
+>
+	g:tagbar_type_{vim filetype}
+<
+For example, for C++ the name would be "g:tagbar_type_cpp". If you don't know
+the vim file type then run the following command:
+>
+	:set filetype?
+<
+and vim will display the file type of the current buffer.
+
+Example: C++~
+Here is a complete example that shows the default configuration for C++ as
+used in Tagbar.
+>
+	let g:tagbar_type_cpp = {
+	    \ 'ctagstype' : 'c++',
+	    \ 'kinds'     : [
+	        \ 'd:macros:1',
+	        \ 'p:prototypes:1',
+	        \ 'g:enums',
+	        \ 'e:enumerators',
+	        \ 't:typedefs',
+	        \ 'n:namespaces',
+	        \ 'c:classes',
+	        \ 's:structs',
+	        \ 'u:unions',
+	        \ 'f:functions',
+	        \ 'm:members',
+	        \ 'v:variables'
+	    \ ],
+	    \ 'sro'        : '::',
+	    \ 'kind2scope' : {
+	        \ 'g' : 'enum',
+	        \ 'n' : 'namespace',
+	        \ 'c' : 'class',
+	        \ 's' : 'struct',
+	        \ 'u' : 'union'
+	    \ },
+	    \ 'scope2kind' : {
+	        \ 'enum'      : 'g',
+	        \ 'namespace' : 'n',
+	        \ 'class'     : 'c',
+	        \ 'struct'    : 's',
+	        \ 'union'     : 'u'
+	    \ }
+	\ }
+<
+
+Which of the keys you have to specify depends on what you want to do.
+
+Changing an existing definition~
+If you want to change an existing definition you only need to specify the
+parts that you want to change. It probably only makes sense to change "kinds"
+and/or "scopes", which would be the case if you wanted to exclude certain
+kinds from appearing in Tagbar or if you want to change their order. As an
+example, if you didn't want Tagbar to show prototypes for C++ files and switch
+the order of enums and typedefs, you would do it like this:
+>
+	let g:tagbar_type_cpp = {
+	    \ 'kinds' : [
+	        \ 'd:macros:1',
+	        \ 'g:enums',
+	        \ 't:typedefs',
+	        \ 'e:enumerators',
+	        \ 'n:namespaces',
+	        \ 'c:classes',
+	        \ 's:structs',
+	        \ 'u:unions',
+	        \ 'f:functions',
+	        \ 'm:members',
+	        \ 'v:variables'
+	    \ ]
+	\ }
+<
+Compare with the complete example above to see the exact change.
+
+Adding a definition for a new language/file type~
+In order to be able to add a new language to Tagbar you first have to create a
+configuration for ctags that it can use to parse the files. This can be done
+in two ways:
+
+  1. Use the --regex argument for specifying regular expressions that are used
+     to parse the files. An example of this is given below. A disadvantage of
+     this approach is that you can't specify scopes.
+  2. Write a parser plugin in C for ctags. This approach is much more powerful
+     than the regex approach since you can make use of all of ctags'
+     functionality but it also requires much more work. Read the ctags
+     documentation for more information about how to do this.
+
+For the first approach the only keys that are needed in the Tagbar definition
+are "ctagstype" and "kinds". A definition that supports scopes has to define
+those two and in addition "scopes", "sro" and at least one of "kind2scope" and
+"scope2kind".
+
+Let's assume we want to add support for LaTeX to Tagbar using the regex
+approach. First we put the following text into ~/.ctags or a file pointed to
+by the "deffile" definition entry:
+>
+	--langdef=latex
+	--langmap=latex:.tex
+	--regex-latex=/^\\tableofcontents/TABLE OF CONTENTS/s,toc/
+	--regex-latex=/^\\frontmatter/FRONTMATTER/s,frontmatter/
+	--regex-latex=/^\\mainmatter/MAINMATTER/s,mainmatter/
+	--regex-latex=/^\\backmatter/BACKMATTER/s,backmatter/
+	--regex-latex=/^\\bibliography\{/BIBLIOGRAPHY/s,bibliography/
+	--regex-latex=/^\\part[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/PART \2/s,part/
+	--regex-latex=/^\\part[[:space:]]*\*[[:space:]]*\{([^}]+)\}/PART \1/s,part/
+	--regex-latex=/^\\chapter[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/CHAP \2/s,chapter/
+	--regex-latex=/^\\chapter[[:space:]]*\*[[:space:]]*\{([^}]+)\}/CHAP \1/s,chapter/
+	--regex-latex=/^\\section[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\. \2/s,section/
+	--regex-latex=/^\\section[[:space:]]*\*[[:space:]]*\{([^}]+)\}/\. \1/s,section/
+	--regex-latex=/^\\subsection[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\.\. \2/s,subsection/
+	--regex-latex=/^\\subsection[[:space:]]*\*[[:space:]]*\{([^}]+)\}/\.\. \1/s,subsection/
+	--regex-latex=/^\\subsubsection[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\.\.\. \2/s,subsubsection/
+	--regex-latex=/^\\subsubsection[[:space:]]*\*[[:space:]]*\{([^}]+)\}/\.\.\. \1/s,subsubsection/
+	--regex-latex=/^\\includegraphics[[:space:]]*(\[[^]]*\])?[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\3/g,graphic+listing/
+	--regex-latex=/^\\lstinputlisting[[:space:]]*(\[[^]]*\])?[[:space:]]*(\[[^]]*\])?[[:space:]]*\{([^}]+)\}/\3/g,graphic+listing/
+	--regex-latex=/\\label[[:space:]]*\{([^}]+)\}/\1/l,label/
+	--regex-latex=/\\ref[[:space:]]*\{([^}]+)\}/\1/r,ref/
+	--regex-latex=/\\pageref[[:space:]]*\{([^}]+)\}/\1/p,pageref/
+<
+This will create a new language definition with the name "latex" and associate
+it with files with the extension ".tex". It will also define the kinds "s" for
+sections, chapters and the like, "g" for included graphics, "l" for labels,
+"r" for references and "p" for page references. See the ctags documentation
+for more information about the exact syntax.
+
+Now we have to create the Tagbar language definition in our vimrc:
+>
+	let g:tagbar_type_tex = {
+	    \ 'ctagstype' : 'latex',
+	    \ 'kinds'     : [
+	        \ 's:sections',
+	        \ 'g:graphics',
+	        \ 'l:labels',
+	        \ 'r:refs:1',
+	        \ 'p:pagerefs:1'
+	    \ ],
+	    \ 'sort'    : 0,
+	    \ 'deffile' : expand('<sfile>:p:h:h') . '/ctags/latex.cnf'
+	\ }
+<
+The "deffile" field is of course only needed if the ctags definition actually
+is in that file and not in ~/.ctags.
+
+Sort has been disabled for LaTeX so that the sections appear in their correct
+order. They unfortunately can't be shown nested with their correct scopes
+since as already mentioned the regular expression approach doesn't support
+that.
+
+Tagbar should now be able to show the sections and other tags from LaTeX
+files.
+
+==============================================================================
+7. Bugs and limitations					*tagbar-bugs*
+
+  - Nested pseudo-tags cannot be properly parsed since only the direct parent
+    scope of a tag gets assigned a type, the type of the grandparents is not
+    reported by ctags (assuming the grandparents don't have direct, real
+    children).
+
+    For example, if we have a C++ with the following content:
+>
+        foo::Bar::init()
+        {
+            // ...
+        }
+        foo::Baz::method()
+        {
+            // ...
+        }
+<
+    In this case the type of "foo" is not known. Is it a namespace? A class?
+    For this reason the methods are displayed in Tagbar like this:
+>
+        foo::Bar* : class
+          init()
+        foo::Baz* : class
+          method()
+<
+  - Scope-defining tags at the top level that have the same name but a
+    different kind/scope type can lead to an incorrect display. For example,
+    the following Python code will incorrectly insert a pseudo-tag "Inner2"
+    into the "test" class:
+>
+        class test:
+            class Inner:
+                def foo(self):
+                    pass
+
+        def test():
+            class Inner2:
+                def bar(self):
+                    pass
+<
+    I haven't found a clean way around this yet, but it shouldn't be much of a
+    problem in practice anyway. Tags with the same name at any other level are
+    no problem, though.
+
+==============================================================================
+8. History						*tagbar-history*
+
+2.1 (2011-05-29)
+    - Make Tagbar work in (hopefully) all cases under Windows
+    - Handle cases where 'encoding' is different from system encoding, for
+      example on a Chinese Windows with 'encoding' set to "utf-8" (see manual
+      for details in case it doesn't work out-of-the-box)
+    - Fixed a bug with the handling of subtypes like "python.django"
+    - If a session got saved with Tagbar open it now gets restored properly
+    - Locally reset foldmethod/foldexpr in case foldexpr got set to something
+      expensive globally
+    - Tagbar now tries hard to go to the correct window when jumping to a tag
+    - Explain some possible issues with the current jsctags version in the
+      manual
+    - Explicitly check for some possible configuration problems to be able to
+      give better feedback
+    - A few other small fixes
+
+2.0.1 (2011-04-26)
+    - Fix sorting bug when 'ignorecase' is set
+
+2.0 (2011-04-26)
+    - Folding now works correctly. Folds will be preserved when leaving the
+      Tagbar window and when switching between files. Also tag types can be
+      configured to be folded by default, which is useful for things like
+      includes and imports.
+    - DoctorJS/jsctags and other compatible programs are now supported.
+    - All of the highlight groups can now be overridden.
+    - Added keybinding to quickly jump to next/previous top-level tag.
+    - Added Taglist's "p" keybinding for jumping to a tag without leaving the
+      Tagbar window.
+    - Several bugfixes and other small improvements.
+
+1.5 (2011-03-06)
+    - Type definitions can now include a path to a file with the ctags
+      definition. This is especially useful for ftplugins that can now ship
+      with a complete ctags and Tagbar configuration without requiring user
+      intervention. Thanks to Jan Christoph Ebersbach for the suggestion.
+    - Added autofocus setting by Taybin Rutkin. This will put the cursor in
+      the Tagbar window when it is opened.
+    - The "scopes" field is no longer needed in type definitions, the
+      information is already there in "scope2kind". Existing definitions will
+      be ignored.
+    - Some fixes and improvements related to redrawing and window switching.
+
+1.2 (2011-02-28)
+    - Fix typo in Ruby definition
+
+1.1 (2011-02-26)
+    - Don't lose syntax highlighting when ':syntax enable' is called
+    - Allow expanding the Vim window when Tagbar is opened
+
+1.0 (2011-02-23)
+    - Initial release
+
+==============================================================================
+9. Todo							*tagbar-todo*
+
+  - Allow filtering the Tagbar content by some criteria like tag name,
+    visibility, kind ...
+  - Integrate Tagbar with the FSwitch plugin to provide header file
+    information in C/C++.
+  - Allow jumping to a tag in the preview window, a split window or a new tab.
+
+==============================================================================
+10. Credits						*tagbar-credits*
+
+Tagbar was written by Jan Larres and is released under the Vim licence, see
+|license|. It was heavily inspired by the Taglist plugin by Yegappan
+Lakshmanan and uses a small amount of code from it.
+
+Original taglist copyright notice:
+Permission is hereby granted to use and distribute this code, with or without
+modifications, provided that this copyright notice is copied with it. Like
+anything else that's free, taglist.vim is provided *as is* and comes with no
+warranty of any kind, either expressed or implied. In no event will the
+copyright holder be liable for any damamges resulting from the use of this
+software.
+
+The folding technique was inspired by NERDTree by Martin Grenfell.
+
+Taybin Rutkin:
+  - Contributed tagbar_autofocus option
+Seth Milliken:
+  - Contributed folding keybindings that resemble the built-in ones
+
+Thanks to the following people for feature suggestions etc: Jan Christoph
+Ebersbach, pielgrzym
+
+==============================================================================
+ vim: tw=78 ts=8 sw=8 sts=8 noet ft=help
+t from system encoding, for
+      example on a Chinese Windows with 'encoding' set to "utf-8" (see manual
+      for details in case it doesn't work out-of-the-box)
+    - Fixed a bug with the handling of subtypes like "python.django"
+    - If a session got saved with Tagbar open it now gets restored properly
+    - Locally reset foldmethod/foldexpr in case foldexpr got set to something
+      expensive globally
+    - Tagbar now tries hard to go to the correct window when jumping to a tag
+    - Explain some possible issues with the current jsctags version in the
+      manual
+    - Explicitly check for some possible configuration problems to be able to
+      give better feedback
+    - A few other small fixes
+
+2.0.1 (2011-04-26)
+    - Fix sorting bug when 'ignorecase' is set
+
+2.0 (2011-04-26)
+    - Folding now works correctly. Folds will be preserved when leaving the
+      Tagbar window and when switching between files. Also tag types can be
+      configured to be folded by default, which is useful for things like
+      includes and imports.
+    - DoctorJS/jsctags and other compatible programs are now supported.
+    - All of the highlight groups can now be overridden.
+    - Added keybinding to quickly jump to next/previous top-level tag.
+    - Added Taglist's "p" keybinding for jumping to a tag without leaving the
+      Tagbar window.
+    - Several bugfixes and other small improvements.
+
+1.5 (2011-03-06)
+    - Type definitions can now include a path to a file with the ctags
+      definition. This is especially useful for ftplugins that can now ship
+      with a complete ctags and Tagbar configuration without requiring user
+      intervention. Thanks to Jan Christoph Ebersbach for the suggestion.
+    - Added autofocus setting by Taybin Rutkin. This will put the cursor in
+      the Tagbar window when it is opened.
+    - The "scopes" field is no longer needed in type definitions, the
+      information is already there in "scope2kind". Existing definitions will
+      be ignored.
+    - Some fixes and improvements related to redrawing and window switching.
+
+1.2 (2011-02-28)
+    - Fix typo in Ruby definition
+
+1.1 (2011-02-26)
+    - Don't lose syntax highlighting when ':syntax enable' is called
+    - Allow expanding the Vim window when Tagbar is opened
+
+1.0 (2011-02-23)
+    - Initial release
+
+
+==============================================================================
+ vim: tw=78 ts=8 sw=8 sts=8 noet ft=help
+
