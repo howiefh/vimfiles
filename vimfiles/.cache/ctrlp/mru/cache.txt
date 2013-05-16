@@ -1,0 +1,3 @@
+D:\PortableApps\Vim\_vimrc
+D:\PortableApps\Vim\vimfiles\bundle\ctrlp.vim\doc\ctrlp.txt
+D:\PortableApps\Vim\ctags58\c.c

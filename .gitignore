@@ -3,6 +3,7 @@ vim73/
 *.ahk
 *.exe
 *.ini
+vimfiles/_viminfo
 vimfiles/_vimrc
 vimfiles/Data/backup/
 vimfiles/Data/calendar_data/
@@ -10,4 +11,6 @@ vimfiles/Data/history/
 vimfiles/Data/.NERDTreeBookmarks
 vimfiles/Data/.viminfo
 vimfiles/Data/.neocon/
+vimfiles/Data/ctrlpcache
+vimfiles/.VimballRecord
 

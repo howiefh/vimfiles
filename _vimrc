@@ -141,11 +141,11 @@ endif
 if g:OS#win
     let $VIMFILES = $VIM.'/vimfiles'
 	let $HOME = $VIMFILES
-	let $BLOG = "E:/User/Documents/blog"
+	let $BLOG = "E:/User/Documents/howiefh.github.io"
 elseif g:OS#unix
 	let $VIM=$HOME 
     let $VIMFILES = $HOME.'/.vim'
-	let $BLOG = "/media/WinE/User/Documents/blog"
+	let $BLOG = "/media/WinE/User/Documents/howiefh.github.io"
 endif
 
 " 设置字体 以及中文支持
@@ -297,30 +297,64 @@ au BufNewFile,BufRead *.ahk	 setf autohotkey
 command! -nargs=* Ev edit $MYVIMRC  "定义Vimrc 为编辑vimrc 命令
 " ****************************************** Plugins **************************************** {{{
 " ************************************************************************************************
-" plugin - taglist.vim 查看函数列表，需要ctags程序
-" http://www.vim.org/scripts/script.php?script_id=273 
-" http://att.newsmth.net/att.php?s.731.55149.150442.diff
-" http://att.newsmth.net/att.php?p.731.55149.1226.vim 
+" plugin –vundle.vim管理插件的插件   导致中文帮助无法使用 已经停用此插件改用pathogen.vim
+" 发现在Ubuntu中将encoding设置为 utf-8 会使中文帮助无法使用
+" https://github.com/gmarik/vundle/
+" https://github.com/mutewinter/dot_vim
 " ************************************************************************************************
-set tags=tags;
-if g:OS#win
-	let Tlist_Ctags_Cmd = "D:/PortableApps/Vim/ctags58/ctags.exe"
+set nocompatible               " be iMproved
+filetype off                   " required!
 
-    "设定windows系统中ctags程序的位置
-	"let Tlist_Ctags_Cmd = $VIM.'/ctags58/ctags.exe'  :echo $VIM 显示 D:\Program Files\PortableApps\Vim  有空格，不能用taglist
-endif
-let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
-let Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
-let Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
-let tlist_actionscript_settings = 'actionscript;c:class;f:method;p:property;v:variable'    "配置taglist对actionscript的识别http://blog.csdn.net/holybozo/archive/2007/07/19/1698549.aspx
+set rtp+=$VIMFILES/bundle/vundle
+call vundle#rc('$VIMFILES/bundle/')
 
-nnoremap <F11> :TlistToggle<CR>
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'mattn/zencoding-vim'
+Bundle 'myusuf3/numbers.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'Shougo/neocomplcache'
+Bundle 'kien/ctrlp.vim'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'howiefh/statusline'
+Bundle 'howiefh/c.vim'
+Bundle 'howiefh/makeprgs'
+
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" vim-scripts repos
+Bundle 'matchit.zip'
+Bundle 'AutoClose'
+Bundle 'bufexplorer.zip'
+Bundle 'TxtBrowser'
+Bundle 'FencView.vim'
+" Bundle 'FuzzyFinder'
+" non github repos
+" Bundle 'git://git.wincent.com/command-t.git'
+" ...
+
+filetype plugin indent on     " required!
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
 
 " ************************************************************************************************
 " plugin - tagbar.vim 查看函数列表，需要ctags程序  taglist 的同类软件
 " http://www.vim.org/scripts/script.php?script_id=3465
 " ************************************************************************************************
-nmap <silent> <F6> :TagbarToggle<CR>
+nmap <silent> <F11> :TagbarToggle<CR>
 if g:OS#win
     let g:tagbar_ctags_bin = "D:/PortableApps/Vim/ctags58/ctags.exe"
 endif
@@ -456,11 +490,12 @@ let NERDTreeBookmarksFile=$VIMFILES.'/Data/.NERDTreeBookmarks'
 
 " ************************************************************************************************
 " plugin -auto-pairs.vim
-"http://www.vim.org/scripts/script.php?script_id=3599
-"https://github.com/jiangmiao/auto-pairs
-"匹配括号、引号,此文件在/autoload 中
+" http://www.vim.org/scripts/script.php?script_id=3599
+" https://github.com/jiangmiao/auto-pairs
+" 匹配括号、引号,此文件在/autoload 中
+" 换为https://github.com/vim-scripts/AutoClose
 " ************************************************************************************************
-au FileType c,cpp so $VIMFILES/bundle/autoclose/autoclose.vim
+" au FileType c,cpp so $VIMFILES/bundle/autoclose/autoclose.vim
 
 " ************************************************************************************************
 " plugin –txtbrower.vim
@@ -488,59 +523,63 @@ endif
 let g:fencview_autodetect = 0                         " 0关闭 1开启
 
 " ************************************************************************************************
-" plugin –mru.vim打开历史文件
-"http://www.vim.org/scripts/script.php?script_id=521
-" ************************************************************************************************
-"记录历史文件的位置
-let MRU_File=$VIMFILES . '/Data/history/.vim_mru_files'
-"记录的条数
-let MRU_Max_Entries=80 
-"分割窗口的大小
-let MRU_Window_Height=10
-"选择文件后打开此窗口自动关闭
-let MRU_Auto_Close=1
-"简化：,h 打开MRU
-map <silent> <leader>h :MRU<CR>
-
-" ************************************************************************************************
 " plugin –pathogen.vim管理插件的插件
-"http://www.vim.org/scripts/script.php?script_id=2332 
+" http://www.vim.org/scripts/script.php?script_id=2332 
+" https://github.com/tpope/vim-pathogen
 " ************************************************************************************************
-call pathogen#runtime_append_all_bundles()
-command! -nargs=* HTags Helptags
-"定义目录
-"call pathogen#infect('c')
 
 " ************************************************************************************************
-" plugin- vimtweak.dll 设置背景透明,窗口最大化,窗口在最前端
-" http://www.vim.org/scripts/script.php?script_id=687
+" plugin – ctrlp.vim 文件搜索
+" https://github.com/kien/ctrlp.vim 
+" Once CtrlP is open:
+" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+" Press <c-f> and <c-b> to cycle between modes.
+" Press <c-d> to switch to filename only search instead of full path.
+" Press <c-r> to switch to regexp mode.
+" Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+" Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+" Use <c-y> to create a new file and its parent directories.
+" Use <c-z> to mark/unmark multiple files and <c-o> to open them.
+" Run :help ctrlp-mappings or submit ? in CtrlP for more mapping help.
+
+" Submit two or more dots .. to go up the directory tree by one or multiple levels.
+" End the input string with a colon : followed by a command to execute it on the opening file(s):
+" Use :25 to jump to line 25.
+" Use :diffthis when opening multiple files to run :diffthis on the first 4 files.
 " ************************************************************************************************
-if g:OS#win
-	map <leader>aw :call libcallnr("vimtweak.dll","SetAlpha",240)<cr>
-	map <leader>aW :call libcallnr("vimtweak.dll","SetAlpha",255)<cr>
+" Set the directory to store the cache files: >
+let g:ctrlp_cache_dir = $VIMFILES.'/Data/ctrlpcache'
 
-	"Maximized Window
+noremap <C-W><C-U> :CtrlPMRU<CR>
+nnoremap <C-W>u :CtrlPMRU<CR>
+command! -nargs=* MRU CtrlPMRU
 
-	map <leader>mw :call libcallnr("vimtweak.dll","EnableMaximize",1)<cr>
-	map <leader>mW :call libcallnr("vimtweak.dll","EnableMaximize",0)<cr>
+" Exclude files and directories using Vim's wildignore and CtrlP's own g:ctrlp_custom_ignore
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 
-	"TopMost Window
-	call libcallnr("vimtweak.dll","EnableTopMost",1)
-	map <leader>et :call libcallnr("vimtweak.dll","EnableTopMost",1)<cr>
-	map <leader>eT :call libcallnr("vimtweak.dll","EnableTopMost",0)<cr>
-endif
 
 " ************************************************************************************************
-" plugin - Calendar.vim 日历插件，可以写自己的心情日记。
-" http://www.vim.org/scripts/script.php?script_id=52 
-" <leader>cal 在左侧打开     <leader>caL 在下边打开
+" plugin – numbers.vim 在命令模式显示与当前行间隔的行数，用于快速定位
+" https://github.com/myusuf3/numbers.vim
 " ************************************************************************************************
-let g:calendar_diary=$VIMFILES.'/Data/calendar_data/'
-if g:OS#win
-	autocmd BufNewFile *.cal read $VIMFILES/Data/templates/calendar/calendar_diary.tpl | normal ggdd
-elseif g:OS#unix
-	autocmd BufNewFile *.cal read $HOME/.vim/Data/templates/calendar/calendar_diary.tpl | normal ggdd
-endif
+nnoremap <F6> :NumbersToggle<CR>
+
+" ************************************************************************************************
+" plugin – matchit 快速找到标签的开始或结束位置
+" https://github.com/vim-scripts/matchit.zip
+" ************************************************************************************************
+" % g% [% ]% a%
+
+" ************************************************************************************************
+" plugin – vim-markdown markdown高亮
+" https://github.com/plasticboy/vim-markdown
+" ************************************************************************************************
+au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
+let g:vim_markdown_folding_disabled=1
 
 " ************************************************************************************************
 " plugin – ZenCoding.vim 很酷的插件，HTML代码生成
@@ -568,38 +607,6 @@ let g:user_zen_leader_key = ','
 let g:use_zen_complete_tag = 1
 
 " ************************************************************************************************
-" plugin - pydiction Python 代码自动完成的脚本
-" http://www.vim.org/scripts/script.php?script_id=850
-" ************************************************************************************************
-"pydiction 1.2 python auto complete
-let g:pydiction_location = '~/.vim/bundle/pydiction-1.2/complete-dict'
-"defalut g:pydiction_menu_height == 15
-"let g:pydiction_menu_height = 20 
-
-" ************************************************************************************************
-" plugin - vimwiki
-" http://www.vim.org/scripts/script.php?script_id=2226
-" ************************************************************************************************
-let g:vimwiki_list = [
-  \ {
-    \ 'path'        : $BLOG,
-	\ 'path_html'	: $BLOG.'/html/',
-	\ 'html_footer'	: $BLOG.'/defalut/footer.tpl',
-	\ 'html_header'	: $BLOG.'/defalut/header.tpl',
-    \ 'index'       : '_index',
-	\ 'syntax'		: 'markdown',
-    \ 'ext'         : '.md',
-    \ 'auto_export' : 0,
-    \ 'nested_syntaxes' : {'javascript': 'javascript', 'python': 'python', 'c++': 'cpp'}
-  \ }
-\]
-
-" ************************************************************************************************
-" plugin - Conque Shell 在vim中打开终端
-" http://www.vim.org/scripts/script.php?script_id=2771
-" ************************************************************************************************
-
-" ************************************************************************************************
 " plugin - statusline.vim 设置在状态行显示的信息  进行过更改
 " http://www.vim.org/scripts/script.php?script_id=2879
 " ************************************************************************************************
@@ -610,14 +617,47 @@ let g:vimwiki_list = [
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin -VimIM.vim 
-"http://vim.sourceforge.net/scripts/script.php?script_id=2506
+" plugin - taglist.vim 查看函数列表，需要ctags程序
+" http://www.vim.org/scripts/script.php?script_id=273 
+" http://att.newsmth.net/att.php?s.731.55149.150442.diff
+" http://att.newsmth.net/att.php?p.731.55149.1226.vim 
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin –vundle.vim管理插件的插件   导致中文帮助无法使用 已经停用此插件改用pathogen.vim
-"  发现在Ubuntu中将encoding设置为 utf-8 会使中文帮助无法使用
-"https://github.com/gmarik/vundle/
+" plugin –mru.vim打开历史文件
+"http://www.vim.org/scripts/script.php?script_id=521
+" ************************************************************************************************
+
+" ************************************************************************************************
+" plugin - pydiction Python 代码自动完成的脚本
+" http://www.vim.org/scripts/script.php?script_id=850
+" ************************************************************************************************
+
+
+" ************************************************************************************************
+" plugin - vimwiki
+" http://www.vim.org/scripts/script.php?script_id=2226
+" ************************************************************************************************
+
+" ************************************************************************************************
+" plugin - Calendar.vim 日历插件，可以写自己的心情日记。
+" http://www.vim.org/scripts/script.php?script_id=52 
+" <leader>cal 在左侧打开     <leader>caL 在下边打开
+" ************************************************************************************************
+
+" ************************************************************************************************
+" plugin- vimtweak.dll 设置背景透明,窗口最大化,窗口在最前端
+" http://www.vim.org/scripts/script.php?script_id=687
+" ************************************************************************************************
+
+" ************************************************************************************************
+" plugin - Conque Shell 在vim中打开终端
+" http://www.vim.org/scripts/script.php?script_id=2771
+" ************************************************************************************************
+
+" ************************************************************************************************
+" plugin -VimIM.vim 
+"http://vim.sourceforge.net/scripts/script.php?script_id=2506
 " ************************************************************************************************
 
 " ************************************************************************************************
@@ -684,7 +724,5 @@ let g:vimwiki_list = [
 " http://www.vim.org/scripts/script.php?script_id=923
 " ************************************************************************************************
 " }}}
-
-
 
 " vim:fdm=marker

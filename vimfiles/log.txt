@@ -1,4 +1,81 @@
-﻿version 1.2.15
+﻿2013.5.16
+1.移除mru.vim，pydiction-1.2，pyflakes-vim，html5.vim，vimwiki
+vimwiki:
+let g:vimwiki_list = [
+  \ {
+    \ 'path'        : $BLOG,
+	\ 'path_html'	: $BLOG.'/html/',
+	\ 'html_footer'	: $BLOG.'/defalut/footer.tpl',
+	\ 'html_header'	: $BLOG.'/defalut/header.tpl',
+    \ 'index'       : '_index',
+	\ 'syntax'		: 'markdown',
+    \ 'ext'         : '.md',
+    \ 'auto_export' : 0,
+    \ 'nested_syntaxes' : {'javascript': 'javascript', 'python': 'python', 'c++': 'cpp'}
+  \ }
+\]
+mru:
+"记录历史文件的位置
+let MRU_File=$VIMFILES . '/Data/history/.vim_mru_files'
+"记录的条数
+let MRU_Max_Entries=80 
+"分割窗口的大小
+let MRU_Window_Height=10
+"选择文件后打开此窗口自动关闭
+let MRU_Auto_Close=1
+"简化：,h 打开MRU
+map <silent> <leader>h :MRU<CR>
+taglist:
+set tags=tags;
+if g:OS#win
+	let Tlist_Ctags_Cmd = "D:/PortableApps/Vim/ctags58/ctags.exe"
+
+    "设定windows系统中ctags程序的位置
+	"let Tlist_Ctags_Cmd = $VIM.'/ctags58/ctags.exe'  :echo $VIM 显示 D:\Program Files\PortableApps\Vim  有空格，不能用taglist
+endif
+let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
+let tlist_actionscript_settings = 'actionscript;c:class;f:method;p:property;v:variable'    "配置taglist对actionscript的识别http://blog.csdn.net/holybozo/archive/2007/07/19/1698549.aspx
+
+nnoremap <F11> :TlistToggle<CR>
+pydiction:
+"pydiction 1.2 python auto complete
+
+let g:pydiction_location = '~/.vim/bundle/pydiction-1.2/complete-dict'
+
+"default g:pydiction_menu_height == 15
+"let g:pydiction_menu_height = 20 
+calendar:
+let g:calendar_diary=$VIMFILES.'/Data/calendar_data/'
+if g:OS#win
+	autocmd BufNewFile *.cal read $VIMFILES/Data/templates/calendar/calendar_diary.tpl | normal ggdd
+elseif g:OS#unix
+	autocmd BufNewFile *.cal read $HOME/.vim/Data/templates/calendar/calendar_diary.tpl | normal ggdd
+endif
+vimtweak:
+if g:OS#win
+	map <leader>aw :call libcallnr("vimtweak.dll","SetAlpha",240)<cr>
+	map <leader>aW :call libcallnr("vimtweak.dll","SetAlpha",255)<cr>
+
+	" Maximized Window
+
+	map <leader>mw :call libcallnr("vimtweak.dll","EnableMaximize",1)<cr>
+	map <leader>mW :call libcallnr("vimtweak.dll","EnableMaximize",0)<cr>
+
+	" TopMost Window
+	call libcallnr("vimtweak.dll","EnableTopMost",1)
+	map <leader>et :call libcallnr("vimtweak.dll","EnableTopMost",1)<cr>
+	map <leader>eT :call libcallnr("vimtweak.dll","EnableTopMost",0)<cr>
+endif
+pathogen:
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#runtime_append_all_bundles()
+command! -nargs=* HTags Helptags
+"定义目录
+"call pathogen#infect('c')
+2.加入ctrlp.vim，vundle,matchit.zip,numbers.vim,vim-markdown
+version 1.2.15
 2012.3.12
 1.设置了tagbar插件 F6打开tagbar窗口
 2.增加了设置 set wildmenu				 "Turn on WiLd menu 在末行命令行敲tab键时会在状态栏显示选项
@@ -55,7 +132,7 @@ version 1.2.12 {{{
 vimflies目录上传到了dbank网盘
 1.删除了syntax、keymap、indent、ftplugin、compiler、colors等空目录
 README.md、README.csupport、README、Rakefile、favlist、.VimballRecord、.netrwhist、.gitignore文件。
-2.暂时不再使用vundle来管理插件，一下是关于它的配置（这一部分已经从配置中去掉了）：
+2.暂时不再使用vundle来管理插件，以下是关于它的配置（这一部分已经从配置中去掉了）：
 "有两个引号的可以去掉
 ""function Update_plugin()
 ""	if g:OS#unix
