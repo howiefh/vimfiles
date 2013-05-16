@@ -3,28 +3,20 @@
 * cscope
 * ctags
 * plugins
-  * pathogen
-  * autoclose
-  * autohotkey
+  * vundle
+  * AutoClose
   * bufexplorer.zip
-  * cscope
   * c.vim
-  * fencview.vim
-  * html5.vim
+  * FencView.vim
   * makeprgs
-  * mru.vim
+  * ctrlp.vim
   * neocomplcache
   * nerdcommenter
   * nerdtree
-  * php
-  * pydiction-1.2
-  * pyflakes-vim
   * statusline.vim
   * tagbar
   * TxtBrowser
-  * vimwiki
   * zencoding-vim
-  * taglist
   * menu_plus
 * colors
   * ManShow.vim
