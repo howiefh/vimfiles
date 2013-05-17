@@ -1,6 +1,7 @@
 ﻿2013.5.17
 1.vimfiles中添加ctags.cnf，添加了markdown和txt的规则
 2.vimrc中添加了 ViewInBrowser() 函数，可以在浏览器中打开正在编辑的文件
+3.添加neosnippet插件，从neocomplcache分出来的
 
 2013.5.16
 1.移除mru.vim，pydiction-1.2，pyflakes-vim，html5.vim，vimwiki

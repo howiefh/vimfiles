@@ -10,7 +10,8 @@
 "																	   	 |- |- |\||-.  |-| /_\ | |
 "																		 '  '--' ''-'  ' ''   '`-'	
 " ************************************************************************************************
-" 设置当前系统
+" 设置当前系统  {{{
+" 
 if has("win32") || has("win32unix")
     let g:OS#name = "win"
     let g:OS#win = 1
@@ -32,12 +33,11 @@ if has("gui_running")
 else
     let g:OS#gui = 0
 endif
+" }}}
 
-
-" ************************************************************************************************
-"  default _vimrc
+"  default _vimrc   {{{
 if g:OS#win
-	 " MyDiff {{{
+	 " MyDiff 
 	set diffexpr=MyDiff()
 	function MyDiff()
 		  let opt = '-a --binary '
@@ -105,16 +105,16 @@ set smartindent             " 开启新行时使用智能自动缩进
 set backspace=indent,eol,start                            " 不设定的话在插入状态无法用退格键和 Delete 键删除回车符
 setlocal noswapfile        " 禁用swf交换文件
 set viminfo+=n$VIMFILES/Data/.viminfo    "设置viminfo的路径
- "显示长行
+"显示长行 begin
 set display=lastline                
 nmap j gj
 nmap k gk
-"以上显示长行
+"显示长行 end
 
 " ************************************************************************************************
-"  gvim 菜单栏与工具栏隐藏与显示动态切换
-"Toggle Menu and Toolbar
-" ************************************************************************************************
+
+" gvim 菜单栏与工具栏隐藏与显示动态切换
+" Toggle Menu and Toolbar
 if g:OS#gui
 	set guioptions-=m			 " 隐藏菜单栏
 	set guioptions-=T			" 隐藏工具栏
@@ -127,16 +127,13 @@ if g:OS#gui
 		\endif<cr>
 endif
 
-" ************************************************************************************************
 " 配色方案
-" ************************************************************************************************
 if g:OS#gui
 	colorscheme torte           "配置颜色方案
 else
 	colorscheme ManShow           "配置颜色方案
 endif
 
-" ************************************************************************************************
 " 用用户目录
 if g:OS#win
     let $VIMFILES = $VIM.'/vimfiles'
@@ -153,8 +150,8 @@ if g:OS#win
     set guifont=宋体:h12:cANSI
 endif
 
+" 解决win7下“Press Enter or type command to continue”提示
 if g:OS#win
-    " 解决win7下“Press Enter or type command to continue”提示
     silent!
 endif 
 
@@ -167,8 +164,8 @@ if g:OS#win
     au GUIEnter * winpos 200 140   "打开窗口后 将窗口 定位到 200 140 
  endif
 
+" 设置窗口默认大小。
 if g:OS#unix
-	 " 设置窗口默认大小。
 	set columns=100
 	set lines=30
 endif
@@ -206,12 +203,22 @@ autocmd BufReadPost *
 			\ exe "normal g'\"" |
 			\ endif |
  
+" 定义Ev为编辑vimrc 命令
+command! -nargs=* Ev edit $MYVIMRC  
+
+" 一旦vim窗口失去焦点，即你切换到其他窗口，vim编辑文件就会自动保存修改的文件
+au FocusLost * silent! up 
+
+" ************************************************************************************************
+ 
+" Autohotkey 
+au BufNewFile,BufRead *.ahk	 setf autohotkey 
+
 "字典目录
 "au FileType txt setlocal dict+=$VIM/vimfiles/Data/dictionary/zh_CN.dic
 "au FileType txt setlocal dict+=$VIM/vimfiles/Data/dictionary/eng_small.dic
 "au FileType tex setlocal dict+=$VIM/vimfiles/Data/dictionary/latex.dic
 au FileType php setlocal dict+=$VIM/vimfiles/Data/dictionary/php_funclist.txt
-
 au FileType html setlocal dict+=$VIM/vimfiles/Data/dictionary/html.dic
 
 " for Java  http://mytc.5d6d.com/thread-5032-1-1.html
@@ -222,15 +229,11 @@ au FileType html setlocal dict+=$VIM/vimfiles/Data/dictionary/html.dic
 "inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P> 
 "inoremap <buffer> <C-S-Space> <C-X><C-U><C-P>
 
-" ************************************************************************************************
 " Python 文件的一般设置，比如不要 tab 等
-" ************************************************************************************************
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab
 autocmd FileType python map <F12> :!python %<CR>
 
-" ************************************************************************************************
-"  切换c、c++、python工作目录
-" ************************************************************************************************
+" 切换c、c++、python工作目录
 if g:OS#win
 	let g:python_w = "D:/User/Documents/Program/Python"
 	let g:cplus_w="D:/User/Documents/Program/c++"
@@ -249,8 +252,8 @@ endfunction
 map <Leader>py :call ChangeDir(g:python_w)<CR>:pwd<CR>
 map <Leader>cp :call ChangeDir(g:cplus_w)<CR>:pwd<CR>
 map <Leader>cw :call ChangeDir(g:c_w)<CR>:pwd<cr>
-
 " }}}
+
 " ***************************************** Mappings **************************************** {{{
 " ************************************************************************************************
 " map
@@ -292,11 +295,8 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 " }}}
-" Autohotkey 
-au BufNewFile,BufRead *.ahk	 setf autohotkey 
 
-command! -nargs=* Ev edit $MYVIMRC  "定义Vimrc 为编辑vimrc 命令
-
+" ***************************************** Function **************************************** {{{
 " 在浏览器预览 
 function! ViewInBrowser()
 	let file = expand("%:p")
@@ -307,6 +307,7 @@ function! ViewInBrowser()
 	endif
 	exec ":silent !start ". Browser file
 endfunction
+" }}}
 
 " ****************************************** Plugins **************************************** {{{
 " ************************************************************************************************
@@ -335,6 +336,7 @@ Bundle 'mattn/zencoding-vim'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
 Bundle 'kien/ctrlp.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'tpope/vim-surround'
@@ -414,8 +416,8 @@ let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 
 " ************************************************************************************************
 " plugin - NeoComplCache.vim    自动补全插件
-"http://www.vim.org/scripts/script.php?script_id=2620
-"https://github.com/Shougo/neocomplcache
+" http://www.vim.org/scripts/script.php?script_id=2620
+" https://github.com/Shougo/neocomplcache
 " ************************************************************************************************
 let g:neocomplcache_temporary_dir=$VIMFILES.'/Data/.neocon' 	"产生的临时文件保存的目录.默认值是 '~/.neocon'.
 let g:neocomplcache_snippets_dir=$VIMFILES.'/Data/snippets'
@@ -451,13 +453,8 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " 插件键映射.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" 类似于SuperTab用法 .
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " 推荐的键映射.
 " <CR>: close popup and save indent.
@@ -492,9 +489,39 @@ autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 if !exists('g:neocomplcache_omni_patterns')
 	let g:neocomplcache_omni_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+" let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+"ruby
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+" ************************************************************************************************
+" plugin - Neosnippet.vim    代码段
+" https://github.com/Shougo/neosnippet.vim
+" ************************************************************************************************
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 " ************************************************************************************************
 " plugin - NERD_commenter.vim   注释代码用的，

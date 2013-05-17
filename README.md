@@ -11,6 +11,7 @@
   * makeprgs
   * ctrlp.vim
   * neocomplcache
+  * neosnippet
   * nerdcommenter
   * nerdtree
   * vim-surround

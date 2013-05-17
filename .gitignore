@@ -1,4 +1,5 @@
 vim73/
+*.swp
 *.zip
 *.ahk
 *.exe
