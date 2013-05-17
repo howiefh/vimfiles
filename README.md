@@ -13,6 +13,7 @@
   * neocomplcache
   * nerdcommenter
   * nerdtree
+  * vim-surround
   * statusline.vim
   * tagbar
   * TxtBrowser

@@ -301,6 +301,7 @@ command! -nargs=* Ev edit $MYVIMRC  "定义Vimrc 为编辑vimrc 命令
 " 发现在Ubuntu中将encoding设置为 utf-8 会使中文帮助无法使用
 " https://github.com/gmarik/vundle/
 " https://github.com/mutewinter/dot_vim
+" https://github.com/kaochenlong/eddie-vim
 " ************************************************************************************************
 set nocompatible               " be iMproved
 filetype off                   " required!
@@ -323,6 +324,7 @@ Bundle 'majutsushi/tagbar'
 Bundle 'Shougo/neocomplcache'
 Bundle 'kien/ctrlp.vim'
 Bundle 'plasticboy/vim-markdown'
+Bundle 'tpope/vim-surround'
 Bundle 'howiefh/statusline'
 Bundle 'howiefh/c.vim'
 Bundle 'howiefh/makeprgs'
@@ -580,6 +582,7 @@ nnoremap <F6> :NumbersToggle<CR>
 " ************************************************************************************************
 au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
 let g:vim_markdown_folding_disabled=1
+autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>p :!start "C:\Program Files\Google\Chrome\Application\chrome.exe" "%:p"<CR> 
 
 " ************************************************************************************************
 " plugin – ZenCoding.vim 很酷的插件，HTML代码生成
