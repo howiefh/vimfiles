@@ -249,6 +249,7 @@ endfunction
 map <Leader>py :call ChangeDir(g:python_w)<CR>:pwd<CR>
 map <Leader>cp :call ChangeDir(g:cplus_w)<CR>:pwd<CR>
 map <Leader>cw :call ChangeDir(g:c_w)<CR>:pwd<cr>
+
 " }}}
 " ***************************************** Mappings **************************************** {{{
 " ************************************************************************************************
@@ -295,6 +296,18 @@ map <C-l> <C-W>l
 au BufNewFile,BufRead *.ahk	 setf autohotkey 
 
 command! -nargs=* Ev edit $MYVIMRC  "定义Vimrc 为编辑vimrc 命令
+
+" 在浏览器预览 
+function! ViewInBrowser()
+	let file = expand("%:p")
+	if g:OS#win
+		let Browser = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+	elseif g:OS#unix
+		let Browser = "chromium-browser"
+	endif
+	exec ":silent !start ". Browser file
+endfunction
+
 " ****************************************** Plugins **************************************** {{{
 " ************************************************************************************************
 " plugin –vundle.vim管理插件的插件   导致中文帮助无法使用 已经停用此插件改用pathogen.vim
@@ -361,6 +374,28 @@ if g:OS#win
     let g:tagbar_ctags_bin = "D:/PortableApps/Vim/ctags58/ctags.exe"
 endif
 let g:tagbar_width = 30
+" 自动打开
+autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
+
+" tagbar markdown
+let g:tagbar_type_markdown = {
+	\ 'ctagstype' : 'markdown',
+	\ 'kinds' : [
+		\ 'h:Heading_L1',
+		\ 'i:Heading_L2',
+		\ 'k:Heading_L3'
+	\ ]
+\ }
+" Tagbar txt
+let g:tagbar_type_txt = {
+    \ 'ctagstype': 'txt',
+    \ 'kinds' : [
+        \'c:content',
+		\'t:tables',
+		\'f:figures'
+    \],
+	\ 'sort'    : 0
+\}
 
 " ************************************************************************************************
 " plugin - bufexplorer.vim Buffers切换
@@ -508,15 +543,18 @@ au BufEnter *.txt setlocal ft=txt
 
 if g:OS#win
 "
-	"阅读txt            http://guoyoooping.blog.163.com/bl<F12><F12>og/static/135705183201003172751993/
+	"阅读txt            http://guoyoooping.blog.163.com/blog/static/135705183201003172751993/
 	let tlist_txt_settings = 'txt;c:content;f:figures;t:tables'
 	au BufRead,BufNewFile *.txt setlocal ft=txt nu formatoptions=t2crmB textwidth=152 bg& " 换行 折行
 	au BufRead,BufNewFile *.txt colo torte " default 
 	au BufRead,BufNewFile *.log setlocal ft=txt nu bg&
 	au BufRead,BufNewFile *.log colo torte "default desert
 	map <F9> :TGoto<CR> 
-	autocmd BufRead,BufNewFile *.html map <F10> :!start "C:/Program Files/Google/Chrome/Application/chrome.exe" "%:p"<CR>           " 用浏览器打开文件
+	autocmd BufRead,BufNewFile *.html map <F10> :call ViewInBrowser()<CR>           " 用浏览器打开文件
 "
+	if !exists('Tlist_Ctags_Cmd')
+		let Tlist_Ctags_Cmd = g:tagbar_ctags_bin
+	endif
 endif
 " ************************************************************************************************
 " plugin –fencview.vim自动识别编码
@@ -580,9 +618,9 @@ nnoremap <F6> :NumbersToggle<CR>
 " plugin – vim-markdown markdown高亮
 " https://github.com/plasticboy/vim-markdown
 " ************************************************************************************************
-au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
+au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
 let g:vim_markdown_folding_disabled=1
-autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>p :!start "C:\Program Files\Google\Chrome\Application\chrome.exe" "%:p"<CR> 
+autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>p :call ViewInBrowser()<CR>
 
 " ************************************************************************************************
 " plugin – ZenCoding.vim 很酷的插件，HTML代码生成
