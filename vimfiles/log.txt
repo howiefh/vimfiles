@@ -1,6 +1,10 @@
-﻿2013.5.16
+﻿2013.5.17
+1.vimfiles中添加ctags.cnf，添加了markdown和txt的规则
+2.vimrc中添加了 ViewInBrowser() 函数，可以在浏览器中打开正在编辑的文件
+
+2013.5.16
 1.移除mru.vim，pydiction-1.2，pyflakes-vim，html5.vim，vimwiki
-vimwiki:
+vimwiki:{{{
 let g:vimwiki_list = [
   \ {
     \ 'path'        : $BLOG,
@@ -74,7 +78,9 @@ call pathogen#runtime_append_all_bundles()
 command! -nargs=* HTags Helptags
 "定义目录
 "call pathogen#infect('c')
+}}}
 2.加入ctrlp.vim，vundle,matchit.zip,numbers.vim,vim-markdown
+
 version 1.2.15
 2012.3.12
 1.设置了tagbar插件 F6打开tagbar窗口
