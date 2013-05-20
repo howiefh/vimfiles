@@ -13,6 +13,7 @@ http://www.newsmth.net/bbsdoc.php?board=VIM
 	1.9 |myhelp-buffer切换|
 	2.0 |myhelp-文本加密|
 	2.1 |myhelp-modifiable|
+	2.2 |myhelp-map|
 2.插件--------------------------|myhelp-myplugin|
 	ctags-----------------------|myhelp-ctags|
 	taglist---------------------|myhelp-taglist|
@@ -381,6 +382,19 @@ set ma
 set noma
 禁止修改。
 
+*myhelp-map*
+F1      help
+F2      显示/隐藏工具栏
+F3			nerdtree开关
+F4			neocomplcache开关
+F5			
+F6			numbers插件开关
+F7
+F8
+F9			打开链接
+F10			浏览器打开正在编辑的html文件
+F11			tagbar开关
+F12			执行python
 
 *myhelp-myplugin*
 插件下载：
