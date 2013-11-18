@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ZenCoding-vim
 
 [zencoding-vim](http://mattn.github.com/zencoding-vim) is a vim plug-in
@@ -103,3 +104,6 @@ you can use set these options in `vimrc`:
 
 > <http://www.zfanw.com/blog/zencoding-vim-tutorial-chinese.html>
 
+=======
+This repository has moved to https://github.com/mattn/emmet-vim
+>>>>>>> 83a283b17c1d680ff648d577add77055a7a14c54

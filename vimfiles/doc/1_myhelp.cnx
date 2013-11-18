@@ -27,6 +27,7 @@ http://www.newsmth.net/bbsdoc.php?board=VIM
 	drawit----------------------|myhelp-画图|
 	sketch----------------------|myhelp-鼠标画图|
 	mru-------------------------|myhelp-打开历史文件|
+	surround--------------------|myhelp-surround|
 
 *myhelp-基本操作*
 一般模式： 移动光标的方法 
@@ -919,5 +920,28 @@ sketch.vim画图
 
 *myhelp-打开历史文件*
 :MRU
+
+*myhelp-surround*
+修改符号
+
+以下例子中 * 表示光标位置。
+
+“hello w*orld” → cs"' → ‘hello world’
+
+可以把 cs 理解为 change surround，把 ” 修改为 ‘。
+
+‘hello wor*ld’ → cs‘<q> → <q>hello world</q>
+
+<q>hello *world</q> → cst" → “hello world”
+
+cst 表示 change surround tag，t 表示 xml/html 成对出现的标签。
+删除符号
+
+类于修改符号，删除只是换个按键，把 c 换成 d。则要删除包围的双引号可以用 ds” – delete surround “，要删除标签对，则用 dst – delete surround tag。
+增加符号
+
+如果要增加符号，比如字符串 hello，要用双引号包围，则可以按 ysiw"，按 surround.vim 帮助说明，可以把 y 记忆成 you，于是 ysiw" 意指 you surround inner word “，同理，要用标签对的话则是按 ysiw<p>，另外，surround.vim 还提供包围整行的方法，yss" – you surround sentence “；至于在增加 [] () <> 这样的符号时，有一点小小区别，比如 hello 这个单词，ysiw[ 会生成 [ hello ]，ysiw] 会成生 [hello]，hello 前后少一个空格，删除、修改亦然。
+
+如果要包围单行里的两个单词甚至更多，则可以使用可视模式，先进入 vim 的可视化模式选中要包围的单词，然后按 S" 就可以把这些单词用双引号包围。
 vim:tw=78:noet:ts=2:ft=help:
 

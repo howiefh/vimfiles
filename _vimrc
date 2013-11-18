@@ -252,6 +252,10 @@ endfunction
 map <Leader>py :call ChangeDir(g:python_w)<CR>:pwd<CR>
 map <Leader>cp :call ChangeDir(g:cplus_w)<CR>:pwd<CR>
 map <Leader>cw :call ChangeDir(g:c_w)<CR>:pwd<cr>
+
+" ต๗สิ
+amenu icon=$VIMFILES."/gdbrun.bmp" ToolBar.Run :Crun<cr>
+tmenu ToolBar.Run	Start debug
 " }}}
 
 " ***************************************** Mappings **************************************** {{{
@@ -302,10 +306,11 @@ function! ViewInBrowser()
 	let file = expand("%:p")
 	if g:OS#win
 		let Browser = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+		exec ":silent !start ". Browser file
 	elseif g:OS#unix
-		let Browser = "chromium-browser"
+		let Browser = "/usr/bin/chromium-browser"
+		exec ":silent !". Browser file
 	endif
-	exec ":silent !start ". Browser file
 endfunction
 " }}}
 
