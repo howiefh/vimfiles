@@ -10,7 +10,7 @@
 "																	   	 |- |- |\||-.  |-| /_\ | |
 "																		 '  '--' ''-'  ' ''   '`-'	
 " ************************************************************************************************
-" ÉèÖÃµ±Ç°ÏµÍ³  {{{
+" è®¾ç½®å½“å‰ç³»ç»Ÿ  {{{
 " 
 if has("win32") || has("win32unix")
     let g:OS#name = "win"
@@ -68,56 +68,56 @@ endif
 
 " ****************************************** Settings *************************************** {{{
 " ************************************************************************************************
-"  »ù±¾ÉèÖÃ
+"  åŸºæœ¬è®¾ç½®
 " ************************************************************************************************
 
-set nocompatible            " ¹Ø±Õ vi ¼æÈİÄ£Ê½
-syntax on                   " ×Ô¶¯Óï·¨¸ßÁÁ
-"colorscheme torte           "ÅäÖÃÑÕÉ«·½°¸
-set number                  " ÏÔÊ¾ĞĞºÅ
-set cursorline              " Í»³öÏÔÊ¾µ±Ç°ĞĞ
-set wildmenu				 "Turn on WiLd menu ÔÚÄ©ĞĞÃüÁîĞĞÇÃtab¼üÊ±»áÔÚ×´Ì¬À¸ÏÔÊ¾Ñ¡Ïî
-set whichwrap+=h,l			"Bbackspace and cursor keys wrap to Ê¹Ö¸¶¨µÄ×óÓÒÒÆ¶¯¹â±êµÄ¼üÔÚĞĞÊ×»òĞĞÎ²¿ÉÒÔÒÆµ½Ç°Ò»ĞĞ»òÕßºóÒ»ĞĞ
-set so=7					 "Set 7 lines to the curors - when moving vertical..¹â±êËùÔÚµÄĞĞ½«×Ü¶¨Î»ÔÚ´°¿ÚµÄµÚ7µÄÎ»ÖÃ 
-"set ruler                   " ´ò¿ª×´Ì¬À¸±ê³ß
-set shiftwidth=4            " Éè¶¨ << ºÍ >> ÃüÁîÒÆ¶¯Ê±µÄ¿í¶ÈÎª 4
-set softtabstop=4           " Ê¹µÃ°´ÍË¸ñ¼üÊ±¿ÉÒÔÒ»´ÎÉ¾µô 4 ¸ö¿Õ¸ñ
-set tabstop=4               " Éè¶¨ tab ³¤¶ÈÎª 4
-set nobackup                " ¸²¸ÇÎÄ¼şÊ±²»±¸·İ
-set autochdir               " ×Ô¶¯ÇĞ»»µ±Ç°Ä¿Â¼Îªµ±Ç°ÎÄ¼şËùÔÚµÄÄ¿Â¼
-filetype plugin indent on   " ¿ªÆôÎÄ¼ş¼ì²â 
-set backupcopy=yes          " ÉèÖÃ±¸·İÊ±µÄĞĞÎªÎª¸²¸Ç
-set ignorecase smartcase    " ËÑË÷Ê±ºöÂÔ´óĞ¡Ğ´£¬µ«ÔÚÓĞÒ»¸ö»òÒÔÉÏ´óĞ´×ÖÄ¸Ê±ÈÔ±£³Ö¶Ô´óĞ¡Ğ´Ãô¸Ğ
-" set nowrapscan              " ½ûÖ¹ÔÚËÑË÷µ½ÎÄ¼şÁ½¶ËÊ±ÖØĞÂËÑË÷
-set incsearch               " ÊäÈëËÑË÷ÄÚÈİÊ±¾ÍÏÔÊ¾ËÑË÷½á¹û
-set hlsearch                " ËÑË÷Ê±¸ßÁÁÏÔÊ¾±»ÕÒµ½µÄÎÄ±¾
-set noerrorbells            " ¹Ø±Õ´íÎóĞÅÏ¢ÏìÁå
-set novisualbell            " ¹Ø±ÕÊ¹ÓÃ¿ÉÊÓÏìÁå´úÌæºô½Ğ
-set t_vb=                   " ÖÃ¿Õ´íÎóÁåÉùµÄÖÕ¶Ë´úÂë
-set showmatch               " ²åÈëÀ¨ºÅÊ±£¬¶ÌÔİµØÌø×ªµ½Æ¥ÅäµÄ¶ÔÓ¦À¨ºÅ
-set showcmd		    "±ê³ßµÄÓÒ±ßÏÔÊ¾Î´Íê³ÉµÄÃüÁî
-set matchtime=2             " ¶ÌÔİÌø×ªµ½Æ¥ÅäÀ¨ºÅµÄÊ±¼ä
-set magic                   " ÉèÖÃÄ§Êõ
-set hidden                  " ÔÊĞíÔÚÓĞÎ´±£´æµÄĞŞ¸ÄÊ±ÇĞ»»»º³åÇø£¬´ËÊ±µÄĞŞ¸ÄÓÉ vim ¸ºÔğ±£´æ
-set helplang=cn				"ÉèÖÃÖĞÎÄ°ïÖú
-set smartindent             " ¿ªÆôĞÂĞĞÊ±Ê¹ÓÃÖÇÄÜ×Ô¶¯Ëõ½ø
-"set autoindent                 "×Ô¶¯Ëõ½ø
-set backspace=indent,eol,start                            " ²»Éè¶¨µÄ»°ÔÚ²åÈë×´Ì¬ÎŞ·¨ÓÃÍË¸ñ¼üºÍ Delete ¼üÉ¾³ı»Ø³µ·û
-setlocal noswapfile        " ½ûÓÃswf½»»»ÎÄ¼ş
-set viminfo+=n$VIMFILES/Data/.viminfo    "ÉèÖÃviminfoµÄÂ·¾¶
-"ÏÔÊ¾³¤ĞĞ begin
+set nocompatible            " å…³é—­ vi å…¼å®¹æ¨¡å¼
+syntax on                   " è‡ªåŠ¨è¯­æ³•é«˜äº®
+"colorscheme torte           "é…ç½®é¢œè‰²æ–¹æ¡ˆ
+set number                  " æ˜¾ç¤ºè¡Œå·
+set cursorline              " çªå‡ºæ˜¾ç¤ºå½“å‰è¡Œ
+set wildmenu				 "Turn on WiLd menu åœ¨æœ«è¡Œå‘½ä»¤è¡Œæ•²tabé”®æ—¶ä¼šåœ¨çŠ¶æ€æ æ˜¾ç¤ºé€‰é¡¹
+set whichwrap+=h,l			"Bbackspace and cursor keys wrap to ä½¿æŒ‡å®šçš„å·¦å³ç§»åŠ¨å…‰æ ‡çš„é”®åœ¨è¡Œé¦–æˆ–è¡Œå°¾å¯ä»¥ç§»åˆ°å‰ä¸€è¡Œæˆ–è€…åä¸€è¡Œ
+set so=7					 "Set 7 lines to the curors - when moving vertical..å…‰æ ‡æ‰€åœ¨çš„è¡Œå°†æ€»å®šä½åœ¨çª—å£çš„ç¬¬7çš„ä½ç½® 
+"set ruler                   " æ‰“å¼€çŠ¶æ€æ æ ‡å°º
+set shiftwidth=4            " è®¾å®š << å’Œ >> å‘½ä»¤ç§»åŠ¨æ—¶çš„å®½åº¦ä¸º 4
+set softtabstop=4           " ä½¿å¾—æŒ‰é€€æ ¼é”®æ—¶å¯ä»¥ä¸€æ¬¡åˆ æ‰ 4 ä¸ªç©ºæ ¼
+set tabstop=4               " è®¾å®š tab é•¿åº¦ä¸º 4
+set nobackup                " è¦†ç›–æ–‡ä»¶æ—¶ä¸å¤‡ä»½
+set autochdir               " è‡ªåŠ¨åˆ‡æ¢å½“å‰ç›®å½•ä¸ºå½“å‰æ–‡ä»¶æ‰€åœ¨çš„ç›®å½•
+filetype plugin indent on   " å¼€å¯æ–‡ä»¶æ£€æµ‹ 
+set backupcopy=yes          " è®¾ç½®å¤‡ä»½æ—¶çš„è¡Œä¸ºä¸ºè¦†ç›–
+set ignorecase smartcase    " æœç´¢æ—¶å¿½ç•¥å¤§å°å†™ï¼Œä½†åœ¨æœ‰ä¸€ä¸ªæˆ–ä»¥ä¸Šå¤§å†™å­—æ¯æ—¶ä»ä¿æŒå¯¹å¤§å°å†™æ•æ„Ÿ
+" set nowrapscan              " ç¦æ­¢åœ¨æœç´¢åˆ°æ–‡ä»¶ä¸¤ç«¯æ—¶é‡æ–°æœç´¢
+set incsearch               " è¾“å…¥æœç´¢å†…å®¹æ—¶å°±æ˜¾ç¤ºæœç´¢ç»“æœ
+set hlsearch                " æœç´¢æ—¶é«˜äº®æ˜¾ç¤ºè¢«æ‰¾åˆ°çš„æ–‡æœ¬
+set noerrorbells            " å…³é—­é”™è¯¯ä¿¡æ¯å“é“ƒ
+set novisualbell            " å…³é—­ä½¿ç”¨å¯è§†å“é“ƒä»£æ›¿å‘¼å«
+set t_vb=                   " ç½®ç©ºé”™è¯¯é“ƒå£°çš„ç»ˆç«¯ä»£ç 
+set showmatch               " æ’å…¥æ‹¬å·æ—¶ï¼ŒçŸ­æš‚åœ°è·³è½¬åˆ°åŒ¹é…çš„å¯¹åº”æ‹¬å·
+set showcmd		    "æ ‡å°ºçš„å³è¾¹æ˜¾ç¤ºæœªå®Œæˆçš„å‘½ä»¤
+set matchtime=2             " çŸ­æš‚è·³è½¬åˆ°åŒ¹é…æ‹¬å·çš„æ—¶é—´
+set magic                   " è®¾ç½®é­”æœ¯
+set hidden                  " å…è®¸åœ¨æœ‰æœªä¿å­˜çš„ä¿®æ”¹æ—¶åˆ‡æ¢ç¼“å†²åŒºï¼Œæ­¤æ—¶çš„ä¿®æ”¹ç”± vim è´Ÿè´£ä¿å­˜
+set helplang=cn				"è®¾ç½®ä¸­æ–‡å¸®åŠ©
+set smartindent             " å¼€å¯æ–°è¡Œæ—¶ä½¿ç”¨æ™ºèƒ½è‡ªåŠ¨ç¼©è¿›
+"set autoindent                 "è‡ªåŠ¨ç¼©è¿›
+set backspace=indent,eol,start                            " ä¸è®¾å®šçš„è¯åœ¨æ’å…¥çŠ¶æ€æ— æ³•ç”¨é€€æ ¼é”®å’Œ Delete é”®åˆ é™¤å›è½¦ç¬¦
+setlocal noswapfile        " ç¦ç”¨swfäº¤æ¢æ–‡ä»¶
+set viminfo+=n$VIMFILES/Data/.viminfo    "è®¾ç½®viminfoçš„è·¯å¾„
+"æ˜¾ç¤ºé•¿è¡Œ begin
 set display=lastline                
 nmap j gj
 nmap k gk
-"ÏÔÊ¾³¤ĞĞ end
+"æ˜¾ç¤ºé•¿è¡Œ end
 
 " ************************************************************************************************
 
-" gvim ²Ëµ¥À¸Óë¹¤¾ßÀ¸Òş²ØÓëÏÔÊ¾¶¯Ì¬ÇĞ»»
+" gvim èœå•æ ä¸å·¥å…·æ éšè—ä¸æ˜¾ç¤ºåŠ¨æ€åˆ‡æ¢
 " Toggle Menu and Toolbar
 if g:OS#gui
-	set guioptions-=m			 " Òş²Ø²Ëµ¥À¸
-	set guioptions-=T			" Òş²Ø¹¤¾ßÀ¸
+	set guioptions-=m			 " éšè—èœå•æ 
+	set guioptions-=T			" éšè—å·¥å…·æ 
 	map <silent> <F2> :if &guioptions =~# 'T' <Bar>
 			\set guioptions-=T <Bar>
 			\set guioptions-=m <bar>
@@ -127,14 +127,14 @@ if g:OS#gui
 		\endif<cr>
 endif
 
-" ÅäÉ«·½°¸
+" é…è‰²æ–¹æ¡ˆ
 if g:OS#gui
-	colorscheme torte           "ÅäÖÃÑÕÉ«·½°¸
+	colorscheme torte           "é…ç½®é¢œè‰²æ–¹æ¡ˆ
 else
-	colorscheme ManShow           "ÅäÖÃÑÕÉ«·½°¸
+	colorscheme ManShow           "é…ç½®é¢œè‰²æ–¹æ¡ˆ
 endif
 
-" ÓÃÓÃ»§Ä¿Â¼
+" ç”¨ç”¨æˆ·ç›®å½•
 if g:OS#win
     let $VIMFILES = $VIM.'/vimfiles'
 	let $HOME = $VIMFILES
@@ -145,32 +145,32 @@ elseif g:OS#unix
 	let $BLOG = "/media/WinE/User/Documents/howiefh.github.io"
 endif
 
-" ÉèÖÃ×ÖÌå ÒÔ¼°ÖĞÎÄÖ§³Ö
+" è®¾ç½®å­—ä½“ ä»¥åŠä¸­æ–‡æ”¯æŒ
 if g:OS#win
-    set guifont=ËÎÌå:h12:cANSI
+    set guifont=å®‹ä½“:h12:cANSI
 endif
 
-" ½â¾öwin7ÏÂ¡°Press Enter or type command to continue¡±ÌáÊ¾
+" è§£å†³win7ä¸‹â€œPress Enter or type command to continueâ€æç¤º
 if g:OS#win
     silent!
 endif 
 
-" ÉèÖÃÆô¶¯Ê±´°¿Ú×î´ó»¯  linuxÏÂÈç¹ûÒª´°¿Ú×î´ó»¯²Î¼û£ºhttp://uniharmony.blog.163.com/blog/static/4617437620087310345373/
+" è®¾ç½®å¯åŠ¨æ—¶çª—å£æœ€å¤§åŒ–  linuxä¸‹å¦‚æœè¦çª—å£æœ€å¤§åŒ–å‚è§ï¼šhttp://uniharmony.blog.163.com/blog/static/4617437620087310345373/
 if g:OS#win
-    " Æô¶¯×î´ó»¯
-    " winsize 1024 768 "°Ñ´°¿ÚÉèÎª ¿í£º1024 ¸ß£º768  ÒÑ·ÏÆú
+    " å¯åŠ¨æœ€å¤§åŒ–
+    " winsize 1024 768 "æŠŠçª—å£è®¾ä¸º å®½ï¼š1024 é«˜ï¼š768  å·²åºŸå¼ƒ
 	set lines=28 columns=130
-   " au GUIEnter * simalt ~x   "´ò¿ª´°¿ÚºóÄ£Äâ£¨simalt ~x£©alt ¿Õ¸ñ x ×éºÏ¼ü £¨×î´ó»¯´°¿Ú£©
-    au GUIEnter * winpos 200 140   "´ò¿ª´°¿Úºó ½«´°¿Ú ¶¨Î»µ½ 200 140 
+   " au GUIEnter * simalt ~x   "æ‰“å¼€çª—å£åæ¨¡æ‹Ÿï¼ˆsimalt ~xï¼‰alt ç©ºæ ¼ x ç»„åˆé”® ï¼ˆæœ€å¤§åŒ–çª—å£ï¼‰
+    au GUIEnter * winpos 200 140   "æ‰“å¼€çª—å£å å°†çª—å£ å®šä½åˆ° 200 140 
  endif
 
-" ÉèÖÃ´°¿ÚÄ¬ÈÏ´óĞ¡¡£
+" è®¾ç½®çª—å£é»˜è®¤å¤§å°ã€‚
 if g:OS#unix
 	set columns=100
 	set lines=30
 endif
 
-" ÅäÖÃ¶àÓïÑÔ»·¾³
+" é…ç½®å¤šè¯­è¨€ç¯å¢ƒ
 if has("multi_byte")
 	if g:OS#win
         " set fileencoding=cp936
@@ -185,7 +185,7 @@ if has("multi_byte")
 	source $VIMRUNTIME/delmenu.vim
 	source $VIMRUNTIME/menu.vim
     if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
-		" ÉèÖÃ¿í¶È²»Ã÷µÄÎÄ×Ö(Èç ¡°¡±¢Ù¢Ú¡ú )ÎªË«¿í¶ÈÎÄ±¾¡£
+		" è®¾ç½®å®½åº¦ä¸æ˜çš„æ–‡å­—(å¦‚ â€œâ€â‘ â‘¡â†’ )ä¸ºåŒå®½åº¦æ–‡æœ¬ã€‚
 		" @see http://blog.sina.com.cn/s/blog_46dac66f010006db.html
         set ambiwidth=double
     endif  
@@ -193,20 +193,20 @@ else
     echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
  
-"ÉèÖÃÁËctrl+c  ctrl+vµÈ±ê×¼windows²Ù×÷
+"è®¾ç½®äº†ctrl+c  ctrl+vç­‰æ ‡å‡†windowsæ“ä½œ
 source $VIMRUNTIME/mswin.vim
 behave mswin
  
-"´ò¿ªÎÄ¼ş¶¨Î»µ½¹Ø±ÕÊ±µÄÎ»ÖÃ
+"æ‰“å¼€æ–‡ä»¶å®šä½åˆ°å…³é—­æ—¶çš„ä½ç½®
 autocmd BufReadPost *
 			\ if line("'\"") > 0 && line ("'\"") <= line("$") |
 			\ exe "normal g'\"" |
 			\ endif |
  
-" ¶¨ÒåEvÎª±à¼­vimrc ÃüÁî
+" å®šä¹‰Evä¸ºç¼–è¾‘vimrc å‘½ä»¤
 command! -nargs=* Ev edit $MYVIMRC  
 
-" Ò»µ©vim´°¿ÚÊ§È¥½¹µã£¬¼´ÄãÇĞ»»µ½ÆäËû´°¿Ú£¬vim±à¼­ÎÄ¼ş¾Í»á×Ô¶¯±£´æĞŞ¸ÄµÄÎÄ¼ş
+" ä¸€æ—¦vimçª—å£å¤±å»ç„¦ç‚¹ï¼Œå³ä½ åˆ‡æ¢åˆ°å…¶ä»–çª—å£ï¼Œvimç¼–è¾‘æ–‡ä»¶å°±ä¼šè‡ªåŠ¨ä¿å­˜ä¿®æ”¹çš„æ–‡ä»¶
 au FocusLost * silent! up 
 
 " ************************************************************************************************
@@ -214,7 +214,7 @@ au FocusLost * silent! up
 " Autohotkey 
 au BufNewFile,BufRead *.ahk	 setf autohotkey 
 
-"×ÖµäÄ¿Â¼
+"å­—å…¸ç›®å½•
 "au FileType txt setlocal dict+=$VIM/vimfiles/Data/dictionary/zh_CN.dic
 "au FileType txt setlocal dict+=$VIM/vimfiles/Data/dictionary/eng_small.dic
 "au FileType tex setlocal dict+=$VIM/vimfiles/Data/dictionary/latex.dic
@@ -223,26 +223,33 @@ au FileType html setlocal dict+=$VIM/vimfiles/Data/dictionary/html.dic
 
 " for Java  http://mytc.5d6d.com/thread-5032-1-1.html
 " makeprgs.Vim 
-" ÒÔÏÂµÄÉèÖÃÃ»ÓĞĞ§¹û
+" ä»¥ä¸‹çš„è®¾ç½®æ²¡æœ‰æ•ˆæœ
 "autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 "setlocal completefunc=javacomplete#CompleteParamsInfo
 "inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P> 
 "inoremap <buffer> <C-S-Space> <C-X><C-U><C-P>
 
-" Python ÎÄ¼şµÄÒ»°ãÉèÖÃ£¬±ÈÈç²»Òª tab µÈ
+" Python æ–‡ä»¶çš„ä¸€èˆ¬è®¾ç½®ï¼Œæ¯”å¦‚ä¸è¦ tab ç­‰
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab
 autocmd FileType python map <F12> :!python %<CR>
+" å¼€å¯å¾ˆå¤šå¯¹ä¸è§„èŒƒçš„Pythonè¯­æ³•çš„è­¦å‘Šæç¤º http://linux.cn/article-256-1.html
+let python_no_builtin_highlight = 1
+let python_no_doctest_code_highlight = 1
+let python_no_doctest_highlight = 1
+let python_no_exception_highlight = 1
+let python_no_number_highlight = 1
+let python_space_error_highlight = 1
 
-" ÇĞ»»c¡¢c++¡¢python¹¤×÷Ä¿Â¼
+" åˆ‡æ¢cã€c++ã€pythonå·¥ä½œç›®å½•
 if g:OS#win
 	let g:python_w = "D:/User/Documents/Program/Python"
 	let g:cplus_w="D:/User/Documents/Program/c++"
 	let g:c_w="D:/User/Documents/Program/c"
 endif
 if g:OS#unix
-	let g:python_w = "~/ÎÄµµ/Program/Python"
-	let g:cplus_w="~/ÎÄµµ/Program/C++"
-	let g:c_w="~/ÎÄµµ/Program/C"
+	let g:python_w = "~/æ–‡æ¡£/Program/Python"
+	let g:cplus_w="~/æ–‡æ¡£/Program/C++"
+	let g:c_w="~/æ–‡æ¡£/Program/C"
 endif
 
 function ChangeDir(dir) 
@@ -253,7 +260,7 @@ map <Leader>py :call ChangeDir(g:python_w)<CR>:pwd<CR>
 map <Leader>cp :call ChangeDir(g:cplus_w)<CR>:pwd<CR>
 map <Leader>cw :call ChangeDir(g:c_w)<CR>:pwd<cr>
 
-" µ÷ÊÔ
+" è°ƒè¯•
 amenu icon=$VIMFILES."/gdbrun.bmp" ToolBar.Run :Crun<cr>
 tmenu ToolBar.Run	Start debug
 " }}}
@@ -263,23 +270,23 @@ tmenu ToolBar.Run	Start debug
 " map
 " ************************************************************************************************
 map <S-RETURN> <Esc>o 
-" µ±Ç°ĞĞÏÂĞÂÆğÒ»ĞĞ
+" å½“å‰è¡Œä¸‹æ–°èµ·ä¸€è¡Œ
 nnoremap <Esc> :noh<CR><Esc>
-"È¥µô¸ßÁÁ
+"å»æ‰é«˜äº®
 imap jj <Esc>
-"Ó³Éäesc¼üÎªjj
+"æ˜ å°„escé”®ä¸ºjj
 nnoremap <Leader>w :w!<cr>
-"Ó³ÉäwwÎª±£´æ
+"æ˜ å°„wwä¸ºä¿å­˜
 
-" Buffers²Ù×÷¿ì½İ·½Ê½!
+" Buffersæ“ä½œå¿«æ·æ–¹å¼!
 nnoremap <C-RETURN> :bnext<CR>
 nnoremap <C-S-RETURN> :bprevious<CR>
 
-" Tab²Ù×÷¿ì½İ·½Ê½!
+" Tabæ“ä½œå¿«æ·æ–¹å¼!
 nnoremap <C-TAB> :tabnext<CR>
 nnoremap <C-S-TAB> :tabprev<CR>
 
-"Ò»Ğ©²»´íµÄÓ³Éä×ª»»Óï·¨£¨Èç¹ûÔÚÒ»¸öÎÄ¼şÖĞ»ìºÏÁË²»Í¬ÓïÑÔÊ±ÓĞÓÃ£©
+"ä¸€äº›ä¸é”™çš„æ˜ å°„è½¬æ¢è¯­æ³•ï¼ˆå¦‚æœåœ¨ä¸€ä¸ªæ–‡ä»¶ä¸­æ··åˆäº†ä¸åŒè¯­è¨€æ—¶æœ‰ç”¨ï¼‰
 map <leader>1 :set filetype=xhtml<CR>
 map <leader>2 :set filetype=css<CR>
 map <leader>3 :set filetype=javascript<CR>
@@ -291,9 +298,9 @@ set fileformats=unix,dos,mac
 nmap <leader>fd :se fileformat=dos<CR>
 nmap <leader>fu :se fileformat=unix<CR>
 
-"´°¿Ú·Ö¸îÊ±,½øĞĞÇĞ»»µÄ°´¼üÈÈ¼üĞèÒªÁ¬½ÓÁ½´Î,±ÈÈç´ÓÏÂ·½´°¿ÚÒÆ¶¯
-"¹â±êµ½ÉÏ·½´°¿Ú,ĞèÒª<c-w><c-w>k,·Ç³£Âé·³,ÏÖÔÚÖØÓ³ÉäÎª<c-k>,ÇĞ»»µÄ
-"Ê±ºò»á±äµÃ·Ç³£·½±ã.
+"çª—å£åˆ†å‰²æ—¶,è¿›è¡Œåˆ‡æ¢çš„æŒ‰é”®çƒ­é”®éœ€è¦è¿æ¥ä¸¤æ¬¡,æ¯”å¦‚ä»ä¸‹æ–¹çª—å£ç§»åŠ¨
+"å…‰æ ‡åˆ°ä¸Šæ–¹çª—å£,éœ€è¦<c-w><c-w>k,éå¸¸éº»çƒ¦,ç°åœ¨é‡æ˜ å°„ä¸º<c-k>,åˆ‡æ¢çš„
+"æ—¶å€™ä¼šå˜å¾—éå¸¸æ–¹ä¾¿.
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
@@ -301,7 +308,7 @@ map <C-l> <C-W>l
 " }}}
 
 " ***************************************** Function **************************************** {{{
-" ÔÚä¯ÀÀÆ÷Ô¤ÀÀ 
+" åœ¨æµè§ˆå™¨é¢„è§ˆ 
 function! ViewInBrowser()
 	let file = expand("%:p")
 	if g:OS#win
@@ -316,8 +323,8 @@ endfunction
 
 " ****************************************** Plugins **************************************** {{{
 " ************************************************************************************************
-" plugin ¨Cvundle.vim¹ÜÀí²å¼şµÄ²å¼ş   µ¼ÖÂÖĞÎÄ°ïÖúÎŞ·¨Ê¹ÓÃ ÒÑ¾­Í£ÓÃ´Ë²å¼ş¸ÄÓÃpathogen.vim
-" ·¢ÏÖÔÚUbuntuÖĞ½«encodingÉèÖÃÎª utf-8 »áÊ¹ÖĞÎÄ°ïÖúÎŞ·¨Ê¹ÓÃ
+" plugin â€“vundle.vimç®¡ç†æ’ä»¶çš„æ’ä»¶   å¯¼è‡´ä¸­æ–‡å¸®åŠ©æ— æ³•ä½¿ç”¨ å·²ç»åœç”¨æ­¤æ’ä»¶æ”¹ç”¨pathogen.vim
+" å‘ç°åœ¨Ubuntuä¸­å°†encodingè®¾ç½®ä¸º utf-8 ä¼šä½¿ä¸­æ–‡å¸®åŠ©æ— æ³•ä½¿ç”¨
 " https://github.com/gmarik/vundle/
 " https://github.com/mutewinter/dot_vim
 " https://github.com/kaochenlong/eddie-vim
@@ -345,6 +352,7 @@ Bundle 'Shougo/neosnippet'
 Bundle 'kien/ctrlp.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'tpope/vim-surround'
+Bundle 'terryma/vim-multiple-cursors'
 Bundle 'howiefh/statusline'
 Bundle 'howiefh/c.vim'
 Bundle 'howiefh/makeprgs'
@@ -373,7 +381,7 @@ filetype plugin indent on     " required!
 " NOTE: comments after Bundle command are not allowed..
 
 " ************************************************************************************************
-" plugin - tagbar.vim ²é¿´º¯ÊıÁĞ±í£¬ĞèÒªctags³ÌĞò  taglist µÄÍ¬ÀàÈí¼ş
+" plugin - tagbar.vim æŸ¥çœ‹å‡½æ•°åˆ—è¡¨ï¼Œéœ€è¦ctagsç¨‹åº  taglist çš„åŒç±»è½¯ä»¶
 " http://www.vim.org/scripts/script.php?script_id=3465
 " ************************************************************************************************
 nmap <silent> <F11> :TagbarToggle<CR>
@@ -381,7 +389,7 @@ if g:OS#win
     let g:tagbar_ctags_bin = "D:/PortableApps/Vim/ctags58/ctags.exe"
 endif
 let g:tagbar_width = 30
-" ×Ô¶¯´ò¿ª
+" è‡ªåŠ¨æ‰“å¼€
 autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 
 " tagbar markdown
@@ -405,10 +413,10 @@ let g:tagbar_type_txt = {
 \}
 
 " ************************************************************************************************
-" plugin - bufexplorer.vim BuffersÇĞ»»
+" plugin - bufexplorer.vim Buffersåˆ‡æ¢
 " http://www.vim.org/scripts/script.php?script_id=42 
-" \be È«ÆÁ·½Ê½²é¿´È«²¿´ò¿ªµÄÎÄ¼şÁĞ±í
-" \bv ×óÓÒ·½Ê½²é¿´   \bs ÉÏÏÂ·½Ê½²é¿´
+" \be å…¨å±æ–¹å¼æŸ¥çœ‹å…¨éƒ¨æ‰“å¼€çš„æ–‡ä»¶åˆ—è¡¨
+" \bv å·¦å³æ–¹å¼æŸ¥çœ‹   \bs ä¸Šä¸‹æ–¹å¼æŸ¥çœ‹
 " ************************************************************************************************
 "
 let g:bufExplorerDefaultHelp=0       " Do not show default help.
@@ -420,50 +428,50 @@ let g:bufExplorerSplitVertSize = 30  " Split width
 let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 
 " ************************************************************************************************
-" plugin - NeoComplCache.vim    ×Ô¶¯²¹È«²å¼ş
+" plugin - NeoComplCache.vim    è‡ªåŠ¨è¡¥å…¨æ’ä»¶
 " http://www.vim.org/scripts/script.php?script_id=2620
 " https://github.com/Shougo/neocomplcache
 " ************************************************************************************************
-let g:neocomplcache_temporary_dir=$VIMFILES.'/Data/.neocon' 	"²úÉúµÄÁÙÊ±ÎÄ¼ş±£´æµÄÄ¿Â¼.Ä¬ÈÏÖµÊÇ '~/.neocon'.
+let g:neocomplcache_temporary_dir=$VIMFILES.'/Data/.neocon' 	"äº§ç”Ÿçš„ä¸´æ—¶æ–‡ä»¶ä¿å­˜çš„ç›®å½•.é»˜è®¤å€¼æ˜¯ '~/.neocon'.
 let g:neocomplcache_snippets_dir=$VIMFILES.'/Data/snippets'
-" neocomplcache¿ª¹Ø.
+" neocomplcacheå¼€å…³.
 map <F4> :NeoComplCacheToggle<CR>				
 imap <F4> <ESC>:NeoComplCacheToggle<CR>a
 
-" Í£ÓÃ AutoComplPop.
+" åœç”¨ AutoComplPop.
 " let g:acp_enableAtStartup = 0
-" ÆôÓÃ neocomplcache.  1ÊÇ´ò¿ª 
+" å¯ç”¨ neocomplcache.  1æ˜¯æ‰“å¼€ 
 let g:neocomplcache_enable_at_startup = 1
-" ÆôÓÃ smartcase. ½öµ±ÊäÈë´óĞ´×ÖÄ¸Ê±£¬Çø·Ö´óĞ¡Ğ´ 
+" å¯ç”¨ smartcase. ä»…å½“è¾“å…¥å¤§å†™å­—æ¯æ—¶ï¼ŒåŒºåˆ†å¤§å°å†™ 
 " let g:neocomplcache_enable_smart_case = 1
-" ÆôÓÃ´óĞ´×ÖÄ¸²¹È«.ÊäÈë´óĞ´×ÖÄ¸Ê±, ½øĞĞÄ£ºıËÑË÷¿ÉÄÜĞÔ´ÊÓï  ÀıÈç£¬µ±ÊäÈëAEÊ±»áÆ¥ÅäArgumentsException¡£
+" å¯ç”¨å¤§å†™å­—æ¯è¡¥å…¨.è¾“å…¥å¤§å†™å­—æ¯æ—¶, è¿›è¡Œæ¨¡ç³Šæœç´¢å¯èƒ½æ€§è¯è¯­  ä¾‹å¦‚ï¼Œå½“è¾“å…¥AEæ—¶ä¼šåŒ¹é…ArgumentsExceptionã€‚
 let g:neocomplcache_enable_camel_case_completion = 1
-" ÆôÓÃÏÂ»®Ïß²¹È«.½øĞĞÄ£ºıËÑË÷Æ¥ÅäµÄ´Ê¡£ÀıÈç,µ±ÊäÈë'p_h'Ê±»áÆ¥Åä'public_html'¡£Ä¬ÈÏÖµÊÇ 0
+" å¯ç”¨ä¸‹åˆ’çº¿è¡¥å…¨.è¿›è¡Œæ¨¡ç³Šæœç´¢åŒ¹é…çš„è¯ã€‚ä¾‹å¦‚,å½“è¾“å…¥'p_h'æ—¶ä¼šåŒ¹é…'public_html'ã€‚é»˜è®¤å€¼æ˜¯ 0
 let g:neocomplcache_enable_underbar_completion = 1
-" Éè¶¨×îĞ¡Óï·¨¹Ø¼ü´Ê³¤¶È.
+" è®¾å®šæœ€å°è¯­æ³•å…³é”®è¯é•¿åº¦.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-" ¶¨Òå×Öµä.
+" å®šä¹‰å­—å…¸.
 "let g:neocomplcache_dictionary_filetype_lists = {
 "	\ 'default' : '',
 "	\ 'vimshell' : $HOME.'/.vimshell_hist',
 "	\ 'scheme' : $HOME.'/.gosh_completions'
 "		\ }
 	
-" ¶¨Òå¹Ø¼ü´Ê.
+" å®šä¹‰å…³é”®è¯.
 if !exists('g:neocomplcache_keyword_patterns')
 	let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-" ²å¼ş¼üÓ³Éä.
+" æ’ä»¶é”®æ˜ å°„.
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-" ÍÆ¼öµÄ¼üÓ³Éä.
+" æ¨èçš„é”®æ˜ å°„.
 " <CR>: close popup and save indent.
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"			"¼ÓÁËÕâ¾äÖ®ºó¶ÔÓĞµÄÎÄ¼ş°´»Ø³µ²»»áÊäÈëºòÑ¡Ïî
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"			"åŠ äº†è¿™å¥ä¹‹åå¯¹æœ‰çš„æ–‡ä»¶æŒ‰å›è½¦ä¸ä¼šè¾“å…¥å€™é€‰é¡¹
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -472,17 +480,17 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-" ÀàËÆÓÚAutoComplPopÓÃ·¨, ×Ô¶¯Ñ¡ÔñµÚÒ»¸öºòÑ¡ÏîÄ¿ .
+" ç±»ä¼¼äºAutoComplPopç”¨æ³•, è‡ªåŠ¨é€‰æ‹©ç¬¬ä¸€ä¸ªå€™é€‰é¡¹ç›® .
 let g:neocomplcache_enable_auto_select = 1
 
-" ÀàËÆÓÚ Shell ÓÃ·¨(²»ÍÆ¼ö).
+" ç±»ä¼¼äº Shell ç”¨æ³•(ä¸æ¨è).
 "set completeopt+=longest
 "let g:neocomplcache_enable_auto_select = 1
 "let g:neocomplcache_disable_auto_complete = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
 "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
-" ÆôÓÃ omni ²¹È«.
+" å¯ç”¨ omni è¡¥å…¨.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -490,7 +498,7 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
-" ÆôÓÃ heavy omni ²¹È«.
+" å¯ç”¨ heavy omni è¡¥å…¨.
 if !exists('g:neocomplcache_omni_patterns')
 	let g:neocomplcache_omni_patterns = {}
 endif
@@ -507,7 +515,7 @@ let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 " ************************************************************************************************
-" plugin - Neosnippet.vim    ´úÂë¶Î
+" plugin - Neosnippet.vim    ä»£ç æ®µ
 " https://github.com/Shougo/neosnippet.vim
 " ************************************************************************************************
 " Plugin key-mappings.
@@ -529,30 +537,30 @@ if has('conceal')
 endif
 
 " ************************************************************************************************
-" plugin - NERD_commenter.vim   ×¢ÊÍ´úÂëÓÃµÄ£¬
+" plugin - NERD_commenter.vim   æ³¨é‡Šä»£ç ç”¨çš„ï¼Œ
 " http://www.vim.org/scripts/script.php?script_id=1218 
 " https://github.com/scrooloose/nerdcommenter
-" [count],cc:¹â±êÒÔÏÂcountĞĞÖğĞĞÌí¼Ó×¢ÊÍ(7,cc)
-" [count],cu:¹â±êÒÔÏÂcountĞĞÖğĞĞÈ¡Ïû×¢ÊÍ(7,cu)
-" [count],cm:¹â±êÒÔÏÂcountĞĞ³¢ÊÔÌí¼Ó¿é×¢ÊÍ(7,cm)
-" ×¢£ºcount²ÎÊı¿ÉÑ¡£¬ÎŞÔòÄ¬ÈÏÎªÑ¡ÖĞĞĞ»òµ±Ç°ĞĞ
+" [count],cc:å…‰æ ‡ä»¥ä¸‹countè¡Œé€è¡Œæ·»åŠ æ³¨é‡Š(7,cc)
+" [count],cu:å…‰æ ‡ä»¥ä¸‹countè¡Œé€è¡Œå–æ¶ˆæ³¨é‡Š(7,cu)
+" [count],cm:å…‰æ ‡ä»¥ä¸‹countè¡Œå°è¯•æ·»åŠ å—æ³¨é‡Š(7,cm)
+" æ³¨ï¼šcountå‚æ•°å¯é€‰ï¼Œæ— åˆ™é»˜è®¤ä¸ºé€‰ä¸­è¡Œæˆ–å½“å‰è¡Œ
 " ************************************************************************************************
-let NERDSpaceDelims=1       " ÈÃ×¢ÊÍ·ûÓëÓï¾äÖ®¼äÁôÒ»¸ö¿Õ¸ñ
-let NERDCompactSexyComs=1   " ¶àĞĞ×¢ÊÍÊ±Ñù×Ó¸üºÃ¿´
+let NERDSpaceDelims=1       " è®©æ³¨é‡Šç¬¦ä¸è¯­å¥ä¹‹é—´ç•™ä¸€ä¸ªç©ºæ ¼
+let NERDCompactSexyComs=1   " å¤šè¡Œæ³¨é‡Šæ—¶æ ·å­æ›´å¥½çœ‹
 
 " ************************************************************************************************
-" plugin - NERD_tree.vim ÒÔÊ÷×´·½Ê½ä¯ÀÀÏµÍ³ÖĞµÄÎÄ¼şºÍÄ¿Â¼
+" plugin - NERD_tree.vim ä»¥æ ‘çŠ¶æ–¹å¼æµè§ˆç³»ç»Ÿä¸­çš„æ–‡ä»¶å’Œç›®å½•
 " http://www.vim.org/scripts/script.php?script_id=1658 
 " https://github.com/scrooloose/nerdtree
-" :NERDTree ´ò¿ªNERD_tree         :NERDTreeClose    ¹Ø±ÕNERD_tree
-" o ´ò¿ª¹Ø±ÕÎÄ¼ş»òÕßÄ¿Â¼         t ÔÚ±êÇ©Ò³ÖĞ´ò¿ª
-" T ÔÚºóÌ¨±êÇ©Ò³ÖĞ´ò¿ª           ! Ö´ĞĞ´ËÎÄ¼ş
-" p µ½ÉÏ²ãÄ¿Â¼                   P µ½¸ùÄ¿Â¼
-" K µ½µÚÒ»¸ö½Úµã                 J µ½×îºóÒ»¸ö½Úµã
-" u ´ò¿ªÉÏ²ãÄ¿Â¼                 m ÏÔÊ¾ÎÄ¼şÏµÍ³²Ëµ¥£¨Ìí¼Ó¡¢É¾³ı¡¢ÒÆ¶¯²Ù×÷£©
-" r µİ¹éË¢ĞÂµ±Ç°Ä¿Â¼             R µİ¹éË¢ĞÂµ±Ç°¸ùÄ¿Â¼
+" :NERDTree æ‰“å¼€NERD_tree         :NERDTreeClose    å…³é—­NERD_tree
+" o æ‰“å¼€å…³é—­æ–‡ä»¶æˆ–è€…ç›®å½•         t åœ¨æ ‡ç­¾é¡µä¸­æ‰“å¼€
+" T åœ¨åå°æ ‡ç­¾é¡µä¸­æ‰“å¼€           ! æ‰§è¡Œæ­¤æ–‡ä»¶
+" p åˆ°ä¸Šå±‚ç›®å½•                   P åˆ°æ ¹ç›®å½•
+" K åˆ°ç¬¬ä¸€ä¸ªèŠ‚ç‚¹                 J åˆ°æœ€åä¸€ä¸ªèŠ‚ç‚¹
+" u æ‰“å¼€ä¸Šå±‚ç›®å½•                 m æ˜¾ç¤ºæ–‡ä»¶ç³»ç»Ÿèœå•ï¼ˆæ·»åŠ ã€åˆ é™¤ã€ç§»åŠ¨æ“ä½œï¼‰
+" r é€’å½’åˆ·æ–°å½“å‰ç›®å½•             R é€’å½’åˆ·æ–°å½“å‰æ ¹ç›®å½•
 " ************************************************************************************************
-" F3 NERDTree ÇĞ»»
+" F3 NERDTree åˆ‡æ¢
 map <F3> :NERDTreeToggle<CR>
 imap <F3> <ESC>:NERDTreeToggle<CR>
 let NERDTreeBookmarksFile=$VIMFILES.'/Data/.NERDTreeBookmarks'
@@ -561,13 +569,13 @@ let NERDTreeBookmarksFile=$VIMFILES.'/Data/.NERDTreeBookmarks'
 " plugin -auto-pairs.vim
 " http://www.vim.org/scripts/script.php?script_id=3599
 " https://github.com/jiangmiao/auto-pairs
-" Æ¥ÅäÀ¨ºÅ¡¢ÒıºÅ,´ËÎÄ¼şÔÚ/autoload ÖĞ
-" »»Îªhttps://github.com/vim-scripts/AutoClose
+" åŒ¹é…æ‹¬å·ã€å¼•å·,æ­¤æ–‡ä»¶åœ¨/autoload ä¸­
+" æ¢ä¸ºhttps://github.com/vim-scripts/AutoClose
 " ************************************************************************************************
 " au FileType c,cpp so $VIMFILES/bundle/autoclose/autoclose.vim
 
 " ************************************************************************************************
-" plugin ¨Ctxtbrower.vim
+" plugin â€“txtbrower.vim
 " http://www.vim.org/scripts/script.php?script_id=2899
 " http://guoyoooping.blog.163.com/blog/static/1357051832009112910162389/
 " ************************************************************************************************
@@ -575,33 +583,33 @@ au BufEnter *.txt setlocal ft=txt
 
 if g:OS#win
 "
-	"ÔÄ¶Átxt            http://guoyoooping.blog.163.com/blog/static/135705183201003172751993/
+	"é˜…è¯»txt            http://guoyoooping.blog.163.com/blog/static/135705183201003172751993/
 	let tlist_txt_settings = 'txt;c:content;f:figures;t:tables'
-	au BufRead,BufNewFile *.txt setlocal ft=txt nu formatoptions=t2crmB textwidth=152 bg& " »»ĞĞ ÕÛĞĞ
+	au BufRead,BufNewFile *.txt setlocal ft=txt nu formatoptions=t2crmB textwidth=152 bg& " æ¢è¡Œ æŠ˜è¡Œ
 	au BufRead,BufNewFile *.txt colo torte " default 
 	au BufRead,BufNewFile *.log setlocal ft=txt nu bg&
 	au BufRead,BufNewFile *.log colo torte "default desert
 	map <F9> :TGoto<CR> 
-	autocmd BufRead,BufNewFile *.html map <F10> :call ViewInBrowser()<CR>           " ÓÃä¯ÀÀÆ÷´ò¿ªÎÄ¼ş
+	autocmd BufRead,BufNewFile *.html map <F10> :call ViewInBrowser()<CR>           " ç”¨æµè§ˆå™¨æ‰“å¼€æ–‡ä»¶
 "
 	if !exists('Tlist_Ctags_Cmd')
 		let Tlist_Ctags_Cmd = g:tagbar_ctags_bin
 	endif
 endif
 " ************************************************************************************************
-" plugin ¨Cfencview.vim×Ô¶¯Ê¶±ğ±àÂë
+" plugin â€“fencview.vimè‡ªåŠ¨è¯†åˆ«ç¼–ç 
 " http://www.vim.org/scripts/script.php?script_id=1708 
 " ************************************************************************************************
-let g:fencview_autodetect = 0                         " 0¹Ø±Õ 1¿ªÆô
+let g:fencview_autodetect = 0                         " 0å…³é—­ 1å¼€å¯
 
 " ************************************************************************************************
-" plugin ¨Cpathogen.vim¹ÜÀí²å¼şµÄ²å¼ş
+" plugin â€“pathogen.vimç®¡ç†æ’ä»¶çš„æ’ä»¶
 " http://www.vim.org/scripts/script.php?script_id=2332 
 " https://github.com/tpope/vim-pathogen
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin ¨C ctrlp.vim ÎÄ¼şËÑË÷
+" plugin â€“ ctrlp.vim æ–‡ä»¶æœç´¢
 " https://github.com/kien/ctrlp.vim 
 " Once CtrlP is open:
 " Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
@@ -635,19 +643,19 @@ let g:ctrlp_custom_ignore = {
 
 
 " ************************************************************************************************
-" plugin ¨C numbers.vim ÔÚÃüÁîÄ£Ê½ÏÔÊ¾Óëµ±Ç°ĞĞ¼ä¸ôµÄĞĞÊı£¬ÓÃÓÚ¿ìËÙ¶¨Î»
+" plugin â€“ numbers.vim åœ¨å‘½ä»¤æ¨¡å¼æ˜¾ç¤ºä¸å½“å‰è¡Œé—´éš”çš„è¡Œæ•°ï¼Œç”¨äºå¿«é€Ÿå®šä½
 " https://github.com/myusuf3/numbers.vim
 " ************************************************************************************************
 nnoremap <F6> :NumbersToggle<CR>
 
 " ************************************************************************************************
-" plugin ¨C matchit ¿ìËÙÕÒµ½±êÇ©µÄ¿ªÊ¼»ò½áÊøÎ»ÖÃ
+" plugin â€“ matchit å¿«é€Ÿæ‰¾åˆ°æ ‡ç­¾çš„å¼€å§‹æˆ–ç»“æŸä½ç½®
 " https://github.com/vim-scripts/matchit.zip
 " ************************************************************************************************
 " % g% [% ]% a%
 
 " ************************************************************************************************
-" plugin ¨C vim-markdown markdown¸ßÁÁ
+" plugin â€“ vim-markdown markdowné«˜äº®
 " https://github.com/plasticboy/vim-markdown
 " ************************************************************************************************
 au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
@@ -655,10 +663,10 @@ let g:vim_markdown_folding_disabled=1
 autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>p :call ViewInBrowser()<CR>
 
 " ************************************************************************************************
-" plugin ¨C ZenCoding.vim ºÜ¿áµÄ²å¼ş£¬HTML´úÂëÉú³É
+" plugin â€“ ZenCoding.vim å¾ˆé…·çš„æ’ä»¶ï¼ŒHTMLä»£ç ç”Ÿæˆ
 "http://www.vim.org/scripts/script.php?script_id=2981
-" ²å¼ş×îĞÂ°æ£ºhttp://github.com/mattn/zencoding-vim
-" ³£ÓÃÃüÁî¿É¿´£ºhttp://nootn.com/blog/Tool/23/
+" æ’ä»¶æœ€æ–°ç‰ˆï¼šhttp://github.com/mattn/zencoding-vim
+" å¸¸ç”¨å‘½ä»¤å¯çœ‹ï¼šhttp://nootn.com/blog/Tool/23/
 " ************************************************************************************************
 let g:user_zen_settings = { 
   \  'lang' : 'zh-cn',
@@ -674,13 +682,13 @@ let g:user_zen_settings = {
   \    } 
   \  } 
   \}
- " 'charset' : 'gbk',   ÉèÖÃ±àÂë Ä¬ÈÏÊÇutf-8
+ " 'charset' : 'gbk',   è®¾ç½®ç¼–ç  é»˜è®¤æ˜¯utf-8
 let g:user_zen_leader_key = ','
-" let g:user_zen_expandabbr_key = '<c-e>'    "ÉèÖÃÎªctrl+eÕ¹¿ª
+" let g:user_zen_expandabbr_key = '<c-e>'    "è®¾ç½®ä¸ºctrl+eå±•å¼€
 let g:use_zen_complete_tag = 1
 
 " ************************************************************************************************
-" plugin - statusline.vim ÉèÖÃÔÚ×´Ì¬ĞĞÏÔÊ¾µÄĞÅÏ¢  ½øĞĞ¹ı¸ü¸Ä
+" plugin - statusline.vim è®¾ç½®åœ¨çŠ¶æ€è¡Œæ˜¾ç¤ºçš„ä¿¡æ¯  è¿›è¡Œè¿‡æ›´æ”¹
 " http://www.vim.org/scripts/script.php?script_id=2879
 " ************************************************************************************************
 
@@ -690,19 +698,19 @@ let g:use_zen_complete_tag = 1
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin - taglist.vim ²é¿´º¯ÊıÁĞ±í£¬ĞèÒªctags³ÌĞò
+" plugin - taglist.vim æŸ¥çœ‹å‡½æ•°åˆ—è¡¨ï¼Œéœ€è¦ctagsç¨‹åº
 " http://www.vim.org/scripts/script.php?script_id=273 
 " http://att.newsmth.net/att.php?s.731.55149.150442.diff
 " http://att.newsmth.net/att.php?p.731.55149.1226.vim 
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin ¨Cmru.vim´ò¿ªÀúÊ·ÎÄ¼ş
+" plugin â€“mru.vimæ‰“å¼€å†å²æ–‡ä»¶
 "http://www.vim.org/scripts/script.php?script_id=521
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin - pydiction Python ´úÂë×Ô¶¯Íê³ÉµÄ½Å±¾
+" plugin - pydiction Python ä»£ç è‡ªåŠ¨å®Œæˆçš„è„šæœ¬
 " http://www.vim.org/scripts/script.php?script_id=850
 " ************************************************************************************************
 
@@ -713,18 +721,18 @@ let g:use_zen_complete_tag = 1
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin - Calendar.vim ÈÕÀú²å¼ş£¬¿ÉÒÔĞ´×Ô¼ºµÄĞÄÇéÈÕ¼Ç¡£
+" plugin - Calendar.vim æ—¥å†æ’ä»¶ï¼Œå¯ä»¥å†™è‡ªå·±çš„å¿ƒæƒ…æ—¥è®°ã€‚
 " http://www.vim.org/scripts/script.php?script_id=52 
-" <leader>cal ÔÚ×ó²à´ò¿ª     <leader>caL ÔÚÏÂ±ß´ò¿ª
+" <leader>cal åœ¨å·¦ä¾§æ‰“å¼€     <leader>caL åœ¨ä¸‹è¾¹æ‰“å¼€
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin- vimtweak.dll ÉèÖÃ±³¾°Í¸Ã÷,´°¿Ú×î´ó»¯,´°¿ÚÔÚ×îÇ°¶Ë
+" plugin- vimtweak.dll è®¾ç½®èƒŒæ™¯é€æ˜,çª—å£æœ€å¤§åŒ–,çª—å£åœ¨æœ€å‰ç«¯
 " http://www.vim.org/scripts/script.php?script_id=687
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin - Conque Shell ÔÚvimÖĞ´ò¿ªÖÕ¶Ë
+" plugin - Conque Shell åœ¨vimä¸­æ‰“å¼€ç»ˆç«¯
 " http://www.vim.org/scripts/script.php?script_id=2771
 " ************************************************************************************************
 
@@ -734,63 +742,63 @@ let g:use_zen_complete_tag = 1
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin - Mark.vim ¸ø¸÷ÖÖtags±ê¼Ç²»Í¬µÄÑÕÉ«£¬±ãÓÚ¹Û¿´µ÷Ê½µÄ²å¼ş¡£
+" plugin - Mark.vim ç»™å„ç§tagsæ ‡è®°ä¸åŒçš„é¢œè‰²ï¼Œä¾¿äºè§‚çœ‹è°ƒå¼çš„æ’ä»¶ã€‚
 " http://www.vim.org/scripts/script.php?script_id=2666 
 " \m mark or unmark the word under (or before) the cursor
-" \r manually input a regular expression. ÓÃÓÚËÑË÷.
+" \r manually input a regular expression. ç”¨äºæœç´¢.
 " \n clear this mark (i.e. the mark under the cursor), or clear all highlighted marks .
-" \* µ±Ç°MarkWordµÄÏÂÒ»¸ö     \# µ±Ç°MarkWordµÄÉÏÒ»¸ö
-" \/ ËùÓĞMarkWordsµÄÏÂÒ»¸ö    \? ËùÓĞMarkWordsµÄÉÏÒ»¸ö
+" \* å½“å‰MarkWordçš„ä¸‹ä¸€ä¸ª     \# å½“å‰MarkWordçš„ä¸Šä¸€ä¸ª
+" \/ æ‰€æœ‰MarkWordsçš„ä¸‹ä¸€ä¸ª    \? æ‰€æœ‰MarkWordsçš„ä¸Šä¸€ä¸ª
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin - DoxygenToolkit.vim ÓÉ×¢ÊÍÉú³ÉÎÄµµ£¬²¢ÇÒÄÜ¹»¿ìËÙÉú³Éº¯Êı±ê×¼×¢ÊÍ
+" plugin - DoxygenToolkit.vim ç”±æ³¨é‡Šç”Ÿæˆæ–‡æ¡£ï¼Œå¹¶ä¸”èƒ½å¤Ÿå¿«é€Ÿç”Ÿæˆå‡½æ•°æ ‡å‡†æ³¨é‡Š
 "http://www.vim.org/scripts/script.php?script_id=987 
 " ************************************************************************************************
 " ************************************************************************************************
-" plugin ¨C EasyGrep ¶àÎÄµµ×Ö·û´®ËÑË÷
+" plugin â€“ EasyGrep å¤šæ–‡æ¡£å­—ç¬¦ä¸²æœç´¢
 " http://www.vim.org/scripts/script.php?script_id=2438
-" vv ¨C Grep for the word under the cursor
-" va ¨C Like vv, but add to existing list
-" vo ¨C Select the files to search in and set grep options
+" vv â€“ Grep for the word under the cursor
+" va â€“ Like vv, but add to existing list
+" vo â€“ Select the files to search in and set grep options
 " :Grep SearchString 
 " ************************************************************************************************
 
 " ************************************************************************************************
-"  plugin ¨C javascript Óï·¨ÉèÖÃ ~/.vim/syntax/javascript.vim
+"  plugin â€“ javascript è¯­æ³•è®¾ç½® ~/.vim/syntax/javascript.vim
 " ************************************************************************************************
 
 " ************************************************************************************************
-"  plugin ¨Cjavascript ³£¼ûÓï·¨´íÎó¼ì²é plugin/javaScriptLint.vim
+"  plugin â€“javascript å¸¸è§è¯­æ³•é”™è¯¯æ£€æŸ¥ plugin/javaScriptLint.vim
 "http://www.vim.org/scripts/script.php?script_id=2578
-" °´ Ctrl + S + J ¾Í¿ÉÒÔ¼ì²é Javascript Óï·¨ÓĞÎŞÎÊÌâ
+" æŒ‰ Ctrl + S + J å°±å¯ä»¥æ£€æŸ¥ Javascript è¯­æ³•æœ‰æ— é—®é¢˜
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin ¨CDrawIt£ºVim»­Í¼²å¼ş£¨¿ÉÔÚvimÖĞ»­»ù±¾Ê¾ÒâÍ¼£©
+" plugin â€“DrawItï¼šVimç”»å›¾æ’ä»¶ï¼ˆå¯åœ¨vimä¸­ç”»åŸºæœ¬ç¤ºæ„å›¾ï¼‰
 " http://www.vim.org/scripts/script.php?script_id=40 
 "http://hi.baidu.com/2maollm/blog/item/ff98de179aa61505c93d6da7.html
 " ************************************************************************************************
  
 " ************************************************************************************************
-" plugin - template_loader.vimÄ£°å
+" plugin - template_loader.vimæ¨¡æ¿
 "http://code.google.com/p/nishizaw23/downloads/list
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin ¨Csketch.vim»­Í¼
+" plugin â€“sketch.vimç”»å›¾
 "  http://www.vim.org/scripts/script.php?script_id=705 
 " ************************************************************************************************
-"Ö´ĞĞ:call ToggleSketch()ÃüÁî¿ªÆô»ò¹Ø±Õ»­Í¼¹¦ÄÜ. ½¨ÒéÔÚ.vimrcÖĞ°Ñ
-"    call ToggleSketch() Ó³ÉäÎªÃüÁî, ·½±ãÒ»Ğ©":map <F1> :call
+"æ‰§è¡Œ:call ToggleSketch()å‘½ä»¤å¼€å¯æˆ–å…³é—­ç”»å›¾åŠŸèƒ½. å»ºè®®åœ¨.vimrcä¸­æŠŠ
+"    call ToggleSketch() æ˜ å°„ä¸ºå‘½ä»¤, æ–¹ä¾¿ä¸€äº›":map <F1> :call
 "    ToggleSketch()<CR>"
 " 
-"Êó±ê×ó¼üÓÃÓÚ»­×ÔÓÉÇúÏß, Ctrl-Êó±ê×ó¼ü¿ÉÒÔ»­´ÖÇúÏß. Êó±êÓÒ¼üÈ¦Ò»¸öÇøÓò, È»ºóµã»÷
-"×ó¼ü¿ÉÒÔ»­¿ÕĞÄÍ¼, Shift-Êó±ê×ó¼ü»­µÄµÄÊ±ºò¹ÕÍä´¦ÓÃ"."¶ø²»ÊÇ"+", Ctrl-Êó±ê×ó¼ü¿É
-"ÒÔ»­ÊµÏ°Í¼. Alt-Êó±ê×ó¼ü¿ÉÒÔÇĞ»»ÊµĞÄ»­ºÍ´Ö±Ê»­µÄÏßÌõ, ¿ÉÒÔÓĞµÄÑ¡ÔñÎª".", ":"ºÍ
+"é¼ æ ‡å·¦é”®ç”¨äºç”»è‡ªç”±æ›²çº¿, Ctrl-é¼ æ ‡å·¦é”®å¯ä»¥ç”»ç²—æ›²çº¿. é¼ æ ‡å³é”®åœˆä¸€ä¸ªåŒºåŸŸ, ç„¶åç‚¹å‡»
+"å·¦é”®å¯ä»¥ç”»ç©ºå¿ƒå›¾, Shift-é¼ æ ‡å·¦é”®ç”»çš„çš„æ—¶å€™æ‹å¼¯å¤„ç”¨"."è€Œä¸æ˜¯"+", Ctrl-é¼ æ ‡å·¦é”®å¯
+"ä»¥ç”»å®ä¹ å›¾. Alt-é¼ æ ‡å·¦é”®å¯ä»¥åˆ‡æ¢å®å¿ƒç”»å’Œç²—ç¬”ç”»çš„çº¿æ¡, å¯ä»¥æœ‰çš„é€‰æ‹©ä¸º".", ":"å’Œ
 "#".
 "
-"command Sketch :call ToggleSketch() "¶¨ÒåĞÂÃüÁîSketch
+"command Sketch :call ToggleSketch() "å®šä¹‰æ–°å‘½ä»¤Sketch
 "
 " ************************************************************************************************
 " plugin - timestamp.vim 
