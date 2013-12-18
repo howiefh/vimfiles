@@ -205,6 +205,8 @@ autocmd BufReadPost *
  
 " 定义Ev为编辑vimrc 命令
 command! -nargs=* Ev edit $MYVIMRC  
+" 编辑myvimtips
+command! -nargs=* Etips edit $VIMFILES/doc/1_myvimtips.txt
 
 " 一旦vim窗口失去焦点，即你切换到其他窗口，vim编辑文件就会自动保存修改的文件
 au FocusLost * silent! up 
@@ -305,6 +307,10 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" 粘贴系统剪切板
+vmap ys "+y
+
 " }}}
 
 " ***************************************** Function **************************************** {{{
@@ -360,6 +366,8 @@ Bundle 'howiefh/makeprgs'
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
 Bundle 'matchit.zip'
+Bundle 'renamer.vim'
+Bundle 'YankRing.vim'
 Bundle 'AutoClose'
 Bundle 'bufexplorer.zip'
 Bundle 'TxtBrowser'
@@ -686,6 +694,15 @@ let g:user_zen_settings = {
 let g:user_zen_leader_key = ','
 " let g:user_zen_expandabbr_key = '<c-e>'    "设置为ctrl+e展开
 let g:use_zen_complete_tag = 1
+
+" ************************************************************************************************
+" plugin - YankRing.vim : Maintains a history of previous yanks, changes and deletes 
+" http://www.vim.org/scripts/script.php?script_id=1234
+" ************************************************************************************************
+" yankring快捷键映射,原来的快捷键跟vim-multiple-cursors有冲突
+let g:yankring_replace_n_pkey = '<m-p>'
+let g:yankring_replace_n_nkey = '<m-n>'
+let g:yankring_history_dir = $VIMFILES.'/Data'
 
 " ************************************************************************************************
 " plugin - statusline.vim 设置在状态行显示的信息  进行过更改
