@@ -1,4 +1,21 @@
-﻿2013.5.17
+﻿2014.3.7
+1. 新增插件
+vim-airline设置在状态行显示的信息  
+https://github.com/bling/vim-airline
+vim-easymotion 快速移动定位
+https://github.com/Lokaltog/vim-easymotion
+vim-colors-solarized
+https://github.com/altercation/vim-colors-solarized
+syntastic 检查语法
+https://github.com/scrooloose/syntastic
+Git-Branch-Info
+https://github.com/vim-scripts/Git-Branch-Info
+2. 根据https://github.com/wklken/k-vim修改配置文件
+3. 更新插件
+4. 修改TxtBrowser
+5. 调整目录结构
+
+2013.5.17
 1.vimfiles中添加ctags.cnf，添加了markdown和txt的规则
 2.vimrc中添加了 ViewInBrowser() 函数，可以在浏览器中打开正在编辑的文件
 3.添加neosnippet插件，从neocomplcache分出来的
@@ -335,7 +352,7 @@ behave mswin
 
 version 1.1	{{{
 2011年10月28日 
-1.“原来_vimrc中的 ”和vundle.vim的设置选项中去掉了set socompatible 关闭vi模式
+1. “原来_vimrc中的 ”和vundle.vim的设置选项中去掉了set socompatible 关闭vi模式
 2. 去掉了"http://apps.hi.baidu.com/share/detail/5531771
 "http://hi.baidu.com/%D5%D4%BB%B6%C0%DA/blog/item/c28983b4f7d69fc236d3ca99.html
 3. 去掉了位于map之上的帮助菜单中的helptags帮助项
@@ -355,7 +372,7 @@ version 1.1	{{{
 	"            \"EnableTopMost", 0)
 	"    endif
 	"Alpha Window
-10.删除几个配色：
+10. 删除几个配色：
 Celibate.vim
 DimGreen.vim
 elflord.vim

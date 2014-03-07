@@ -15,12 +15,20 @@
   * nerdcommenter
   * nerdtree
   * vim-surround
-  * statusline.vim
   * tagbar
   * TxtBrowser
   * zencoding-vim
   * menu_plus
+  * vim-airline
+  * vim-easymotion
+  * vim-colors-solarized
+  * syntastic
+  * YankRing.vim
+  * renamer.vim
+  * vim-multiple-cursors
+  * Git-Branch-Info
 * colors
   * ManShow.vim
   * valloric.vim
+  * vim-colors-solarized
 

@@ -3,14 +3,16 @@
 "      (-'      .-.. .  .  . ..-- 		 
 "      _\__$    `-.|\| /_\ |< |-  		 
 "    (___)      `-'' ''   '' `'--
-"        Version:  1.2.14
-"           Date:  2012/03/12
+"		  Author:  howiefh
+"        Version:  1.2.15
+"    Last_modify:  2014/03/07
+"		  Github:  http://github.com/howiefh
 "    Description:   _vimrc for windows .vimrc for linux
 "																         .--.--. ..-.  . .  .  .-.
 "																	   	 |- |- |\||-.  |-| /_\ | |
 "																		 '  '--' ''-'  ' ''   '`-'	
-" ************************************************************************************************
-" 设置当前系统  {{{
+" ****************************************** Initialize variables *************************************** {{{
+" 设置当前系统
 " 
 if has("win32") || has("win32unix")
     let g:OS#name = "win"
@@ -32,6 +34,23 @@ if has("gui_running")
     let g:OS#gui = 1
 else
     let g:OS#gui = 0
+endif
+
+" 用用户目录
+if g:OS#win
+    let $VIMFILES = $VIM.'/vimfiles'
+	let $HOME = $VIMFILES
+	let $BLOG = "E:/User/Documents/howiefh.github.io"
+elseif g:OS#unix
+	let $VIM=$HOME 
+    let $VIMFILES = $HOME.'/.vim'
+	let $BLOG = "/media/WinE/User/Documents/howiefh.github.io"
+endif
+" 定义浏览器
+if g:OS#win
+	let s:browser = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+elseif g:OS#unix
+	let s:browser = "/usr/bin/chromium-browser"
 endif
 " }}}
 
@@ -73,43 +92,75 @@ endif
 
 set nocompatible            " 关闭 vi 兼容模式
 syntax on                   " 自动语法高亮
-"colorscheme torte           "配置颜色方案
+"colorscheme torte          " 配置颜色方案
 set number                  " 显示行号
+set scrolloff=7				"Set 7 lines to the curors - when moving vertical..光标所在的行将总定位在窗口的第7的位置 
+
 set cursorline              " 突出显示当前行
+" set cursorcolumn			" 突出显示当前列
+
 set wildmenu				 "Turn on WiLd menu 在末行命令行敲tab键时会在状态栏显示选项
 set whichwrap+=h,l			"Bbackspace and cursor keys wrap to 使指定的左右移动光标的键在行首或行尾可以移到前一行或者后一行
-set so=7					 "Set 7 lines to the curors - when moving vertical..光标所在的行将总定位在窗口的第7的位置 
-"set ruler                   " 打开状态栏标尺
+
 set shiftwidth=4            " 设定 << 和 >> 命令移动时的宽度为 4
 set softtabstop=4           " 使得按退格键时可以一次删掉 4 个空格
 set tabstop=4               " 设定 tab 长度为 4
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
+set shiftround				" 缩进取整到shiftwidth的倍数
+
 set nobackup                " 覆盖文件时不备份
-set autochdir               " 自动切换当前目录为当前文件所在的目录
-filetype plugin indent on   " 开启文件检测 
-set backupcopy=yes          " 设置备份时的行为为覆盖
+setlocal noswapfile        " 禁用swf交换文件
+
 set ignorecase smartcase    " 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感
 " set nowrapscan              " 禁止在搜索到文件两端时重新搜索
 set incsearch               " 输入搜索内容时就显示搜索结果
 set hlsearch                " 搜索时高亮显示被找到的文本
+
 set noerrorbells            " 关闭错误信息响铃
 set novisualbell            " 关闭使用可视响铃代替呼叫
 set t_vb=                   " 置空错误铃声的终端代码
+
 set showmatch               " 插入括号时，短暂地跳转到匹配的对应括号
-set showcmd		    "标尺的右边显示未完成的命令
 set matchtime=2             " 短暂跳转到匹配括号的时间
-set magic                   " 设置魔术
-set hidden                  " 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
-set helplang=cn				"设置中文帮助
+
 set smartindent             " 开启新行时使用智能自动缩进
 "set autoindent                 "自动缩进
+
+" 已经通过statusline显示
+" set ruler                   " 打开状态栏标尺 默认关闭
+" set showcmd					" 标尺的右边显示未完成的命令  默认打开
+" set showmode				" 显示当前模式  默认打开
+
+set autochdir               " 自动切换当前目录为当前文件所在的目录
+set autoread				" 文件修改之后自动载入。
+filetype plugin indent on   " 开启文件检测 
+set backupcopy=yes          " 设置备份时的行为为覆盖
+set magic                   " For regular expressions turn magic on
+set hidden                  " 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
+set helplang=cn				"设置中文帮助
 set backspace=indent,eol,start                            " 不设定的话在插入状态无法用退格键和 Delete 键删除回车符
-setlocal noswapfile        " 禁用swf交换文件
-set viminfo+=n$VIMFILES/Data/.viminfo    "设置viminfo的路径
-"显示长行 begin
+set viminfo+=n$VIMFILES/cache/.viminfo    "设置viminfo的路径
+"设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制
+"好处：误删什么的，如果以前屏幕打开，可以找回
+set t_ti= t_te=
+
+"显示长行 
 set display=lastline                
 nmap j gj
 nmap k gk
-"显示长行 end
+
+" 代码折叠
+set foldenable
+" 折叠方法
+" manual    手工折叠
+" indent    使用缩进表示折叠
+" expr      使用表达式定义折叠
+" syntax    使用语法定义折叠
+" diff      对没有更改的文本进行折叠
+" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+set foldmethod=indent
+" 级数大于foldlevel将会折叠
+set foldlevel=4
 
 " ************************************************************************************************
 
@@ -127,24 +178,6 @@ if g:OS#gui
 		\endif<cr>
 endif
 
-" 配色方案
-if g:OS#gui
-	colorscheme torte           "配置颜色方案
-else
-	colorscheme ManShow           "配置颜色方案
-endif
-
-" 用用户目录
-if g:OS#win
-    let $VIMFILES = $VIM.'/vimfiles'
-	let $HOME = $VIMFILES
-	let $BLOG = "E:/User/Documents/howiefh.github.io"
-elseif g:OS#unix
-	let $VIM=$HOME 
-    let $VIMFILES = $HOME.'/.vim'
-	let $BLOG = "/media/WinE/User/Documents/howiefh.github.io"
-endif
-
 " 设置字体 以及中文支持
 if g:OS#win
     set guifont=宋体:h12:cANSI
@@ -156,6 +189,8 @@ if g:OS#win
 endif 
 
 " 设置启动时窗口最大化  linux下如果要窗口最大化参见：http://uniharmony.blog.163.com/blog/static/4617437620087310345373/
+" 屏蔽以下的设置
+if 0
 if g:OS#win
     " 启动最大化
     " winsize 1024 768 "把窗口设为 宽：1024 高：768  已废弃
@@ -168,6 +203,7 @@ if g:OS#win
 if g:OS#unix
 	set columns=100
 	set lines=30
+endif
 endif
 
 " 配置多语言环境
@@ -205,23 +241,35 @@ autocmd BufReadPost *
  
 " 定义Ev为编辑vimrc 命令
 command! -nargs=* Ev edit $MYVIMRC  
+
+" vimrc文件修改之后自动加载。
+if g:OS#win
+	autocmd! bufwritepost _vimrc source %
+elseif g:OS#unix
+	autocmd! bufwritepost .vimrc source %
+endif
+
 " 编辑myvimtips
 command! -nargs=* Etips edit $VIMFILES/doc/1_myvimtips.txt
 
 " 一旦vim窗口失去焦点，即你切换到其他窗口，vim编辑文件就会自动保存修改的文件
 au FocusLost * silent! up 
 
+" 在粘贴插入模式下代码是不会自动按格式缩进的,但是可以解决代码粘贴混乱的问题
+" set paste
+" set pastetoggle=<F9>
+" 这样直接在插入模式按F9就会在“-- 插入 --”模式和“-- 插入（粘贴） --”模式中切换 
 " ************************************************************************************************
  
 " Autohotkey 
 au BufNewFile,BufRead *.ahk	 setf autohotkey 
 
 "字典目录
-"au FileType txt setlocal dict+=$VIM/vimfiles/Data/dictionary/zh_CN.dic
-"au FileType txt setlocal dict+=$VIM/vimfiles/Data/dictionary/eng_small.dic
-"au FileType tex setlocal dict+=$VIM/vimfiles/Data/dictionary/latex.dic
-au FileType php setlocal dict+=$VIM/vimfiles/Data/dictionary/php_funclist.txt
-au FileType html setlocal dict+=$VIM/vimfiles/Data/dictionary/html.dic
+"au FileType txt setlocal dict+=$VIM/vimfiles/data/dictionary/zh_CN.dic
+"au FileType txt setlocal dict+=$VIM/vimfiles/data/dictionary/eng_small.dic
+"au FileType tex setlocal dict+=$VIM/vimfiles/data/dictionary/latex.dic
+au FileType php setlocal dict+=$VIM/vimfiles/data/dictionary/php_funclist.txt
+au FileType html setlocal dict+=$VIM/vimfiles/data/dictionary/html.dic
 
 " for Java  http://mytc.5d6d.com/thread-5032-1-1.html
 " makeprgs.Vim 
@@ -254,13 +302,13 @@ if g:OS#unix
 	let g:c_w="~/文档/Program/C"
 endif
 
-function ChangeDir(dir) 
+function! ChangeWorkDir(dir) 
     execute ":cd " . a:dir 
 endfunction 
 
-map <Leader>py :call ChangeDir(g:python_w)<CR>:pwd<CR>
-map <Leader>cp :call ChangeDir(g:cplus_w)<CR>:pwd<CR>
-map <Leader>cw :call ChangeDir(g:c_w)<CR>:pwd<cr>
+map <Leader>py :call ChangeWorkDir(g:python_w)<CR>:pwd<CR>
+map <Leader>cp :call ChangeWorkDir(g:cplus_w)<CR>:pwd<CR>
+map <Leader>cw :call ChangeWorkDir(g:c_w)<CR>:pwd<cr>
 
 " 调试
 amenu icon=$VIMFILES."/gdbrun.bmp" ToolBar.Run :Crun<cr>
@@ -271,14 +319,15 @@ tmenu ToolBar.Run	Start debug
 " ************************************************************************************************
 " map
 " ************************************************************************************************
-map <S-RETURN> <Esc>o 
 " 当前行下新起一行
-nnoremap <Esc> :noh<CR><Esc>
+map <S-RETURN> <Esc>o 
 "去掉高亮
-imap jj <Esc>
+nnoremap <Esc> :noh<CR><Esc>
 "映射esc键为jj
-nnoremap <Leader>w :w!<cr>
+imap jj <Esc>
 "映射ww为保存
+nnoremap <Leader>w :w!<cr>
+nnoremap <Leader>q :q<cr>
 
 " Buffers操作快捷方式!
 nnoremap <C-RETURN> :bnext<CR>
@@ -314,15 +363,22 @@ vmap ys "+y
 " }}}
 
 " ***************************************** Function **************************************** {{{
+"删除多余空格
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+
 " 在浏览器预览 
 function! ViewInBrowser()
 	let file = expand("%:p")
 	if g:OS#win
-		let Browser = "C:/Program Files/Google/Chrome/Application/chrome.exe"
-		exec ":silent !start ". Browser file
+		exec ":silent !start ". s:browser file
 	elseif g:OS#unix
-		let Browser = "/usr/bin/chromium-browser"
-		exec ":silent !". Browser file
+		exec ":silent !". s:browser file
 	endif
 endfunction
 " }}}
@@ -350,6 +406,7 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'mattn/zencoding-vim'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'majutsushi/tagbar'
@@ -359,9 +416,14 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'terryma/vim-multiple-cursors'
-Bundle 'howiefh/statusline'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
+Bundle 'Lokaltog/vim-easymotion'
+" Bundle 'tpope/vim-fugitive'
+" Bundle 'howiefh/statusline'
 Bundle 'howiefh/c.vim'
 Bundle 'howiefh/makeprgs'
+Bundle 'howiefh/TxtBrowser'
 
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
@@ -370,8 +432,8 @@ Bundle 'renamer.vim'
 Bundle 'YankRing.vim'
 Bundle 'AutoClose'
 Bundle 'bufexplorer.zip'
-Bundle 'TxtBrowser'
 Bundle 'FencView.vim'
+Bundle 'Git-Branch-Info'
 " Bundle 'FuzzyFinder'
 " non github repos
 " Bundle 'git://git.wincent.com/command-t.git'
@@ -440,8 +502,8 @@ let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 " http://www.vim.org/scripts/script.php?script_id=2620
 " https://github.com/Shougo/neocomplcache
 " ************************************************************************************************
-let g:neocomplcache_temporary_dir=$VIMFILES.'/Data/.neocon' 	"产生的临时文件保存的目录.默认值是 '~/.neocon'.
-let g:neocomplcache_snippets_dir=$VIMFILES.'/Data/snippets'
+let g:neocomplcache_temporary_dir=$VIMFILES.'/cache/.neocon' 	"产生的临时文件保存的目录.默认值是 '~/.neocon'.
+let g:neocomplcache_snippets_dir=$VIMFILES.'/data/snippets'
 " neocomplcache开关.
 map <F4> :NeoComplCacheToggle<CR>				
 imap <F4> <ESC>:NeoComplCacheToggle<CR>a
@@ -571,7 +633,9 @@ let NERDCompactSexyComs=1   " 多行注释时样子更好看
 " F3 NERDTree 切换
 map <F3> :NERDTreeToggle<CR>
 imap <F3> <ESC>:NERDTreeToggle<CR>
-let NERDTreeBookmarksFile=$VIMFILES.'/Data/.NERDTreeBookmarks'
+let NERDTreeBookmarksFile=$VIMFILES.'/data/.NERDTreeBookmarks'
+let NERDTreeHighlightCursorline=1
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 
 " ************************************************************************************************
 " plugin -auto-pairs.vim
@@ -588,17 +652,14 @@ let NERDTreeBookmarksFile=$VIMFILES.'/Data/.NERDTreeBookmarks'
 " http://guoyoooping.blog.163.com/blog/static/1357051832009112910162389/
 " ************************************************************************************************
 au BufEnter *.txt setlocal ft=txt
+let g:default_web_browser = s:browser
 
 if g:OS#win
 "
 	"阅读txt            http://guoyoooping.blog.163.com/blog/static/135705183201003172751993/
 	let tlist_txt_settings = 'txt;c:content;f:figures;t:tables'
 	au BufRead,BufNewFile *.txt setlocal ft=txt nu formatoptions=t2crmB textwidth=152 bg& " 换行 折行
-	au BufRead,BufNewFile *.txt colo torte " default 
 	au BufRead,BufNewFile *.log setlocal ft=txt nu bg&
-	au BufRead,BufNewFile *.log colo torte "default desert
-	map <F9> :TGoto<CR> 
-	autocmd BufRead,BufNewFile *.html map <F10> :call ViewInBrowser()<CR>           " 用浏览器打开文件
 "
 	if !exists('Tlist_Ctags_Cmd')
 		let Tlist_Ctags_Cmd = g:tagbar_ctags_bin
@@ -609,12 +670,6 @@ endif
 " http://www.vim.org/scripts/script.php?script_id=1708 
 " ************************************************************************************************
 let g:fencview_autodetect = 0                         " 0关闭 1开启
-
-" ************************************************************************************************
-" plugin –pathogen.vim管理插件的插件
-" http://www.vim.org/scripts/script.php?script_id=2332 
-" https://github.com/tpope/vim-pathogen
-" ************************************************************************************************
 
 " ************************************************************************************************
 " plugin – ctrlp.vim 文件搜索
@@ -637,7 +692,7 @@ let g:fencview_autodetect = 0                         " 0关闭 1开启
 " Use :diffthis when opening multiple files to run :diffthis on the first 4 files.
 " ************************************************************************************************
 " Set the directory to store the cache files: >
-let g:ctrlp_cache_dir = $VIMFILES.'/Data/ctrlpcache'
+let g:ctrlp_cache_dir = $VIMFILES.'/cache/ctrlpcache'
 
 noremap <C-W><C-U> :CtrlPMRU<CR>
 nnoremap <C-W>u :CtrlPMRU<CR>
@@ -645,8 +700,8 @@ command! -nargs=* MRU CtrlPMRU
 
 " Exclude files and directories using Vim's wildignore and CtrlP's own g:ctrlp_custom_ignore
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+  \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
   \ }
 
 
@@ -668,7 +723,8 @@ nnoremap <F6> :NumbersToggle<CR>
 " ************************************************************************************************
 au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
 let g:vim_markdown_folding_disabled=1
-autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} map <Leader>p :call ViewInBrowser()<CR>
+" 用浏览器打开文件
+autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn,html,htm} map <Leader>p :call ViewInBrowser()<CR>
 
 " ************************************************************************************************
 " plugin – ZenCoding.vim 很酷的插件，HTML代码生成
@@ -700,9 +756,107 @@ let g:use_zen_complete_tag = 1
 " http://www.vim.org/scripts/script.php?script_id=1234
 " ************************************************************************************************
 " yankring快捷键映射,原来的快捷键跟vim-multiple-cursors有冲突
-let g:yankring_replace_n_pkey = '<m-p>'
-let g:yankring_replace_n_nkey = '<m-n>'
-let g:yankring_history_dir = $VIMFILES.'/Data'
+let g:yankring_replace_n_pkey = '<A-p>'
+let g:yankring_replace_n_nkey = '<A-n>'
+let g:yankring_history_dir = $VIMFILES.'/cache'
+
+" ************************************************************************************************
+" plugin - vim-airline设置在状态行显示的信息  
+" https://github.com/bling/vim-airline
+" ************************************************************************************************
+set laststatus=2			" 显示statusline
+set t_Co=256
+let g:airline_theme             = 'wombat' "molokai, luna
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
+
+" 定义符号
+" the separator used on the left side >
+let g:airline_left_sep='►'
+" the separator used on the right side >
+let g:airline_right_sep='◄'
+let g:airline_left_alt_sep = '┦'
+let g:airline_right_alt_sep = '┢'
+
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.whitespace = 'Ξ'
+  let g:airline_symbols.readonly = '✘'
+
+" enable iminsert detection >
+let g:airline_detect_iminsert=0
+
+let g:airline#extensions#tabline#enabled = 1
+" configure separators for the tabline only. >
+let g:airline#extensions#tabline#left_sep = '►' "▻
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = '◄' "◅
+let g:airline#extensions#tabline#right_alt_sep = ''
+" 显示分支
+let g:airline_section_b = '%{GitBranchInfoString()}'
+
+" ************************************************************************************************
+" plugin - vim-easymotion 快速移动定位
+" https://github.com/Lokaltog/vim-easymotion
+" ************************************************************************************************
+map f <Plug>(easymotion-prefix)
+
+" ************************************************************************************************
+" plugin - vim-colors-solarized 配色
+" https://github.com/altercation/vim-colors-solarized
+" ************************************************************************************************
+"let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+" 配色方案
+if g:OS#gui
+    set background=dark
+else
+    set background=light
+endif
+colorscheme solarized
+
+" ************************************************************************************************
+" plugin - syntastic 检查语法
+" https://github.com/scrooloose/syntastic
+" ************************************************************************************************
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting = 0
+" let g:syntastic_python_checkers=['pyflakes']
+highlight SyntasticErrorSign guifg=white guibg=black
+
+" ************************************************************************************************
+" plugin - Git-Branch-Info git分支信息
+" https://github.com/vim-scripts/Git-Branch-Info
+" ************************************************************************************************
+" This will show just the current head branch name 
+let g:git_branch_status_head_current=1
+
+" This will show "⎇ " before the branches. If not set ' Git ' (with a trailing
+" left space) will be displayed.
+let g:git_branch_status_text = "⎇  "  " ♅ ♄ ♃
+"
+" The message when there is no Git repository on the current dir
+let g:git_branch_status_nogit = ""
+"
+" Characters to put around the branch strings. Need to be a pair or characters,
+" the first will be on the beginning of the branch string and the last on the
+" end.
+let g:git_branch_status_around=""
+" 
+" Check the current branch if it's the same branch where the file was loaded, 
+" before saving the file.
+let g:git_branch_check_write=1
 
 " ************************************************************************************************
 " plugin - statusline.vim 设置在状态行显示的信息  进行过更改
@@ -719,6 +873,12 @@ let g:yankring_history_dir = $VIMFILES.'/Data'
 " http://www.vim.org/scripts/script.php?script_id=273 
 " http://att.newsmth.net/att.php?s.731.55149.150442.diff
 " http://att.newsmth.net/att.php?p.731.55149.1226.vim 
+" ************************************************************************************************
+
+" ************************************************************************************************
+" plugin –pathogen.vim管理插件的插件
+" http://www.vim.org/scripts/script.php?script_id=2332 
+" https://github.com/tpope/vim-pathogen
 " ************************************************************************************************
 
 " ************************************************************************************************
