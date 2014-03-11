@@ -7,8 +7,9 @@ vim73/
 vimfiles/_viminfo
 vimfiles/_vimrc
 vimfiles/cache/
-vimfiles/Data/calendar_data/
+vimfiles/data/calendar_data/
 vimfiles/.VimballRecord
 vimfiles/bundle/
 !vimfiles/bundle/c.vim/
 !vimfiles/bundle/makeprgs/
+!vimfiles/bundle/my-vim-plugin/

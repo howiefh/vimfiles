@@ -4,8 +4,8 @@
 "      _\__$    `-.|\| /_\ |< |-  		 
 "    (___)      `-'' ''   '' `'--
 "		  Author:  howiefh
-"        Version:  1.2.15
-"    Last_modify:  2014/03/07
+"        Version:  1.3.0
+"    Last_modify:  2014/03/11
 "		  Github:  http://github.com/howiefh
 "    Description:   _vimrc for windows .vimrc for linux
 "																         .--.--. ..-.  . .  .  .-.
@@ -58,7 +58,7 @@ endif
 if g:OS#win
 	 " MyDiff 
 	set diffexpr=MyDiff()
-	function MyDiff()
+	function! MyDiff()
 		  let opt = '-a --binary '
 		  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
 		  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
@@ -179,9 +179,9 @@ if g:OS#gui
 endif
 
 " 设置字体 以及中文支持
-if g:OS#win
-    set guifont=宋体:h12:cANSI
-endif
+" if g:OS#win
+	" set guifont=幼圆:h12:cANSI
+" endif
 
 " 解决win7下“Press Enter or type command to continue”提示
 if g:OS#win
@@ -209,15 +209,17 @@ endif
 " 配置多语言环境
 if has("multi_byte")
 	if g:OS#win
-        " set fileencoding=cp936
+		" set fileencoding=chinese
         " set fileencodings=ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+		" TODO:设置为utf-8,:help查看不了帮助文档
+		" set encoding=utf-8
 		language messages utf-8
 	elseif g:OS#unix
 "		set fileencoding=cp936
 		language messages zh_CN.utf-8
 	endif
-		set fileencoding=utf-8
-		set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+	set fileencoding=utf-8
+	set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 	source $VIMRUNTIME/delmenu.vim
 	source $VIMRUNTIME/menu.vim
     if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
@@ -381,6 +383,7 @@ function! ViewInBrowser()
 		exec ":silent !". s:browser file
 	endif
 endfunction
+
 " }}}
 
 " ****************************************** Plugins **************************************** {{{
@@ -416,14 +419,18 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'terryma/vim-multiple-cursors'
-Bundle 'altercation/vim-colors-solarized'
+" Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/vim-easymotion'
+" Bundle 'Raimondi/delimitMate'
 " Bundle 'tpope/vim-fugitive'
 " Bundle 'howiefh/statusline'
 Bundle 'howiefh/c.vim'
 Bundle 'howiefh/makeprgs'
+Bundle 'howiefh/my-vim-plugin'
 Bundle 'howiefh/TxtBrowser'
+Bundle 'howiefh/vim-colors-solarized'
+Bundle 'howiefh/Git-Branch-Info'
 
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
@@ -433,7 +440,9 @@ Bundle 'YankRing.vim'
 Bundle 'AutoClose'
 Bundle 'bufexplorer.zip'
 Bundle 'FencView.vim'
-Bundle 'Git-Branch-Info'
+Bundle 'TaskList.vim'
+" Bundle 'TxtBrowser'
+" Bundle 'Git-Branch-Info'
 " Bundle 'FuzzyFinder'
 " non github repos
 " Bundle 'git://git.wincent.com/command-t.git'
@@ -503,7 +512,6 @@ let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 " https://github.com/Shougo/neocomplcache
 " ************************************************************************************************
 let g:neocomplcache_temporary_dir=$VIMFILES.'/cache/.neocon' 	"产生的临时文件保存的目录.默认值是 '~/.neocon'.
-let g:neocomplcache_snippets_dir=$VIMFILES.'/data/snippets'
 " neocomplcache开关.
 map <F4> :NeoComplCacheToggle<CR>				
 imap <F4> <ESC>:NeoComplCacheToggle<CR>a
@@ -606,6 +614,10 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
+let g:neosnippet#snippets_directory=$VIMFILES.'/data/snippets'
+" 解决neosnippet default snippets cannot be loaded.  You must install neosnippet-snippets or disable runtime snippets.
+let g:neosnippet#disable_runtime_snippets={ "_": 1, } 
+
 " ************************************************************************************************
 " plugin - NERD_commenter.vim   注释代码用的，
 " http://www.vim.org/scripts/script.php?script_id=1218 
@@ -643,8 +655,8 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^
 " https://github.com/jiangmiao/auto-pairs
 " 匹配括号、引号,此文件在/autoload 中
 " 换为https://github.com/vim-scripts/AutoClose
+" <Leader>a 开关
 " ************************************************************************************************
-" au FileType c,cpp so $VIMFILES/bundle/autoclose/autoclose.vim
 
 " ************************************************************************************************
 " plugin –txtbrower.vim
@@ -772,33 +784,31 @@ let g:airline_enable_syntastic  = 1
 
 " 定义符号
 " the separator used on the left side >
-let g:airline_left_sep='►'
+let g:airline_left_sep='>'
 " the separator used on the right side >
-let g:airline_right_sep='◄'
-let g:airline_left_alt_sep = '┦'
-let g:airline_right_alt_sep = '┢'
+let g:airline_right_sep='<'
+let g:airline_left_alt_sep = '-'
+let g:airline_right_alt_sep = '-'
 
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.whitespace = 'Ξ'
-  let g:airline_symbols.readonly = '✘'
+let g:airline_symbols.linenr = '$'
+let g:airline_symbols.branch = ''
+let g:airline_symbols.paste = 'p'
+let g:airline_symbols.whitespace = '#'
+let g:airline_symbols.readonly = 'x'
 
 " enable iminsert detection >
 let g:airline_detect_iminsert=0
 
 let g:airline#extensions#tabline#enabled = 1
 " configure separators for the tabline only. >
-let g:airline#extensions#tabline#left_sep = '►' "▻
+let g:airline#extensions#tabline#left_sep = '>'
 let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = '◄' "◅
+let g:airline#extensions#tabline#right_sep = '<'
 let g:airline#extensions#tabline#right_alt_sep = ''
+
 " 显示分支
 let g:airline_section_b = '%{GitBranchInfoString()}'
 
@@ -842,9 +852,9 @@ highlight SyntasticErrorSign guifg=white guibg=black
 " This will show just the current head branch name 
 let g:git_branch_status_head_current=1
 
-" This will show "⎇ " before the branches. If not set ' Git ' (with a trailing
+" This will show "? " before the branches. If not set ' Git ' (with a trailing
 " left space) will be displayed.
-let g:git_branch_status_text = "⎇  "  " ♅ ♄ ♃
+let g:git_branch_status_text = ""
 "
 " The message when there is no Git repository on the current dir
 let g:git_branch_status_nogit = ""
@@ -859,13 +869,20 @@ let g:git_branch_status_around=""
 let g:git_branch_check_write=1
 
 " ************************************************************************************************
-" plugin - statusline.vim 设置在状态行显示的信息  进行过更改
-" http://www.vim.org/scripts/script.php?script_id=2879
+" plugin - TaskList.vim
+" 查看并快速跳转到代码中的TODO列表
+" <Leader>t 打开todo列表
+" https://github.com/vim-scripts/TaskList.vim
 " ************************************************************************************************
 
 " ************************************************************************************************
 " plugin - makeprgs.vim 
 " http://www.vim.org/scripts/script.php?script_id=2031 
+" ************************************************************************************************
+
+" ************************************************************************************************
+" plugin - statusline.vim 设置在状态行显示的信息  进行过更改
+" http://www.vim.org/scripts/script.php?script_id=2879
 " ************************************************************************************************
 
 " ************************************************************************************************
