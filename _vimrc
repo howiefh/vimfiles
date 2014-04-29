@@ -105,6 +105,7 @@ set whichwrap+=h,l			"Bbackspace and cursor keys wrap to 使指定的左右移�
 set shiftwidth=4            " 设定 << 和 >> 命令移动时的宽度为 4
 set softtabstop=4           " 使得按退格键时可以一次删掉 4 个空格
 set tabstop=4               " 设定 tab 长度为 4
+set expandtab               " 插入<TAB>时显示合适数量的空格
 set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
 set shiftround				" 缩进取整到shiftwidth的倍数
 
@@ -124,7 +125,7 @@ set showmatch               " 插入括号时，短暂地跳转到匹配的对�
 set matchtime=2             " 短暂跳转到匹配括号的时间
 
 set smartindent             " 开启新行时使用智能自动缩进
-"set autoindent                 "自动缩进
+" set autoindent                 "自动缩进
 
 " 已经通过statusline显示
 " set ruler                   " 打开状态栏标尺 默认关闭
@@ -160,7 +161,7 @@ set foldenable
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
 set foldmethod=indent
 " 级数大于foldlevel将会折叠
-set foldlevel=4
+set foldlevel=5
 
 " ************************************************************************************************
 
@@ -383,81 +384,118 @@ function! ViewInBrowser()
 		exec ":silent !". s:browser file
 	endif
 endfunction
+" http://www.vimer.cn/2012/05/vimgvim%E6%94%AF%E6%8C%81%E5%AF%B9%E9%BD%90%E7%BA%BF.html
+map ,ch :call SetColorColumn()<CR>
+map ,cc :set cuc<CR>
+map ,cnc :set nocuc<CR>
+function! SetColorColumn()
+    let col_num = virtcol(".")
+    let cc_list = split(&cc, ',')
+    if count(cc_list, string(col_num)) <= 0
+        execute "set cc+=".col_num
+    else
+        execute "set cc-=".col_num
+    endif
+endfunction
 
 " }}}
 
 " ****************************************** Plugins **************************************** {{{
 " ************************************************************************************************
-" plugin –vundle.vim管理插件的插件   导致中文帮助无法使用 已经停用此插件改用pathogen.vim
+" plugin –vundle.vim管理插件的插件
+" 其他
+" https://github.com/junegunn/vim-plug
+" https://github.com/tpope/vim-pathogen
+" https://github.com/Shougo/neobundle.vim
 " 发现在Ubuntu中将encoding设置为 utf-8 会使中文帮助无法使用
-" https://github.com/gmarik/vundle/
+" https://github.com/gmarik/Vundle.vim/
 " https://github.com/mutewinter/dot_vim
 " https://github.com/kaochenlong/eddie-vim
 " ************************************************************************************************
-set nocompatible               " be iMproved
-filetype off                   " required!
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-set rtp+=$VIMFILES/bundle/vundle
-call vundle#rc('$VIMFILES/bundle/')
+" set the runtime path to include Vundle and initialize
+set rtp+=$VIMFILES/bundle/Vundle.vim
+call vundle#begin('$VIMFILES/bundle/')
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-" My Bundles here:
-"
-" original repos on github
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'mattn/zencoding-vim'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
-Bundle 'kien/ctrlp.vim'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'tpope/vim-surround'
-Bundle 'terryma/vim-multiple-cursors'
-" Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'Lokaltog/vim-easymotion'
-" Bundle 'Raimondi/delimitMate'
-" Bundle 'tpope/vim-fugitive'
-" Bundle 'howiefh/statusline'
-Bundle 'howiefh/c.vim'
-Bundle 'howiefh/makeprgs'
-Bundle 'howiefh/my-vim-plugin'
-Bundle 'howiefh/TxtBrowser'
-Bundle 'howiefh/vim-colors-solarized'
-Bundle 'howiefh/Git-Branch-Info'
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'mattn/zencoding-vim'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'Shougo/neocomplcache'
+Plugin 'Shougo/neosnippet'
+Plugin 'kien/ctrlp.vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'bling/vim-airline'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'godlygeek/tabular'
+Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'Raimondi/delimitMate'
+" Plugin 'altercation/vim-colors-solarized'
+" Plugin 'Yggdroot/indentLine'
+" Plugin 'tpope/vim-fugitive'
+" Plugin 'howiefh/statusline'
+Plugin 'howiefh/c.vim'
+Plugin 'howiefh/makeprgs'
+Plugin 'howiefh/my-vim-plugin'
+Plugin 'howiefh/TxtBrowser'
+Plugin 'howiefh/vim-colors-solarized'
+Plugin 'howiefh/Git-Branch-Info'
+Plugin 'howiefh/vimcdoc'
 
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" vim-scripts repos
-Bundle 'matchit.zip'
-Bundle 'renamer.vim'
-Bundle 'YankRing.vim'
-Bundle 'AutoClose'
-Bundle 'bufexplorer.zip'
-Bundle 'FencView.vim'
-Bundle 'TaskList.vim'
-" Bundle 'TxtBrowser'
-" Bundle 'Git-Branch-Info'
-" Bundle 'FuzzyFinder'
-" non github repos
-" Bundle 'git://git.wincent.com/command-t.git'
-" ...
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'matchit.zip'
+Plugin 'renamer.vim'
+Plugin 'YankRing.vim'
+Plugin 'AutoClose'
+Plugin 'bufexplorer.zip'
+Plugin 'FencView.vim'
+Plugin 'TaskList.vim'
+" Plugin 'TxtBrowser'
+" Plugin 'Git-Branch-Info'
+" Plugin 'FuzzyFinder'
 
-filetype plugin indent on     " required!
+" plugin not on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Avoid a name conflict with L9
+" Plugin 'user/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
 "
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
 "
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
+" Put your non-Plugin stuff after this line
 
 " ************************************************************************************************
 " plugin - tagbar.vim 查看函数列表，需要ctags程序  taglist 的同类软件
@@ -466,6 +504,8 @@ filetype plugin indent on     " required!
 nmap <silent> <F11> :TagbarToggle<CR>
 if g:OS#win
     let g:tagbar_ctags_bin = "D:/PortableApps/Vim/ctags58/ctags.exe"
+elseif g:OS#unix
+    let g:tagbar_ctags_bin = "ctags"
 endif
 let g:tagbar_width = 30
 " 自动打开
@@ -496,6 +536,28 @@ let g:tagbar_type_txt = {
 " http://www.vim.org/scripts/script.php?script_id=42 
 " \be 全屏方式查看全部打开的文件列表
 " \bv 左右方式查看   \bs 上下方式查看
+" 启动 bufexplorer 后可用下列命令:
+" <F1>          切换帮助信息。
+" <enter>       在当前 window 中打开光标所处的行的 buffer。
+" <leftmouse>   在当前 window 中打开鼠标所指的行的 buffer。
+" <shift-enter> 在别的 tab 中打开当前当标所处的行的 buffer。
+" D             |:delete| 从列表里关闭当前光标下的 buffer, buffer 的 buflisted
+" 选项被清空，可以通过 'show unlisted' 命令来重新显示这个 buffer。
+" R             切换 相对路径/绝对路径。
+" T             切换 是否只显示本 tab 的 buffer。
+" d             |:wipeout| 从列表里删除当前光标下的 buffer。当一个 buffer 被清除，
+" 即使 unlisted buffer 被显示，这个 buffer 也不会出现。
+" f             切换 在选中 buffer 时，在当前窗口中打开 buffer，还是在活动窗口
+              " (原 buffer 打开的窗口)中打开 buffer。
+" o             在当前窗口中打开光标下的 buffer。
+" p             切换 文件路径 是否按 文件名/路径 来显示。
+" q             退出 bufexplore。
+" r             反转 buffer 列表的顺序。
+" s             选择buffer列表的排序方式，可以是 buffer 的序号(buffer number)，
+	   " 文件名，扩展名，最近最多使用(MRU)，或者文件全路径。
+" t             在新的 tab 页打开光标下的 buffer。
+" t             在另外的tab中打开光标下的 buffer。
+" u             切换 是否显示 "unlisted" buffer。
 " ************************************************************************************************
 "
 let g:bufExplorerDefaultHelp=0       " Do not show default help.
@@ -648,15 +710,19 @@ imap <F3> <ESC>:NERDTreeToggle<CR>
 let NERDTreeBookmarksFile=$VIMFILES.'/data/.NERDTreeBookmarks'
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+let NERDTreeAutoDeleteBuffer=1
 
 " ************************************************************************************************
-" plugin -auto-pairs.vim
+" plugin - AutoClose
+" https://github.com/vim-scripts/AutoClose
+" 匹配括号、引号
+" <Leader>a 开关
+" 其他
+" https://github.com/Raimondi/delimitMate (试过，花括号换行有些问题，删除也有问题，没有解决)
 " http://www.vim.org/scripts/script.php?script_id=3599
 " https://github.com/jiangmiao/auto-pairs
-" 匹配括号、引号,此文件在/autoload 中
-" 换为https://github.com/vim-scripts/AutoClose
-" <Leader>a 开关
 " ************************************************************************************************
+nmap <Leader>a <Plug>ToggleAutoCloseMappings
 
 " ************************************************************************************************
 " plugin –txtbrower.vim
@@ -666,17 +732,15 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^
 au BufEnter *.txt setlocal ft=txt
 let g:default_web_browser = s:browser
 
-if g:OS#win
-"
-	"阅读txt            http://guoyoooping.blog.163.com/blog/static/135705183201003172751993/
-	let tlist_txt_settings = 'txt;c:content;f:figures;t:tables'
-	au BufRead,BufNewFile *.txt setlocal ft=txt nu formatoptions=t2crmB textwidth=152 bg& " 换行 折行
-	au BufRead,BufNewFile *.log setlocal ft=txt nu bg&
-"
-	if !exists('Tlist_Ctags_Cmd')
-		let Tlist_Ctags_Cmd = g:tagbar_ctags_bin
-	endif
+"阅读txt            http://guoyoooping.blog.163.com/blog/static/135705183201003172751993/
+let tlist_txt_settings = 'txt;c:content;f:figures;t:tables'
+au BufRead,BufNewFile *.txt setlocal ft=txt nu formatoptions=t2crmB textwidth=152 bg& " 换行 折行
+au BufRead,BufNewFile *.log setlocal ft=txt nu bg&
+
+if !exists('Tlist_Ctags_Cmd')
+    let Tlist_Ctags_Cmd = g:tagbar_ctags_bin
 endif
+
 " ************************************************************************************************
 " plugin –fencview.vim自动识别编码
 " http://www.vim.org/scripts/script.php?script_id=1708 
@@ -713,7 +777,7 @@ command! -nargs=* MRU CtrlPMRU
 " Exclude files and directories using Vim's wildignore and CtrlP's own g:ctrlp_custom_ignore
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
-  \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+  \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|png|jpg|jpeg)$',
   \ }
 
 
@@ -821,6 +885,8 @@ map f <Plug>(easymotion-prefix)
 " ************************************************************************************************
 " plugin - vim-colors-solarized 配色
 " https://github.com/altercation/vim-colors-solarized
+" 另一个主题
+" https://github.com/tomasr/molokai
 " ************************************************************************************************
 "let g:solarized_termcolors=256
 let g:solarized_termtrans=1
@@ -828,9 +894,9 @@ let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 " 配色方案
 if g:OS#gui
-    set background=dark
+	set background=dark
 else
-    set background=light
+	set background=light
 endif
 colorscheme solarized
 
@@ -869,11 +935,56 @@ let g:git_branch_status_around=""
 let g:git_branch_check_write=1
 
 " ************************************************************************************************
+" plugin - vim-table-mode
+" 方便地创建表格
+" https://github.com/dhruvasagar/vim-table-mode
+" <Leader>tm table mode 开关
+" <Leader>tt 使用g:table_mode_delimiter定义的分隔符插入表格
+" <Leader>T  使用用户输入的分隔符插入表格
+" [|       移动到前一个表格 
+" ]|       移动到下一个表格       
+" {|       移动到上面一个表格
+" }|       移动到下面一个表格       
+" ||	   插入表头边框
+" <Leader>tdd	删除一行
+" <Leader>tdc	删除一列
+" 其他
+" https://github.com/nvie/vim-rst-tables
+" https://github.com/vim-scripts/RST-Tables-CJK
+" ************************************************************************************************
+" Use this option to permanently enable the table mode: >
+let g:table_mode_always_active = 1
+" Use this option to define the table corner character: >
+let g:table_mode_corner = '|'
+" Use this option to define the delimiter which used by
+let g:table_mode_delimiter = ' '
+
+" ************************************************************************************************
+" plugin - tabular
+" 对齐
+" https://github.com/godlygeek/tabular
+" 其它
+" https://github.com/junegunn/vim-easy-align
+" ************************************************************************************************
+
+" ************************************************************************************************
 " plugin - TaskList.vim
 " 查看并快速跳转到代码中的TODO列表
-" <Leader>t 打开todo列表
+" 默认<Leader>t 打开todo列表,和 vim-table-mode 冲突,改为<leader>v
 " https://github.com/vim-scripts/TaskList.vim
 " ************************************************************************************************
+map <leader>v <Plug>TaskList
+
+" ************************************************************************************************
+" plugin - vim-indent-guides
+" 显示缩进
+" <Leader>ig 开关
+" https://github.com/nathanaelkane/vim-indent-guides
+" 另一个
+" https://github.com/Yggdroot/indentLine
+" ************************************************************************************************
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
 
 " ************************************************************************************************
 " plugin - makeprgs.vim 

@@ -1,6 +1,18 @@
-snippet codeblock
+snippet codeb
 abbr {% codeblock %}
     {% codeblock ${1:#:lang}%}
     ${2:#:code}
     {% endcodeblock %}${3}
-
+snippet blockquote
+abbr {% blockquote %}
+    {% blockquote ${1:#:title}%}
+    ${2:#:blockquote}
+    {% endblockquote %}${3}
+snippet qiniu
+abbr ![alt](url)
+options word
+    ![${1:#:alt}](http://fh-1.qiniu.com/${2:#:url})${3}
+snippet more
+abbr <!-- more -->
+options word
+    <!-- more -->${1}

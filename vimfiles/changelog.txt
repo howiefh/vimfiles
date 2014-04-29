@@ -1,0 +1,403 @@
+﻿version 1.3.1
+2014.4.29
+1. 更新Vundle.vim
+2. 新增插件vim-table-mode,tabular,vim-indent-guides
+3. 增加高亮当前列的配置 http://www.vimer.cn/2012/05/vimgvim%E6%94%AF%E6%8C%81%E5%AF%B9%E9%BD%90%E7%BA%BF.html
+
+version 1.3.0
+2014.3.11
+1. 新增插件：TaskList.vim
+2. 从 https://github.com/Shougo/neosnippet-snippets 添加 snippets
+3. vim-colors-solarized 注释取消斜体
+4. 修复 Git-Branch-Info 在 windows 下无法显示分支的问题
+5. 修复 TxtBrowser 无法打开链接的问题
+6. 因为 windows 下无法显示一些特殊字符，所以将 airline 的一些设置写入
+ vimfiles/bundle/my-vim-plugin/unix-airline.vim 中
+7. 采用.gitmodules
+8. 没有解决在 Windows 下设置 encoding 为 utf-8 :h打不开帮助文档的问题
+
+2014.3.7
+1. 新增插件
+vim-airline设置在状态行显示的信息  
+https://github.com/bling/vim-airline
+vim-easymotion 快速移动定位
+https://github.com/Lokaltog/vim-easymotion
+vim-colors-solarized
+https://github.com/altercation/vim-colors-solarized
+syntastic 检查语法
+https://github.com/scrooloose/syntastic
+Git-Branch-Info
+https://github.com/vim-scripts/Git-Branch-Info
+2. 根据https://github.com/wklken/k-vim 修改配置文件
+3. 更新插件
+4. 修改TxtBrowser
+5. 调整目录结构
+
+version 1.2.15{{{
+2013.5.17
+1.vimfiles中添加ctags.cnf，添加了markdown和txt的规则
+2.vimrc中添加了 ViewInBrowser() 函数，可以在浏览器中打开正在编辑的文件
+3.添加neosnippet插件，从neocomplcache分出来的
+
+2013.5.16
+1.移除mru.vim，pydiction-1.2，pyflakes-vim，html5.vim，vimwiki
+vimwiki:{{{
+let g:vimwiki_list = [
+  \ {
+    \ 'path'        : $BLOG,
+	\ 'path_html'	: $BLOG.'/html/',
+	\ 'html_footer'	: $BLOG.'/defalut/footer.tpl',
+	\ 'html_header'	: $BLOG.'/defalut/header.tpl',
+    \ 'index'       : '_index',
+	\ 'syntax'		: 'markdown',
+    \ 'ext'         : '.md',
+    \ 'auto_export' : 0,
+    \ 'nested_syntaxes' : {'javascript': 'javascript', 'python': 'python', 'c++': 'cpp'}
+  \ }
+\]
+mru:
+"记录历史文件的位置
+let MRU_File=$VIMFILES . '/Data/history/.vim_mru_files'
+"记录的条数
+let MRU_Max_Entries=80 
+"分割窗口的大小
+let MRU_Window_Height=10
+"选择文件后打开此窗口自动关闭
+let MRU_Auto_Close=1
+"简化：,h 打开MRU
+map <silent> <leader>h :MRU<CR>
+taglist:
+set tags=tags;
+if g:OS#win
+	let Tlist_Ctags_Cmd = "D:/PortableApps/Vim/ctags58/ctags.exe"
+
+    "设定windows系统中ctags程序的位置
+	"let Tlist_Ctags_Cmd = $VIM.'/ctags58/ctags.exe'  :echo $VIM 显示 D:\Program Files\PortableApps\Vim  有空格，不能用taglist
+endif
+let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
+let tlist_actionscript_settings = 'actionscript;c:class;f:method;p:property;v:variable'    "配置taglist对actionscript的识别http://blog.csdn.net/holybozo/archive/2007/07/19/1698549.aspx
+
+nnoremap <F11> :TlistToggle<CR>
+pydiction:
+"pydiction 1.2 python auto complete
+
+let g:pydiction_location = '~/.vim/bundle/pydiction-1.2/complete-dict'
+
+"default g:pydiction_menu_height == 15
+"let g:pydiction_menu_height = 20 
+calendar:
+let g:calendar_diary=$VIMFILES.'/Data/calendar_data/'
+if g:OS#win
+	autocmd BufNewFile *.cal read $VIMFILES/Data/templates/calendar/calendar_diary.tpl | normal ggdd
+elseif g:OS#unix
+	autocmd BufNewFile *.cal read $HOME/.vim/Data/templates/calendar/calendar_diary.tpl | normal ggdd
+endif
+vimtweak:
+if g:OS#win
+	map <leader>aw :call libcallnr("vimtweak.dll","SetAlpha",240)<cr>
+	map <leader>aW :call libcallnr("vimtweak.dll","SetAlpha",255)<cr>
+
+	" Maximized Window
+
+	map <leader>mw :call libcallnr("vimtweak.dll","EnableMaximize",1)<cr>
+	map <leader>mW :call libcallnr("vimtweak.dll","EnableMaximize",0)<cr>
+
+	" TopMost Window
+	call libcallnr("vimtweak.dll","EnableTopMost",1)
+	map <leader>et :call libcallnr("vimtweak.dll","EnableTopMost",1)<cr>
+	map <leader>eT :call libcallnr("vimtweak.dll","EnableTopMost",0)<cr>
+endif
+pathogen:
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#runtime_append_all_bundles()
+command! -nargs=* HTags Helptags
+"定义目录
+"call pathogen#infect('c')
+}}}
+2.加入ctrlp.vim，vundle,matchit.zip,numbers.vim,vim-markdown
+2012.3.12
+1.设置了tagbar插件 F6打开tagbar窗口
+2.增加了设置 set wildmenu				 "Turn on WiLd menu 在末行命令行敲tab键时会在状态栏显示选项
+3.增加makeprgs.vim 插件，一键编译单个源文件
+ http://www.vim.org/scripts/script.php?script_id=2031 
+4.增加设置
+set whichwrap+=h,l			"Bbackspace and cursor keys wrap to 使指定的左右移动光标的键在行首或行尾可以移到前一行或者后一行
+set so=7					 "Set 7 lines to the curors - when moving vertical..光标所在的行将总定位在窗口的第7的位置 
+5.修改了java.snippet
+
+2012.4.12
+1.针对markdown对vim73目录下的syntax和filetype文件做了修改，syntax用了github 的plasticboy-vim-markdown(原来是tpope-vim-markdown) ，并且加了hallison-vim-markdown的snippets
+ 
+2012.6.21
+1.更新了c.vim，更改了plugin目录下的c.vim将103行vimfiles换为.vim
+
+2012.8.2
+1.对vim和gvim的配色分别开来
+
+2012.8.8
+1.linux和windows编码区别开来
+}}}
+
+version 1.2.14 {{{
+2011年12月03日
+1.改了c.vim插件具体是：
+D:\Program Files\PortableApps\Vim\vimfiles\bundle\c.vim\ftplugin中的c.vim中从43行起把<F9>换成了<F5>
+2._vimrc中nnoremap <F11> :TlistToggle<CR>和map <F9> :TGoto<CR> 两个的快捷键互换了
+}}}
+
+version 1.2.13 {{{
+2011年11月28日
+1.加了Conque-Shell插件，vim中打开终端
+2.去掉了	set termencoding=utf-8  设置
+3.解决了Conque Shell的乱码问题，修改了\Vim\vimfiles\bundle\Conque-Shell\autoload\conque_term.vim文件：  
+	if has("win32") || has("win32unix")
+		 sil exe 'edit ++enc=cp936 ' . g:ConqueTerm_BufName
+	endif
+	if has("unix")
+		 sil exe 'edit ++enc=utf-8 ' . g:ConqueTerm_BufName
+	endif
+   
+
+    " buffer settings 
+	if has("win32") || has("win32unix")
+		 setlocal fileencoding=cp936 " file encoding, even tho there's no file
+	endif
+	if has("unix")
+		 setlocal fileencoding=utf-8 " file encoding, even tho there's no file
+	endif
+}}}	
+
+version 1.2.12 {{{
+2011年11月26日
+vimflies目录上传到了dbank网盘
+1.删除了syntax、keymap、indent、ftplugin、compiler、colors等空目录
+README.md、README.csupport、README、Rakefile、favlist、.VimballRecord、.netrwhist、.gitignore文件。
+2.暂时不再使用vundle来管理插件，以下是关于它的配置（这一部分已经从配置中去掉了）：
+"有两个引号的可以去掉
+""function Update_plugin()
+""	if g:OS#unix
+
+ 	 filetype off                   " required!
+
+	 set rtp+=$VIMFILES/bundle/vundle
+	 call vundle#rc('$VIMFILES/bundle/')
+	 " let Vundle manage Vundle
+	 " required! 
+	 Bundle 'gmarik/vundle'
+ 
+	 " My Bundles here:
+	Bundle 'vim-scripts/calendar.vim--Matsumoto'
+	Bundle 'vim-scripts/bufexplorer.zip'
+	Bundle 'vim-scripts/c.vim'
+	Bundle 'Shougo/neocomplcache'
+	Bundle 'tyru/fencview.vim'
+	Bundle 'scrooloose/nerdcommenter'
+	Bundle 'scrooloose/nerdtree'
+	Bundle 'vim-scripts/mru.vim'
+	Bundle 'vim-scripts/winmanager'
+	Bundle 'vim-scripts/TxtBrowser'
+	Bundle 'jiangmiao/auto-pairs'
+	Bundle 'ahao/statusline.vim'
+	Bundle 'ahao/myhelp'
+	Bundle 'vim-scripts/VimIM'
+	Bundle 'acx0/Conque-Shell'
+
+	"Bundle 'vim-scripts/vimcn'
+	" Bundle 'vim-scripts/cecutil' 
+	" Bundle 'vim-scripts/echofunc.vim'
+	" Bundle 'vim-scripts/genutils'
+	" Bundle 'vim-scripts/DrawIt'
+	" Bundle 'vim-scripts/matrix.vim'
+	" Bundle 'vim-scripts/lookfile'
+	" Bundle 'vim-scripts/sketch.vim'
+	" Bundle 'vim-scripts/surround.vim'
+	" Bundle 'vim-scripts/timestamp.vim'
+	" Bundle 'vim-scripts/utl.vim'
+	" Bundle 'vim-scripts/FavEx'
+	" Bundle 'ahao/vimcdoc'
+	" original repos on github
+	" Bundle 'tpope/vim-fugitive'
+	" Bundle 'Lokaltog/vim-easymotion'
+	" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+	" vim-scripts repos
+	"Bundle 'L9'
+	"Bundle 'FuzzyFinder'
+	"Bundle 'rails.vim'
+	" non github repos
+	"Bundle 'git://git.wincent.com/command-t.git'
+	" ...
+	filetype plugin indent on 
+""	BundleInstall 
+""	endif
+""endfunction
+""command! -nargs=* Update call Update_plugin()
+3.从bundle中取掉了vundle和winmanager两个目录
+4.对配置文件使用了折叠" vim:fdm=marker
+}}}
+
+version 1.2.11 {{{
+2011年11月25日
+1.对txtbrowser syntax txt.vim进行了更改
+"对标题高亮规则进行了更改 ，是标题中可以包含逗号
+"原来：syn match txtTitle "^\(\d\+ \)\+\s*[^,。，],"
+"现在：syn match txtTitle "^\(\d\+ \)\+\s*[^。],"
+2.改了存放字典的目录名ExtraVim为dictionary
+针对zencoding写了html.dic文件
+3.改用vundle，纠结啊，没改成功，改不了
+貌似搞好了，看了日本人的东西,没法高亮啊
+http://www.kaneshinth.com/vim/windows-vim-plugin-vundle-3/
+.vimrc
+" vundle
+filetype off
+set rtp+=$HOME/vimfiles/bundle/vundle
+call vundle#rc( '$HOME/vimfiles/bundle' ) " 管理するフォルダを引数で渡します。
+Bundle 'gmarik/vundle' " vundle自身の管理
+Bundle 'thinca/vim-quickrun' " この書き方はgithub.comのplugin
+Bundle 'TwitVim' " この書き方はvim.orgのplugin
+filetype plugin indent on
+
+应该是搞好了，原来是先要filetype off然后再filetype plugin indent on的
+}}}
+
+version 1.2.10 {{{
+2011年11月22日
+1.添加了source $VIMRUNTIME/vimrc_example.vim 出现问题，无法调出历史命令
+2.尝试改字体无果，好像只能设置编辑-》选择字体中列出的字体
+}}}
+
+version 1.2.9 {{{
+2011年11月20日
+1.改了html.snippets
+具体改了snippets hn
+}}}
+
+version 1.2.8 {{{
+2011年11月18日
+1.加了zencoding.vim插件， bundle中也有改
+根据http://leeiio.me/zen-coding-in-vim/配置了此插件
+}}}
+
+version 1.2.7 {{{
+2011年11月17日
+1.注释掉
+" set nowrapscan              " 禁止在搜索到文件两端时重新搜索
+}}}
+
+version 1.2.6 {{{
+2011年11月10日
+1.注释掉了"字典目录
+"au FileType txt setlocal dict+=$VIM/vimfiles/Data/ExtraVim/zh_CN.dic
+"au FileType txt setlocal dict+=$VIM/vimfiles/Data/ExtraVim/eng_small.dic
+"au FileType tex setlocal dict+=$VIM/vimfiles/Data/ExtraVim/latex.dic
+2.对编码进行了设置，fileencodings的utf-8取掉了，不分win和unix来设置了
+}}}
+
+version 1.2.5 {{{
+2011年11月7日
+1.发现在windows下对于新建的文件fileencoding会是utf-8，添加了encoding和fileencoding的设置没用
+把fileencodings的utf-8去掉后没问题了。
+}}}
+
+version 1.2.4 {{{
+2011年11月2日
+1.因为汉字编码的缘故，更改了c.vim 把原来的Templates改成两个不同编码的文件
+UNIX_Templates和WIN_Templates
+}}}
+
+version 1.2.3 {{{
+2011年11月1日
+1.把auto-pairs换成了autoclose  参考了http://sinolog.it/?p=1242
+2.改了下myhelp中关于taglist的内容
+3.加入了gvim 菜单栏与工具栏隐藏与显示动态切换
+参照：http://liyanrui.is-programmer.com/articles/1791/gvim-menu-and-toolbar-toggle.html
+}}}
+
+version 1.2.2 {{{
+2011年10月31日
+1.把enc改回了默认，不再设置该项
+2.关于bundle中cnx文件无法使用但txt文件可以的问题应该还是编码问题
+windows下已经可以在enc为utf-8的情况下使用bundle中的cnx帮助文件
+(改过的文件已经上传到了115盘)
+但是linux还是不可以，太难伺候了，不过发现只有txtbrowser和vimim的
+cnx帮助文件可用其他都会使vim没有响应。最后妥协了把所有vimcn中的
+文件放入了$VIMFILES/doc中的(以1_开头的).
+3.对于neocomplcache注释掉了定义字典和
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+加了以上这句之后对有的文件按回车不会输入候选项
+}}}
+
+version 1.2.1 {{{
+2011年10月29日 
+1.对neocomplcache采用了一些作者建议的配置
+2.新问题：对于linux中打开c文件不能加载auto-pairs.vim
+3.解决了第二个问题，原因是把插件后缀的V写成大写了，linux对大小写很敏感啊！
+}}}
+
+version 1.2	{{{
+2011年10月29日 
+1.发现在Ubuntu中encoding为utf-8会使中文帮助无法使用
+具体症状是如果设置为utf-8 则在/bundle/vimcn/doc中的*.cnx文件无法使用但txt文件可以
+，/.vim/doc中的*.cnx也能正常使用。于是把编码统一设置为cp936
+2.对Bundle进行了整理.
+3.去掉了几个插件
+cecutil、echofunc.vim、genutils
+4.将windows帮助文档移动到vimfiles中
+需要在vim73的doc中放一个help.txt
+5.设置了viminfo的路径
+6.对linux设置了鼠标行为
+if g:OS#unix
+	"设置鼠标和选择的行为
+	set selectmode=key
+	set mousemodel=popup
+	set keymodel=startsel,stopsel
+	set selection=exclusive
+	"修正鼠标右键菜单行为
+	noremap <RightMouse> <Nop>
+	noremap <RightRelease> <RightMouse>
+	noremap! <RightMouse> <Nop>
+	noremap! <RightRelease> <RightMouse>
+endif
+7.去掉“原来_vimrc中的 ”里的source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+将以上句子移了出来也就是说不再只对windows有效，linux下也是用ctrl+c等来复制粘贴
+8.设置了打开时定位到上次关闭时的位置
+9.对viminfo的设置还有问题
+10.加了字典，拖慢了速度
+}}}
+
+version 1.1	{{{
+2011年10月28日 
+1. “原来_vimrc中的 ”和vundle.vim的设置选项中去掉了set socompatible 关闭vi模式
+2. 去掉了"http://apps.hi.baidu.com/share/detail/5531771
+"http://hi.baidu.com/%D5%D4%BB%B6%C0%DA/blog/item/c28983b4f7d69fc236d3ca99.html
+3. 去掉了位于map之上的帮助菜单中的helptags帮助项
+4. 去掉了 NeoComplCache.vim、 taglist.vim、calendar.vim、txtbrower中的注释掉的内容
+5. 去掉了 DoxygenToolkit.vim 、easygrep、zencoding、javascript、javascriptlint、template_loader、timestamp、vimim中的设置内容
+6. 去掉 txtbrower 中syntax on选项filetype plugin on 选项放在了基本设置中
+7. 把几个不用的插件放在了$VIMFILES/Data/backup中
+8. 去掉vundle 中filetype plugin indent on 设置
+9. 去掉vimtweak 中
+	" VimTweak
+	"    if (has("gui_running"))
+	"        command -nargs=1 SetAlpha call libcallnr("vimtweak.dll",
+	"            \"SetAlpha", <args>)
+	"        command -nargs=0 TopMost call libcallnr("vimtweak.dll",
+	"            \"EnableTopMost", 1)
+	"        command -nargs=0 NoTopMost call libcallnr("vimtweak.dll",
+	"            \"EnableTopMost", 0)
+	"    endif
+	"Alpha Window
+10. 删除几个配色：
+Celibate.vim
+DimGreen.vim
+elflord.vim
+grey2.vim
+list.txt
+ManShow.vim
+mytorte.vim
+}}}
+
+" vim:fdm=marker

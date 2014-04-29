@@ -27,8 +27,12 @@
   * renamer.vim
   * vim-multiple-cursors
   * Git-Branch-Info
+  * TaskList.vim
+  * vim-markdown
+  * vim-table-mode
+  * tabular
+  * vim-indent-guides
 * colors
   * ManShow.vim
   * valloric.vim
   * vim-colors-solarized
-
