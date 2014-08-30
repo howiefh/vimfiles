@@ -1,4 +1,14 @@
-﻿version 1.3.1
+﻿version 1.3.3
+2014.8.30
+1. 更新插件
+2. vimrc中,由于ubuntu升级到14.04，默认字体为monosapce，显示字符太宽，换为文泉驿等宽微米黑。设置neosnippet的data_directory路径。设置g:git_branch_check_write=0
+
+version 1.3.2
+2014.5.13
+1. 增加ctags对autohotkey的支持，在ctags.cnf中[a-zA-Z0-9_@]{3,}是为了过滤if
+2. 增加F5直接运行autohotkey脚本
+
+version 1.3.1
 2014.4.29
 1. 更新Vundle.vim
 2. 新增插件vim-table-mode,tabular,vim-indent-guides

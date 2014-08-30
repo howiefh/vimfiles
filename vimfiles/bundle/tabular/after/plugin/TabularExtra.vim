@@ -1,9 +1,8 @@
-let mapleader=','
 if exists(':Tabularize')
-    nmap <Leader>a= :Tabularize /=<CR>
-    vmap <Leader>a= :Tabularize /=<CR>
-    nmap <Leader>a: :Tabularize /:\zs<CR>
-    vmap <Leader>a: :Tabularize /:\zs<CR>
+    nmap <Leader>= :Tabularize /=<CR>
+    vmap <Leader>= :Tabularize /=<CR>
+    nmap <Leader>a :Tabularize /:\zs<CR>
+    vmap <Leader>a :Tabularize /:\zs<CR>
 endif
 
 " 表格输入竖线对齐，在vim-table-mode中已经实现

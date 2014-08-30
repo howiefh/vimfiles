@@ -180,8 +180,11 @@ if g:OS#gui
 endif
 
 " 设置字体 以及中文支持
+if g:OS#unix
+    set guifont=文泉驿等宽微米黑\ 11
+endif
 " if g:OS#win
-	" set guifont=幼圆:h12:cANSI
+	" set guifont=幼圆\ 12
 " endif
 
 " 解决win7下“Press Enter or type command to continue”提示
@@ -266,6 +269,7 @@ au FocusLost * silent! up
  
 " Autohotkey 
 au BufNewFile,BufRead *.ahk	 setf autohotkey 
+autocmd FileType autohotkey map <F5> :silent !start "d:\PortableApps\Autohotkey\autohotkey.exe" "%"<CR>
 
 "字典目录
 "au FileType txt setlocal dict+=$VIM/vimfiles/data/dictionary/zh_CN.dic
@@ -430,7 +434,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'mattn/zencoding-vim'
+Plugin 'mattn/emmet-vim'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'Shougo/neocomplcache'
@@ -444,6 +448,7 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'godlygeek/tabular'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'mbbill/fencview'
 " Plugin 'Raimondi/delimitMate'
 " Plugin 'altercation/vim-colors-solarized'
 " Plugin 'Yggdroot/indentLine'
@@ -463,7 +468,6 @@ Plugin 'renamer.vim'
 Plugin 'YankRing.vim'
 Plugin 'AutoClose'
 Plugin 'bufexplorer.zip'
-Plugin 'FencView.vim'
 Plugin 'TaskList.vim'
 " Plugin 'TxtBrowser'
 " Plugin 'Git-Branch-Info'
@@ -518,7 +522,8 @@ let g:tagbar_type_markdown = {
 		\ 'h:Heading_L1',
 		\ 'i:Heading_L2',
 		\ 'k:Heading_L3'
-	\ ]
+	\ ],
+	\ 'sort'    : 0
 \ }
 " Tagbar txt
 let g:tagbar_type_txt = {
@@ -527,6 +532,19 @@ let g:tagbar_type_txt = {
         \'c:content',
 		\'t:tables',
 		\'f:figures'
+    \],
+	\ 'sort'    : 0
+\}
+let g:tagbar_type_autohotkey = {
+    \ 'ctagstype': 'autohotkey',
+    \ 'kinds' : [
+        \'l:Label',
+		\'s:HotString',
+		\'f:Function',
+		\'n:Note',
+		\'t:Todo',
+		\'k:Hotkey',
+		\'v:Variable'
     \],
 	\ 'sort'    : 0
 \}
@@ -676,7 +694,10 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
+" nippets
 let g:neosnippet#snippets_directory=$VIMFILES.'/data/snippets'
+" cache
+let g:neosnippet#data_directory=$VIMFILES.'cache/neosnippet'
 " 解决neosnippet default snippets cannot be loaded.  You must install neosnippet-snippets or disable runtime snippets.
 let g:neosnippet#disable_runtime_snippets={ "_": 1, } 
 
@@ -709,20 +730,20 @@ map <F3> :NERDTreeToggle<CR>
 imap <F3> <ESC>:NERDTreeToggle<CR>
 let NERDTreeBookmarksFile=$VIMFILES.'/data/.NERDTreeBookmarks'
 let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+let NERDTreeIgnore=[ '\.rar$', '\.zip$', '\.png$', '\.jpg$', '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 let NERDTreeAutoDeleteBuffer=1
 
 " ************************************************************************************************
 " plugin - AutoClose
 " https://github.com/vim-scripts/AutoClose
 " 匹配括号、引号
-" <Leader>a 开关
+" <Leader>c 开关
 " 其他
 " https://github.com/Raimondi/delimitMate (试过，花括号换行有些问题，删除也有问题，没有解决)
 " http://www.vim.org/scripts/script.php?script_id=3599
 " https://github.com/jiangmiao/auto-pairs
 " ************************************************************************************************
-nmap <Leader>a <Plug>ToggleAutoCloseMappings
+nmap <Leader>c <Plug>ToggleAutoCloseMappings
 
 " ************************************************************************************************
 " plugin –txtbrower.vim
@@ -932,7 +953,7 @@ let g:git_branch_status_around=""
 " 
 " Check the current branch if it's the same branch where the file was loaded, 
 " before saving the file.
-let g:git_branch_check_write=1
+let g:git_branch_check_write=0
 
 " ************************************************************************************************
 " plugin - vim-table-mode
@@ -953,7 +974,7 @@ let g:git_branch_check_write=1
 " https://github.com/vim-scripts/RST-Tables-CJK
 " ************************************************************************************************
 " Use this option to permanently enable the table mode: >
-let g:table_mode_always_active = 1
+" let g:table_mode_always_active = 1
 " Use this option to define the table corner character: >
 let g:table_mode_corner = '|'
 " Use this option to define the delimiter which used by
