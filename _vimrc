@@ -1,7 +1,7 @@
 " ************************************************************************************************
-"       _     
-"      (-'      .-.. .  .  . ..-- 		 
-"      _\__$    `-.|\| /_\ |< |-  		 
+"       _
+"      (-'      .-.. .  .  . ..--
+"      _\__$    `-.|\| /_\ |< |-
 "    (___)      `-'' ''   '' `'--
 "		  Author:  howiefh
 "        Version:  1.3.0
@@ -10,10 +10,10 @@
 "    Description:   _vimrc for windows .vimrc for linux
 "																         .--.--. ..-.  . .  .  .-.
 "																	   	 |- |- |\||-.  |-| /_\ | |
-"																		 '  '--' ''-'  ' ''   '`-'	
-" ****************************************** Initialize variables *************************************** {{{
+"																		 '  '--' ''-'  ' ''   '`-'
+" ****************************************** Initialize variables *****************************{{{
 " 设置当前系统
-" 
+"
 if has("win32") || has("win32unix")
     let g:OS#name = "win"
     let g:OS#win = 1
@@ -39,53 +39,53 @@ endif
 " 用用户目录
 if g:OS#win
     let $VIMFILES = $VIM.'/vimfiles'
-	let $HOME = $VIMFILES
-	let $BLOG = "E:/User/Documents/howiefh.github.io"
+    let $HOME = $VIMFILES
+    let $BLOG = "E:/User/Documents/howiefh.github.io"
 elseif g:OS#unix
-	let $VIM=$HOME 
+    let $VIM=$HOME
     let $VIMFILES = $HOME.'/.vim'
-	let $BLOG = "/media/WinE/User/Documents/howiefh.github.io"
+    let $BLOG = "/media/WinE/User/Documents/howiefh.github.io"
 endif
 " 定义浏览器
 if g:OS#win
-	let s:browser = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+    let s:browser = "D:/Applications/Firefox/firefox.exe"
 elseif g:OS#unix
-	let s:browser = "/usr/bin/chromium-browser"
+    let s:browser = "/usr/bin/firefox"
 endif
 " }}}
 
 "  default _vimrc   {{{
 if g:OS#win
-	 " MyDiff 
-	set diffexpr=MyDiff()
-	function! MyDiff()
-		  let opt = '-a --binary '
-		  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-		  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-		  let arg1 = v:fname_in
-		  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-		  let arg2 = v:fname_new
-		  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-		  let arg3 = v:fname_out
-		  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-		  let eq = ''
-		  if $VIMRUNTIME =~ ' '
-			if &sh =~ '\<cmd'
-			  let cmd = '""' . $VIMRUNTIME . '\diff"'
-			  let eq = '"'
-			else
-			  let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-			endif
-		  else
-			let cmd = $VIMRUNTIME . '\diff'
-		  endif
-		  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-	endfunction
+    " MyDiff
+    set diffexpr=MyDiff()
+    function! MyDiff()
+        let opt = '-a --binary '
+        if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+        if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+        let arg1 = v:fname_in
+        if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+        let arg2 = v:fname_new
+        if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+        let arg3 = v:fname_out
+        if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+        let eq = ''
+        if $VIMRUNTIME =~ ' '
+            if &sh =~ '\<cmd'
+                let cmd = '""' . $VIMRUNTIME . '\diff"'
+                let eq = '"'
+            else
+                let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+            endif
+        else
+            let cmd = $VIMRUNTIME . '\diff'
+        endif
+        silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    endfunction
 endif
 
 " }}}
 
-" ****************************************** Settings *************************************** {{{
+" ****************************************** Settings **************************************** {{{
 " ************************************************************************************************
 "  基本设置
 " ************************************************************************************************
@@ -94,10 +94,11 @@ set nocompatible            " 关闭 vi 兼容模式
 syntax on                   " 自动语法高亮
 "colorscheme torte          " 配置颜色方案
 set number                  " 显示行号
-set scrolloff=7				"Set 7 lines to the curors - when moving vertical..光标所在的行将总定位在窗口的第7的位置 
+set scrolloff=2				"Set 2 lines to the curors - when moving vertical..光标所在的行将总定位在窗口的第2的位置
 
 set cursorline              " 突出显示当前行
 " set cursorcolumn			" 突出显示当前列
+set cc=80                   " 高亮第80列
 
 set wildmenu				 "Turn on WiLd menu 在末行命令行敲tab键时会在状态栏显示选项
 set whichwrap+=h,l			"Bbackspace and cursor keys wrap to 使指定的左右移动光标的键在行首或行尾可以移到前一行或者后一行
@@ -134,7 +135,7 @@ set smartindent             " 开启新行时使用智能自动缩进
 
 set autochdir               " 自动切换当前目录为当前文件所在的目录
 set autoread				" 文件修改之后自动载入。
-filetype plugin indent on   " 开启文件检测 
+filetype plugin indent on   " 开启文件检测
 set backupcopy=yes          " 设置备份时的行为为覆盖
 set magic                   " For regular expressions turn magic on
 set hidden                  " 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
@@ -145,8 +146,8 @@ set viminfo+=n$VIMFILES/cache/.viminfo    "设置viminfo的路径
 "好处：误删什么的，如果以前屏幕打开，可以找回
 set t_ti= t_te=
 
-"显示长行 
-set display=lastline                
+"显示长行
+set display=lastline
 nmap j gj
 nmap k gk
 
@@ -168,107 +169,104 @@ set foldlevel=5
 " gvim 菜单栏与工具栏隐藏与显示动态切换
 " Toggle Menu and Toolbar
 if g:OS#gui
-	set guioptions-=m			 " 隐藏菜单栏
-	set guioptions-=T			" 隐藏工具栏
-	map <silent> <F2> :if &guioptions =~# 'T' <Bar>
-			\set guioptions-=T <Bar>
-			\set guioptions-=m <bar>
-		\else <Bar>
-			\set guioptions+=T <Bar>
-			\set guioptions+=m <Bar>
-		\endif<cr>
+    set guioptions-=m			 " 隐藏菜单栏
+    set guioptions-=T			" 隐藏工具栏
+    map <silent> <F2> :if &guioptions =~# 'T' <Bar>
+                    \set guioptions-=T <Bar>
+                    \set guioptions-=m <bar>
+                \else <Bar>
+                    \set guioptions+=T <Bar>
+                    \set guioptions+=m <Bar>
+                \endif<cr>
 endif
 
 " 设置字体 以及中文支持
 if g:OS#unix
     set guifont=文泉驿等宽微米黑\ 11
 endif
-" if g:OS#win
-	" set guifont=幼圆\ 12
-" endif
 
 " 解决win7下“Press Enter or type command to continue”提示
 if g:OS#win
     silent!
-endif 
+endif
 
 " 设置启动时窗口最大化  linux下如果要窗口最大化参见：http://uniharmony.blog.163.com/blog/static/4617437620087310345373/
 " 屏蔽以下的设置
 if 0
-if g:OS#win
-    " 启动最大化
-    " winsize 1024 768 "把窗口设为 宽：1024 高：768  已废弃
-	set lines=28 columns=130
-   " au GUIEnter * simalt ~x   "打开窗口后模拟（simalt ~x）alt 空格 x 组合键 （最大化窗口）
-    au GUIEnter * winpos 200 140   "打开窗口后 将窗口 定位到 200 140 
- endif
+    if g:OS#win
+        " 启动最大化
+        " winsize 1024 768 "把窗口设为 宽：1024 高：768  已废弃
+        set lines=28 columns=130
+        " au GUIEnter * simalt ~x   "打开窗口后模拟（simalt ~x）alt 空格 x 组合键 （最大化窗口）
+        au GUIEnter * winpos 200 140   "打开窗口后 将窗口 定位到 200 140
+    endif
 
-" 设置窗口默认大小。
-if g:OS#unix
-	set columns=100
-	set lines=30
-endif
+    " 设置窗口默认大小。
+    if g:OS#unix
+        set columns=150
+        set lines=40
+    endif
 endif
 
 " 配置多语言环境
 if has("multi_byte")
-	if g:OS#win
-		" set fileencoding=chinese
+    if g:OS#win
+        " set fileencoding=chinese
         " set fileencodings=ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-		" TODO:设置为utf-8,:help查看不了帮助文档
-		" set encoding=utf-8
-		language messages utf-8
-	elseif g:OS#unix
-"		set fileencoding=cp936
-		language messages zh_CN.utf-8
-	endif
-	set fileencoding=utf-8
-	set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-	source $VIMRUNTIME/delmenu.vim
-	source $VIMRUNTIME/menu.vim
+        " TODO:设置为utf-8,:help查看不了帮助文档
+        " set encoding=utf-8
+        language messages utf-8
+    elseif g:OS#unix
+        "		set fileencoding=cp936
+        language messages zh_CN.utf-8
+    endif
+    set fileencoding=utf-8
+    set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
     if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
-		" 设置宽度不明的文字(如 “”①②→ )为双宽度文本。
-		" @see http://blog.sina.com.cn/s/blog_46dac66f010006db.html
+        " 设置宽度不明的文字(如 “”①②→ )为双宽度文本。
+        " @see http://blog.sina.com.cn/s/blog_46dac66f010006db.html
         set ambiwidth=double
-    endif  
+    endif
 else
     echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
- 
+
 "设置了ctrl+c  ctrl+v等标准windows操作
 source $VIMRUNTIME/mswin.vim
 behave mswin
- 
+
 "打开文件定位到关闭时的位置
 autocmd BufReadPost *
-			\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-			\ exe "normal g'\"" |
-			\ endif |
- 
+            \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+            \ exe "normal g'\"" |
+            \ endif |
+
 " 定义Ev为编辑vimrc 命令
-command! -nargs=* Ev edit $MYVIMRC  
+command! -nargs=* Ev edit $MYVIMRC
 
 " vimrc文件修改之后自动加载。
 if g:OS#win
-	autocmd! bufwritepost _vimrc source %
+    autocmd! bufwritepost _vimrc source %
 elseif g:OS#unix
-	autocmd! bufwritepost .vimrc source %
+    autocmd! bufwritepost .vimrc source %
 endif
 
 " 编辑myvimtips
 command! -nargs=* Etips edit $VIMFILES/doc/1_myvimtips.txt
 
 " 一旦vim窗口失去焦点，即你切换到其他窗口，vim编辑文件就会自动保存修改的文件
-au FocusLost * silent! up 
+au FocusLost * silent! up
 
 " 在粘贴插入模式下代码是不会自动按格式缩进的,但是可以解决代码粘贴混乱的问题
 " set paste
 " set pastetoggle=<F9>
-" 这样直接在插入模式按F9就会在“-- 插入 --”模式和“-- 插入（粘贴） --”模式中切换 
+" 这样直接在插入模式按F9就会在“-- 插入 --”模式和“-- 插入（粘贴） --”模式中切换
 " ************************************************************************************************
- 
-" Autohotkey 
-au BufNewFile,BufRead *.ahk	 setf autohotkey 
+
+" Autohotkey
+au BufNewFile,BufRead *.ahk	 setf autohotkey
 autocmd FileType autohotkey map <F5> :silent !start "d:\PortableApps\Autohotkey\autohotkey.exe" "%"<CR>
 
 "字典目录
@@ -279,16 +277,16 @@ au FileType php setlocal dict+=$VIM/vimfiles/data/dictionary/php_funclist.txt
 au FileType html setlocal dict+=$VIM/vimfiles/data/dictionary/html.dic
 
 " for Java  http://mytc.5d6d.com/thread-5032-1-1.html
-" makeprgs.Vim 
+" makeprgs.Vim
 " 以下的设置没有效果
 "autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 "setlocal completefunc=javacomplete#CompleteParamsInfo
-"inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P> 
+"inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P>
 "inoremap <buffer> <C-S-Space> <C-X><C-U><C-P>
 
 " Python 文件的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab
-autocmd FileType python map <F12> :!python %<CR>
+autocmd FileType python map <F5> :!python %<CR>
 " 开启很多对不规范的Python语法的警告提示 http://linux.cn/article-256-1.html
 let python_no_builtin_highlight = 1
 let python_no_doctest_code_highlight = 1
@@ -299,19 +297,19 @@ let python_space_error_highlight = 1
 
 " 切换c、c++、python工作目录
 if g:OS#win
-	let g:python_w = "D:/User/Documents/Program/Python"
-	let g:cplus_w="D:/User/Documents/Program/c++"
-	let g:c_w="D:/User/Documents/Program/c"
+    let g:python_w = "D:/User/Documents/Program/Python"
+    let g:cplus_w="D:/User/Documents/Program/c++"
+    let g:c_w="D:/User/Documents/Program/c"
 endif
 if g:OS#unix
-	let g:python_w = "~/文档/Program/Python"
-	let g:cplus_w="~/文档/Program/C++"
-	let g:c_w="~/文档/Program/C"
+    let g:python_w = "~/文档/Program/Python"
+    let g:cplus_w="~/文档/Program/C++"
+    let g:c_w="~/文档/Program/C"
 endif
 
-function! ChangeWorkDir(dir) 
-    execute ":cd " . a:dir 
-endfunction 
+function! ChangeWorkDir(dir)
+    execute ":cd " . a:dir
+endfunction
 
 map <Leader>py :call ChangeWorkDir(g:python_w)<CR>:pwd<CR>
 map <Leader>cp :call ChangeWorkDir(g:cplus_w)<CR>:pwd<CR>
@@ -327,7 +325,7 @@ tmenu ToolBar.Run	Start debug
 " map
 " ************************************************************************************************
 " 当前行下新起一行
-map <S-RETURN> <Esc>o 
+map <S-RETURN> <Esc>o
 "去掉高亮
 nnoremap <Esc> :noh<CR><Esc>
 "映射esc键为jj
@@ -373,20 +371,20 @@ vmap ys "+y
 "删除多余空格
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 
-" 在浏览器预览 
+" 在浏览器预览
 function! ViewInBrowser()
-	let file = expand("%:p")
-	if g:OS#win
-		exec ":silent !start ". s:browser file
-	elseif g:OS#unix
-		exec ":silent !". s:browser file
-	endif
+    let file = expand("%:p")
+    if g:OS#win
+        exec ":silent !start ". s:browser file
+    elseif g:OS#unix
+        exec ":silent !". s:browser file
+    endif
 endfunction
 " http://www.vimer.cn/2012/05/vimgvim%E6%94%AF%E6%8C%81%E5%AF%B9%E9%BD%90%E7%BA%BF.html
 map ,ch :call SetColorColumn()<CR>
@@ -439,6 +437,9 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'Shougo/neocomplcache'
 Plugin 'Shougo/neosnippet'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
 Plugin 'kien/ctrlp.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-surround'
@@ -448,6 +449,7 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'godlygeek/tabular'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'mbbill/fencview'
 " Plugin 'Raimondi/delimitMate'
 " Plugin 'altercation/vim-colors-solarized'
@@ -502,8 +504,7 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 " ************************************************************************************************
-" plugin - tagbar.vim 查看函数列表，需要ctags程序  taglist 的同类软件
-" http://www.vim.org/scripts/script.php?script_id=3465
+" majutsushi/tagbar 查看函数列表，需要ctags程序  taglist 的同类软件
 " ************************************************************************************************
 nmap <silent> <F11> :TagbarToggle<CR>
 if g:OS#win
@@ -512,46 +513,48 @@ elseif g:OS#unix
     let g:tagbar_ctags_bin = "ctags"
 endif
 let g:tagbar_width = 30
+" 禁用排序
+let g:tagbar_sort = 0
 " 自动打开
 autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 
 " tagbar markdown
 let g:tagbar_type_markdown = {
-	\ 'ctagstype' : 'markdown',
-	\ 'kinds' : [
-		\ 'h:Heading_L1',
-		\ 'i:Heading_L2',
-		\ 'k:Heading_L3'
-	\ ],
-	\ 'sort'    : 0
-\ }
+            \ 'ctagstype' : 'markdown',
+            \ 'kinds' : [
+                \ 'h:Heading_L1',
+                \ 'i:Heading_L2',
+                \ 'k:Heading_L3'
+            \ ],
+            \ 'sort'    : 0
+            \ }
 " Tagbar txt
 let g:tagbar_type_txt = {
-    \ 'ctagstype': 'txt',
-    \ 'kinds' : [
-        \'c:content',
-		\'t:tables',
-		\'f:figures'
-    \],
-	\ 'sort'    : 0
-\}
+            \ 'ctagstype': 'txt',
+            \ 'kinds' : [
+                \'c:content',
+                \'t:tables',
+                \'f:figures'
+            \],
+            \ 'sort'    : 0
+            \}
 let g:tagbar_type_autohotkey = {
-    \ 'ctagstype': 'autohotkey',
-    \ 'kinds' : [
-        \'l:Label',
-		\'s:HotString',
-		\'f:Function',
-		\'n:Note',
-		\'t:Todo',
-		\'k:Hotkey',
-		\'v:Variable'
-    \],
-	\ 'sort'    : 0
-\}
+            \ 'ctagstype': 'autohotkey',
+            \ 'kinds' : [
+                \'l:Label',
+                \'s:HotString',
+                \'f:Function',
+                \'n:Note',
+                \'t:Todo',
+                \'k:Hotkey',
+                \'v:Variable'
+            \],
+            \ 'sort'    : 0
+            \}
 
 " ************************************************************************************************
-" plugin - bufexplorer.vim Buffers切换
-" http://www.vim.org/scripts/script.php?script_id=42 
+" bufexplorer.vim Buffers切换
+" http://www.vim.org/scripts/script.php?script_id=42
 " \be 全屏方式查看全部打开的文件列表
 " \bv 左右方式查看   \bs 上下方式查看
 " 启动 bufexplorer 后可用下列命令:
@@ -566,13 +569,13 @@ let g:tagbar_type_autohotkey = {
 " d             |:wipeout| 从列表里删除当前光标下的 buffer。当一个 buffer 被清除，
 " 即使 unlisted buffer 被显示，这个 buffer 也不会出现。
 " f             切换 在选中 buffer 时，在当前窗口中打开 buffer，还是在活动窗口
-              " (原 buffer 打开的窗口)中打开 buffer。
+" (原 buffer 打开的窗口)中打开 buffer。
 " o             在当前窗口中打开光标下的 buffer。
 " p             切换 文件路径 是否按 文件名/路径 来显示。
 " q             退出 bufexplore。
 " r             反转 buffer 列表的顺序。
 " s             选择buffer列表的排序方式，可以是 buffer 的序号(buffer number)，
-	   " 文件名，扩展名，最近最多使用(MRU)，或者文件全路径。
+" 文件名，扩展名，最近最多使用(MRU)，或者文件全路径。
 " t             在新的 tab 页打开光标下的 buffer。
 " t             在另外的tab中打开光标下的 buffer。
 " u             切换 是否显示 "unlisted" buffer。
@@ -587,20 +590,18 @@ let g:bufExplorerSplitVertSize = 30  " Split width
 let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 
 " ************************************************************************************************
-" plugin - NeoComplCache.vim    自动补全插件
-" http://www.vim.org/scripts/script.php?script_id=2620
-" https://github.com/Shougo/neocomplcache
+" Shougo/neocomplcache 自动补全插件
 " ************************************************************************************************
 let g:neocomplcache_temporary_dir=$VIMFILES.'/cache/.neocon' 	"产生的临时文件保存的目录.默认值是 '~/.neocon'.
 " neocomplcache开关.
-map <F4> :NeoComplCacheToggle<CR>				
+map <F4> :NeoComplCacheToggle<CR>
 imap <F4> <ESC>:NeoComplCacheToggle<CR>a
 
 " 停用 AutoComplPop.
 " let g:acp_enableAtStartup = 0
-" 启用 neocomplcache.  1是打开 
+" 启用 neocomplcache.  1是打开
 let g:neocomplcache_enable_at_startup = 1
-" 启用 smartcase. 仅当输入大写字母时，区分大小写 
+" 启用 smartcase. 仅当输入大写字母时，区分大小写
 " let g:neocomplcache_enable_smart_case = 1
 " 启用大写字母补全.输入大写字母时, 进行模糊搜索可能性词语  例如，当输入AE时会匹配ArgumentsException。
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -616,10 +617,10 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 "	\ 'vimshell' : $HOME.'/.vimshell_hist',
 "	\ 'scheme' : $HOME.'/.gosh_completions'
 "		\ }
-	
+
 " 定义关键词.
 if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
+    let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
@@ -658,7 +659,7 @@ autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 " 启用 heavy omni 补全.
 if !exists('g:neocomplcache_omni_patterns')
-	let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -673,8 +674,7 @@ let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 " ************************************************************************************************
-" plugin - Neosnippet.vim    代码段
-" https://github.com/Shougo/neosnippet.vim
+" Shougo/neosnippet.vim 代码段
 " ************************************************************************************************
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -683,28 +683,26 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+    set conceallevel=2 concealcursor=i
 endif
 
 " nippets
 let g:neosnippet#snippets_directory=$VIMFILES.'/data/snippets'
 " cache
-let g:neosnippet#data_directory=$VIMFILES.'cache/neosnippet'
+let g:neosnippet#data_directory=$VIMFILES.'/cache/neosnippet'
 " 解决neosnippet default snippets cannot be loaded.  You must install neosnippet-snippets or disable runtime snippets.
-let g:neosnippet#disable_runtime_snippets={ "_": 1, } 
+let g:neosnippet#disable_runtime_snippets={ "_": 1, }
 
 " ************************************************************************************************
-" plugin - NERD_commenter.vim   注释代码用的，
-" http://www.vim.org/scripts/script.php?script_id=1218 
-" https://github.com/scrooloose/nerdcommenter
+" scrooloose/nerdcommenter 注释代码用的，
 " [count],cc:光标以下count行逐行添加注释(7,cc)
 " [count],cu:光标以下count行逐行取消注释(7,cu)
 " [count],cm:光标以下count行尝试添加块注释(7,cm)
@@ -714,9 +712,7 @@ let NERDSpaceDelims=1       " 让注释符与语句之间留一个空格
 let NERDCompactSexyComs=1   " 多行注释时样子更好看
 
 " ************************************************************************************************
-" plugin - NERD_tree.vim 以树状方式浏览系统中的文件和目录
-" http://www.vim.org/scripts/script.php?script_id=1658 
-" https://github.com/scrooloose/nerdtree
+" scrooloose/nerdtree 以树状方式浏览系统中的文件和目录
 " :NERDTree 打开NERD_tree         :NERDTreeClose    关闭NERD_tree
 " o 打开关闭文件或者目录         t 在标签页中打开
 " T 在后台标签页中打开           ! 执行此文件
@@ -732,10 +728,11 @@ let NERDTreeBookmarksFile=$VIMFILES.'/data/.NERDTreeBookmarks'
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.rar$', '\.zip$', '\.png$', '\.jpg$', '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 let NERDTreeAutoDeleteBuffer=1
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
 
 " ************************************************************************************************
-" plugin - AutoClose
-" https://github.com/vim-scripts/AutoClose
+" AutoClose
 " 匹配括号、引号
 " <Leader>c 开关
 " 其他
@@ -746,7 +743,7 @@ let NERDTreeAutoDeleteBuffer=1
 nmap <Leader>c <Plug>ToggleAutoCloseMappings
 
 " ************************************************************************************************
-" plugin –txtbrower.vim
+" txtbrower.vim
 " http://www.vim.org/scripts/script.php?script_id=2899
 " http://guoyoooping.blog.163.com/blog/static/1357051832009112910162389/
 " ************************************************************************************************
@@ -763,14 +760,13 @@ if !exists('Tlist_Ctags_Cmd')
 endif
 
 " ************************************************************************************************
-" plugin –fencview.vim自动识别编码
-" http://www.vim.org/scripts/script.php?script_id=1708 
+" fencview.vim 自动识别编码
+" http://www.vim.org/scripts/script.php?script_id=1708
 " ************************************************************************************************
 let g:fencview_autodetect = 0                         " 0关闭 1开启
 
 " ************************************************************************************************
-" plugin – ctrlp.vim 文件搜索
-" https://github.com/kien/ctrlp.vim 
+" kien/ctrlp.vim 文件搜索
 " Once CtrlP is open:
 " Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
 " Press <c-f> and <c-b> to cycle between modes.
@@ -797,26 +793,23 @@ command! -nargs=* MRU CtrlPMRU
 
 " Exclude files and directories using Vim's wildignore and CtrlP's own g:ctrlp_custom_ignore
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
-  \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|png|jpg|jpeg)$',
-  \ }
+            \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+            \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|png|jpg|jpeg)$',
+            \ }
 
 
 " ************************************************************************************************
-" plugin – numbers.vim 在命令模式显示与当前行间隔的行数，用于快速定位
-" https://github.com/myusuf3/numbers.vim
+" myusuf3/numbers.vim 在命令模式显示与当前行间隔的行数，用于快速定位
 " ************************************************************************************************
-nnoremap <F6> :NumbersToggle<CR>
+nnoremap <Leader>ng :NumbersToggle<CR>
 
 " ************************************************************************************************
-" plugin – matchit 快速找到标签的开始或结束位置
-" https://github.com/vim-scripts/matchit.zip
+" matchit 快速找到标签的开始或结束位置
 " ************************************************************************************************
 " % g% [% ]% a%
 
 " ************************************************************************************************
-" plugin – vim-markdown markdown高亮
-" https://github.com/plasticboy/vim-markdown
+" plasticboy/vim-markdown markdown高亮
 " ************************************************************************************************
 au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
 let g:vim_markdown_folding_disabled=1
@@ -824,32 +817,30 @@ let g:vim_markdown_folding_disabled=1
 autocmd BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn,html,htm} map <Leader>p :call ViewInBrowser()<CR>
 
 " ************************************************************************************************
-" plugin – ZenCoding.vim 很酷的插件，HTML代码生成
-"http://www.vim.org/scripts/script.php?script_id=2981
-" 插件最新版：http://github.com/mattn/zencoding-vim
+" mattn/emmet-vim 很酷的插件，HTML代码生成
 " 常用命令可看：http://nootn.com/blog/Tool/23/
 " ************************************************************************************************
-let g:user_zen_settings = { 
-  \  'lang' : 'zh-cn',
-  \  'charset' : 'gbk',
-  \  'indentation' : '    ', 
-  \  'perl' : { 
-  \    'aliases' : { 
-  \      'req' : 'require ' 
-  \    }, 
-  \    'snippets' : { 
-  \      'use' : "use strict\nuse warnings\n\n", 
-  \      'warn' : "warn \"|\";", 
-  \    } 
-  \  } 
-  \}
- " 'charset' : 'gbk',   设置编码 默认是utf-8
-let g:user_zen_leader_key = ','
+let g:user_emmet_settings = {
+            \  'lang' : 'zh-cn',
+            \  'charset' : 'gbk',
+            \  'indentation' : '    ',
+            \  'perl' : {
+            \    'aliases' : {
+            \      'req' : 'require '
+            \    },
+            \    'snippets' : {
+            \      'use' : "use strict\nuse warnings\n\n",
+            \      'warn' : "warn \"|\";",
+            \    }
+            \  }
+            \}
+" 'charset' : 'gbk',   设置编码 默认是utf-8
+let g:user_emmet_leader_key = ','
 " let g:user_zen_expandabbr_key = '<c-e>'    "设置为ctrl+e展开
-let g:use_zen_complete_tag = 1
+let g:use_emmet_complete_tag = 1
 
 " ************************************************************************************************
-" plugin - YankRing.vim : Maintains a history of previous yanks, changes and deletes 
+" YankRing.vim : Maintains a history of previous yanks, changes and deletes
 " http://www.vim.org/scripts/script.php?script_id=1234
 " ************************************************************************************************
 " yankring快捷键映射,原来的快捷键跟vim-multiple-cursors有冲突
@@ -858,8 +849,8 @@ let g:yankring_replace_n_nkey = '<A-n>'
 let g:yankring_history_dir = $VIMFILES.'/cache'
 
 " ************************************************************************************************
-" plugin - vim-airline设置在状态行显示的信息  
-" https://github.com/bling/vim-airline
+" bling/vim-airline 设置在状态行显示的信息
+" 类似插件:Lokaltog/vim-powerline
 " ************************************************************************************************
 set laststatus=2			" 显示statusline
 set t_Co=256
@@ -876,7 +867,7 @@ let g:airline_left_alt_sep = '-'
 let g:airline_right_alt_sep = '-'
 
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline_symbols.linenr = '$'
 let g:airline_symbols.branch = ''
@@ -898,14 +889,12 @@ let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline_section_b = '%{GitBranchInfoString()}'
 
 " ************************************************************************************************
-" plugin - vim-easymotion 快速移动定位
-" https://github.com/Lokaltog/vim-easymotion
+" Lokaltog/vim-easymotion 快速移动定位
 " ************************************************************************************************
 map f <Plug>(easymotion-prefix)
 
 " ************************************************************************************************
-" plugin - vim-colors-solarized 配色
-" https://github.com/altercation/vim-colors-solarized
+" altercation/vim-colors-solarized 配色。元版本注释的字体由斜体改为正常
 " 另一个主题
 " https://github.com/tomasr/molokai
 " ************************************************************************************************
@@ -913,17 +902,12 @@ map f <Plug>(easymotion-prefix)
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
-" 配色方案
-if g:OS#gui
-	set background=dark
-else
-	set background=light
-endif
+
 colorscheme solarized
+set background=dark
 
 " ************************************************************************************************
-" plugin - syntastic 检查语法
-" https://github.com/scrooloose/syntastic
+" scrooloose/syntastic 检查语法
 " ************************************************************************************************
 let g:syntastic_error_symbol='>>'
 let g:syntastic_warning_symbol='>'
@@ -933,10 +917,9 @@ let g:syntastic_enable_highlighting = 0
 highlight SyntasticErrorSign guifg=white guibg=black
 
 " ************************************************************************************************
-" plugin - Git-Branch-Info git分支信息
-" https://github.com/vim-scripts/Git-Branch-Info
+" Git-Branch-Info git分支信息
 " ************************************************************************************************
-" This will show just the current head branch name 
+" This will show just the current head branch name
 let g:git_branch_status_head_current=1
 
 " This will show "? " before the branches. If not set ' Git ' (with a trailing
@@ -950,22 +933,16 @@ let g:git_branch_status_nogit = ""
 " the first will be on the beginning of the branch string and the last on the
 " end.
 let g:git_branch_status_around=""
-" 
-" Check the current branch if it's the same branch where the file was loaded, 
-" before saving the file.
-let g:git_branch_check_write=0
 
 " ************************************************************************************************
-" plugin - vim-table-mode
-" 方便地创建表格
-" https://github.com/dhruvasagar/vim-table-mode
+" dhruvasagar/vim-table-mode  方便地创建表格
 " <Leader>tm table mode 开关
 " <Leader>tt 使用g:table_mode_delimiter定义的分隔符插入表格
 " <Leader>T  使用用户输入的分隔符插入表格
-" [|       移动到前一个表格 
-" ]|       移动到下一个表格       
+" [|       移动到前一个表格
+" ]|       移动到下一个表格
 " {|       移动到上面一个表格
-" }|       移动到下面一个表格       
+" }|       移动到下面一个表格
 " ||	   插入表头边框
 " <Leader>tdd	删除一行
 " <Leader>tdc	删除一列
@@ -981,15 +958,13 @@ let g:table_mode_corner = '|'
 let g:table_mode_delimiter = ' '
 
 " ************************************************************************************************
-" plugin - tabular
-" 对齐
-" https://github.com/godlygeek/tabular
+" godlygeek/tabular 对齐
 " 其它
 " https://github.com/junegunn/vim-easy-align
 " ************************************************************************************************
 
 " ************************************************************************************************
-" plugin - TaskList.vim
+" TaskList.vim
 " 查看并快速跳转到代码中的TODO列表
 " 默认<Leader>t 打开todo列表,和 vim-table-mode 冲突,改为<leader>v
 " https://github.com/vim-scripts/TaskList.vim
@@ -997,139 +972,29 @@ let g:table_mode_delimiter = ' '
 map <leader>v <Plug>TaskList
 
 " ************************************************************************************************
-" plugin - vim-indent-guides
-" 显示缩进
+" nathanaelkane/vim-indent-guides  显示缩进
 " <Leader>ig 开关
-" https://github.com/nathanaelkane/vim-indent-guides
 " 另一个
 " https://github.com/Yggdroot/indentLine
 " ************************************************************************************************
 let g:indent_guides_guide_size = 1
+" 从二级缩进开始显示
 let g:indent_guides_start_level = 2
+" 开启vim时激活
+let g:indent_guides_enable_on_vim_startup = 1
+" 如果是下面文件类型，不激活
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'text', 'markdown']
 
 " ************************************************************************************************
-" plugin - makeprgs.vim 
-" http://www.vim.org/scripts/script.php?script_id=2031 
+" bronson/vim-trailing-whitespace 将代码行最后无效的空格标红
 " ************************************************************************************************
+map <leader><space> :FixWhitespace<cr>	" \+space去掉末尾空格
 
 " ************************************************************************************************
-" plugin - statusline.vim 设置在状态行显示的信息  进行过更改
-" http://www.vim.org/scripts/script.php?script_id=2879
+" makeprgs.vim
+" http://www.vim.org/scripts/script.php?script_id=2031
 " ************************************************************************************************
 
-" ************************************************************************************************
-" plugin - taglist.vim 查看函数列表，需要ctags程序
-" http://www.vim.org/scripts/script.php?script_id=273 
-" http://att.newsmth.net/att.php?s.731.55149.150442.diff
-" http://att.newsmth.net/att.php?p.731.55149.1226.vim 
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin –pathogen.vim管理插件的插件
-" http://www.vim.org/scripts/script.php?script_id=2332 
-" https://github.com/tpope/vim-pathogen
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin –mru.vim打开历史文件
-"http://www.vim.org/scripts/script.php?script_id=521
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin - pydiction Python 代码自动完成的脚本
-" http://www.vim.org/scripts/script.php?script_id=850
-" ************************************************************************************************
-
-
-" ************************************************************************************************
-" plugin - vimwiki
-" http://www.vim.org/scripts/script.php?script_id=2226
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin - Calendar.vim 日历插件，可以写自己的心情日记。
-" http://www.vim.org/scripts/script.php?script_id=52 
-" <leader>cal 在左侧打开     <leader>caL 在下边打开
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin- vimtweak.dll 设置背景透明,窗口最大化,窗口在最前端
-" http://www.vim.org/scripts/script.php?script_id=687
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin - Conque Shell 在vim中打开终端
-" http://www.vim.org/scripts/script.php?script_id=2771
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin -VimIM.vim 
-"http://vim.sourceforge.net/scripts/script.php?script_id=2506
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin - Mark.vim 给各种tags标记不同的颜色，便于观看调式的插件。
-" http://www.vim.org/scripts/script.php?script_id=2666 
-" \m mark or unmark the word under (or before) the cursor
-" \r manually input a regular expression. 用于搜索.
-" \n clear this mark (i.e. the mark under the cursor), or clear all highlighted marks .
-" \* 当前MarkWord的下一个     \# 当前MarkWord的上一个
-" \/ 所有MarkWords的下一个    \? 所有MarkWords的上一个
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin - DoxygenToolkit.vim 由注释生成文档，并且能够快速生成函数标准注释
-"http://www.vim.org/scripts/script.php?script_id=987 
-" ************************************************************************************************
-" ************************************************************************************************
-" plugin – EasyGrep 多文档字符串搜索
-" http://www.vim.org/scripts/script.php?script_id=2438
-" vv – Grep for the word under the cursor
-" va – Like vv, but add to existing list
-" vo – Select the files to search in and set grep options
-" :Grep SearchString 
-" ************************************************************************************************
-
-" ************************************************************************************************
-"  plugin – javascript 语法设置 ~/.vim/syntax/javascript.vim
-" ************************************************************************************************
-
-" ************************************************************************************************
-"  plugin –javascript 常见语法错误检查 plugin/javaScriptLint.vim
-"http://www.vim.org/scripts/script.php?script_id=2578
-" 按 Ctrl + S + J 就可以检查 Javascript 语法有无问题
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin –DrawIt：Vim画图插件（可在vim中画基本示意图）
-" http://www.vim.org/scripts/script.php?script_id=40 
-"http://hi.baidu.com/2maollm/blog/item/ff98de179aa61505c93d6da7.html
-" ************************************************************************************************
- 
-" ************************************************************************************************
-" plugin - template_loader.vim模板
-"http://code.google.com/p/nishizaw23/downloads/list
-" ************************************************************************************************
-
-" ************************************************************************************************
-" plugin –sketch.vim画图
-"  http://www.vim.org/scripts/script.php?script_id=705 
-" ************************************************************************************************
-"执行:call ToggleSketch()命令开启或关闭画图功能. 建议在.vimrc中把
-"    call ToggleSketch() 映射为命令, 方便一些":map <F1> :call
-"    ToggleSketch()<CR>"
-" 
-"鼠标左键用于画自由曲线, Ctrl-鼠标左键可以画粗曲线. 鼠标右键圈一个区域, 然后点击
-"左键可以画空心图, Shift-鼠标左键画的的时候拐弯处用"."而不是"+", Ctrl-鼠标左键可
-"以画实习图. Alt-鼠标左键可以切换实心画和粗笔画的线条, 可以有的选择为".", ":"和
-"#".
-"
-"command Sketch :call ToggleSketch() "定义新命令Sketch
-"
-" ************************************************************************************************
-" plugin - timestamp.vim 
-" http://www.vim.org/scripts/script.php?script_id=923
-" ************************************************************************************************
 " }}}
 
 " vim:fdm=marker
