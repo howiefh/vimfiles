@@ -3,10 +3,10 @@
 "      (-'      .-.. .  .  . ..--
 "      _\__$    `-.|\| /_\ |< |-
 "    (___)      `-'' ''   '' `'--
-"		  Author:  howiefh
+"         Author:  howiefh
 "        Version:  1.3.0
 "    Last_modify:  2014/03/11
-"		  Github:  http://github.com/howiefh
+"         Github:  http://github.com/howiefh
 "    Description:   _vimrc for windows .vimrc for linux
 "																         .--.--. ..-.  . .  .  .-.
 "																	   	 |- |- |\||-.  |-| /_\ | |
@@ -45,6 +45,10 @@ elseif g:OS#unix
     let $VIM=$HOME
     let $VIMFILES = $HOME.'/.vim'
     let $BLOG = "/media/WinE/User/Documents/howiefh.github.io"
+elseif g:OS#mac
+    let $VIM=$HOME
+    let $VIMFILES = $HOME.'/.vim'
+    let $BLOG = "/Users/fenghao/Documents/howiefh.github.io"
 endif
 " 定义浏览器
 if g:OS#win
@@ -202,6 +206,7 @@ if 0
     endif
 
     " 设置窗口默认大小。
+    "
     if g:OS#unix
         set columns=150
         set lines=40
@@ -424,7 +429,7 @@ call vundle#begin('$VIMFILES/bundle/')
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -451,17 +456,18 @@ Plugin 'godlygeek/tabular'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'mbbill/fencview'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'Raimondi/delimitMate'
 " Plugin 'altercation/vim-colors-solarized'
 " Plugin 'Yggdroot/indentLine'
 " Plugin 'tpope/vim-fugitive'
 " Plugin 'howiefh/statusline'
-Plugin 'howiefh/c.vim'
-Plugin 'howiefh/makeprgs'
+" Plugin 'howiefh/c.vim'
+" Plugin 'howiefh/makeprgs'
 Plugin 'howiefh/my-vim-plugin'
 Plugin 'howiefh/TxtBrowser'
 Plugin 'howiefh/vim-colors-solarized'
-Plugin 'howiefh/Git-Branch-Info'
+" Plugin 'howiefh/Git-Branch-Info'
 Plugin 'howiefh/vimcdoc'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -509,6 +515,8 @@ filetype plugin indent on    " required
 nmap <silent> <F11> :TagbarToggle<CR>
 if g:OS#win
     let g:tagbar_ctags_bin = "D:/PortableApps/Vim/ctags58/ctags.exe"
+elseif g:OS#unix
+    let g:tagbar_ctags_bin = "ctags"
 elseif g:OS#unix
     let g:tagbar_ctags_bin = "ctags"
 endif
@@ -854,7 +862,7 @@ let g:yankring_history_dir = $VIMFILES.'/cache'
 " ************************************************************************************************
 set laststatus=2			" 显示statusline
 set t_Co=256
-let g:airline_theme             = 'wombat' "molokai, luna
+" let g:airline_theme             = 'wombat' "molokai, luna
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 
@@ -886,7 +894,7 @@ let g:airline#extensions#tabline#right_sep = '<'
 let g:airline#extensions#tabline#right_alt_sep = ''
 
 " 显示分支
-let g:airline_section_b = '%{GitBranchInfoString()}'
+let g:airline_section_b = '%{FugitiveStatusline()}'
 
 " ************************************************************************************************
 " Lokaltog/vim-easymotion 快速移动定位
@@ -998,3 +1006,4 @@ map <leader><space> :FixWhitespace<cr>	" \+space去掉末尾空格
 " }}}
 
 " vim:fdm=marker
+
